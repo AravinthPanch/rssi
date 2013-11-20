@@ -17,3 +17,10 @@ table {
 .ui-draggable, .ui-droppable {
 	background-position: top;
 }
+
+.floor_image{
+    background-image: url(../images/floor_tub.png);
+    height: 486px;
+    width: 930px;
+    /*border: solid 1px #000000;*/
+}
