@@ -9,3 +9,10 @@
 //        $(str1).css('top', location.top + 'px')
 //    })
 //};
+
+
+var svg = d3.select(".grp").append("svg")
+    .attr("width", 300)
+    .attr("height", 150)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");

@@ -80,11 +80,25 @@ function setPoints(nodes){
     })
 };
 
+function showGraphPanel(){
+    $("#accordion").accordion({
+        active: 1
+    });
+};
+
 
 $(function () {
     $("#accordion").accordion({
-        collapsible: true
+        collapsible: true,
+        active: 1
     });
 
     floorMapper(locations);
+
+    $('.pointer').click(function(){
+        showGraphPanel();
+    })
 });
+
+
+

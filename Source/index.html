@@ -3,13 +3,24 @@
 <head>
     <meta charset="utf-8">
     <title>RSSI</title>
+
+    <!--jquery-->
     <link rel="stylesheet" href="libs/jquery-ui/themes/base/jquery.ui.all.css">
     <script src="libs/jquery.js"></script>
     <script src="libs/jquery-ui/ui/jquery.ui.core.js"></script>
     <script src="libs/jquery-ui/ui/jquery.ui.widget.js"></script>
     <script src="libs/jquery-ui/ui/jquery.ui.accordion.js"></script>
+
+    <!--d3-->
+    <link rel="stylesheet" href="css/graph.css">
+    <script src="libs/d3.js"></script>
+    <script src="libs/d3.tip.js"></script>
+
+
+    <!--index-->
     <link rel="stylesheet" href="css/index.css">
     <script src="scripts/index.js"></script>
+
 </head>
 <body>
 <h1> RSSI</h1>
@@ -29,11 +40,16 @@
 
     <h3>Graph</h3>
 
-    <div></div>
+    <div>
+        <div id="graph"></div>
+        <script src="scripts/graph.js"></script>
+    </div>
 
     <h3>Statistics</h3>
 
     <div></div>
+</div>
+
 
 </body>
 </html>
