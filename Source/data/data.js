@@ -322,7 +322,8 @@ function extractRssi(){
         }
         resultRssi.push(res)
     })
-    console.log(resultRssi)
+//    console.log(resultRssi)
+    console.log(JSON.stringify(resultRssi))
 }
 
 
