@@ -316,6 +316,7 @@ function extractRssi(){
 
     var resultRssi = []
     _.each(groupedRssi, function(i){
+        console.log(i[0] + ' ' + i.length)
         var res = {
             'rssi' : i[0],
             'run' : i.length
@@ -323,7 +324,8 @@ function extractRssi(){
         resultRssi.push(res)
     })
 //    console.log(resultRssi)
-    console.log(JSON.stringify(resultRssi))
+//    console.log(JSON.stringify(resultRssi))
 }
 
 
+extractRssi()
