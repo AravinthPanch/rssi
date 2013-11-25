@@ -46,6 +46,7 @@ var locations = [
     {'node_label': '195', 'room_label': 'FT231', 'coordinate_z': 9.08, 'coordinate_y': 20.54, 'coordinate_x': 10.94}
 ]
 
+
 function pixelConverter(x, y) {
     var xPix = x * 25.4;
     var yPix = y * 25.2;
@@ -57,7 +58,6 @@ function pixelConverter(x, y) {
 
     return axis
 };
-
 
 function floorMapper(data) {
     var nodes = $.each(data, function (i, node) {
@@ -80,45 +80,38 @@ function setPoints(nodes) {
     })
 };
 
-
-function drawChart() {
-
+function drawChart(data) {
     var barChartData = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: data.label,
         datasets: [
             {
                 fillColor: "orange",
                 strokeColor: "orangered",
-                data: [65, 59, 90, 81, 56, 55, 40]
+                data: data.rssi
             }
         ]
-
     }
-
     new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
-}
+};
 
 function showGraphPanel() {
-
-    drawChart();
-
+    var data = extractRssi()
+    drawChart(data);
     $("#accordion").accordion({
         active: 1
     });
-
 };
 
 
+//DOM Ready
 $(function () {
     $("#tabs").tabs();
-
     $("#accordion").accordion({
         collapsible: true,
-        active: 1
+        active: 0
     });
 
     floorMapper(locations);
-
     $('.pointer').click(function () {
         showGraphPanel();
     })

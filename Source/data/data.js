@@ -312,20 +312,31 @@ function extractRssi(){
         extractedRssi.push(i.rssi)
     })
 
-    var groupedRssi = _.groupBy(extractedRssi)
-
+    var groupedRssi = _.sortBy(_.groupBy(extractedRssi))
     var resultRssi = []
+    var resultLabel = []
+    var resultData = []
+
     _.each(groupedRssi, function(i){
-        console.log(i[0] + ' ' + i.length)
-        var res = {
+//        console.log(i[0] + ' ' + i.length)
+
+        resultLabel.push(i[0])
+        resultData.push(i.length)
+
+        resultRssi.push({
             'rssi' : i[0],
             'run' : i.length
-        }
-        resultRssi.push(res)
+        })
     })
+
+//    console.log(resultLabel)
+//    console.log(resultData)
+//    console.log(groupedRssi)
 //    console.log(resultRssi)
 //    console.log(JSON.stringify(resultRssi))
+
+    return { 'label' : resultLabel, 'rssi' : resultData }
 }
 
 
-extractRssi()
+
