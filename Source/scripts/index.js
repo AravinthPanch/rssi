@@ -31,11 +31,19 @@ function setPoints(nodes) {
     })
 };
 
+function updateNodeDetailUI(node, room){
+  $('#infoTab-1').html("")
+  $('#infoTab-1').append("<b>Node Label : </b>" + node)
+  $('#infoTab-1').append("<br>")
+  $('#infoTab-1').append("<b>Room Label : </b>" + room)
+};
+
 function extractRssi(node){
     console.log()
     var extractedRssi = []
     _.each(rawDataRssi[0], function(i){
         if(i.location.node_label == node){
+            updateNodeDetailUI(i.location.node_label,i.location.room_label )
             _.each(i.rawRSSI, function(n){
                 extractedRssi.push(n.rssi)
             })
@@ -91,6 +99,7 @@ function showGraphPanel(node_label) {
 //DOM Ready
 $(function () {
     $("#tabs").tabs();
+    $("#infoTab").tabs();
     $("#accordion").accordion({
         collapsible: true,
         active: 0
@@ -99,6 +108,7 @@ $(function () {
     floorMapper(locations);
     $('.pointer').click(function (event) {
         var node_label= (event.target.id).substr(4,6)
+        console.log(node_label)
         showGraphPanel(node_label);
     })
 });

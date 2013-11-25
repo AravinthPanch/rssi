@@ -51,3 +51,11 @@ table {
 .xAxis{
     text-align: center;
 }
+
+#infoTab{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    right: 20px;
+    top: 190px;
+}
