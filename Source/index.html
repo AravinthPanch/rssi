@@ -13,9 +13,12 @@
     <script src="libs/jquery-ui/ui/jquery-ui.js"></script>
 
     <!--d3-->
-    <link rel="stylesheet" href="css/graph.css">
-    <script src="libs/d3.js"></script>
-    <script src="libs/d3.tip.js"></script>
+    <!--<link rel="stylesheet" href="css/graph.css">-->
+    <!--<script src="libs/d3.js"></script>-->
+    <!--<script src="libs/d3.tip.js"></script>-->
+
+    <!--chart.js-->
+    <script src="libs/chart.min.js"></script>
 
     <!--index-->
     <link rel="stylesheet" href="css/index.css">
@@ -38,9 +41,12 @@
             different chipset</h2>
     </div>
     <div id="tabs-2">
-        <h3>Aravinth, S. Panchadcharam</h3  >
+        <h3>Aravinth, S. Panchadcharam</h3>
+
         <h3>Supervisors:</h3>
+
         <h3>Dr. Arash Behboodi</h3>
+
         <h3>Filip Lemic </h3>
     </div>
     <div id="tabs-3">
@@ -62,8 +68,12 @@
     <h3>Graph</h3>
 
     <div>
-        <div id="graph"></div>
-        <script src="scripts/graph.js"></script>
+        <div id="graph">
+            <canvas id="canvas" height="500" width="900"></canvas>
+            <!--<script src="scripts/graph.js"></script>-->
+            <script src="scripts/chart.js"></script>
+        </div>
+
     </div>
 
     <h3>Statistics</h3>
