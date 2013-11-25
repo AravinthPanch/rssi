@@ -88,6 +88,8 @@ function showGraphPanel(){
 
 
 $(function () {
+    $( "#tabs" ).tabs();
+
     $("#accordion").accordion({
         collapsible: true,
         active: 1
