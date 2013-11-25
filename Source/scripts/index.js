@@ -31,12 +31,15 @@ function setPoints(nodes) {
     })
 };
 
-
-function extractRssi(){
-
+function extractRssi(node){
+    console.log()
     var extractedRssi = []
-    _.each(data, function(i){
-        extractedRssi.push(i.rssi)
+    _.each(rawDataRssi[0], function(i){
+        if(i.location.node_label == node){
+            _.each(i.rawRSSI, function(n){
+                extractedRssi.push(n.rssi)
+            })
+        }
     })
 
     var groupedRssi = _.sortBy(_.groupBy(extractedRssi))
@@ -46,10 +49,8 @@ function extractRssi(){
 
     _.each(groupedRssi, function(i){
 //        console.log(i[0] + ' ' + i.length)
-
         resultLabel.push(i[0])
         resultData.push(i.length)
-
         resultRssi.push({
             'rssi' : i[0],
             'run' : i.length
@@ -77,17 +78,15 @@ function drawChart(data) {
         ]
     }
     new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
-
 };
 
-function showGraphPanel() {
-    var data = extractRssi()
+function showGraphPanel(node_label) {
+    var data = extractRssi(node_label)
     drawChart(data);
     $("#accordion").accordion({
         active: 1
     });
 };
-
 
 //DOM Ready
 $(function () {
@@ -98,8 +97,9 @@ $(function () {
     });
 
     floorMapper(locations);
-    $('.pointer').click(function () {
-        showGraphPanel();
+    $('.pointer').click(function (event) {
+        var node_label= (event.target.id).substr(4,6)
+        showGraphPanel(node_label);
     })
 });
 
