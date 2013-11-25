@@ -1,24 +1,24 @@
 var points =
     [
         {
-            'id' : 'location1',
-            'left' : '790',
-            'top' : '0'
+            'id': 'location1',
+            'left': '790',
+            'top': '0'
         },
         {
-            'id' : 'location2',
-            'left' : '790',
-            'top' : '366'
+            'id': 'location2',
+            'left': '790',
+            'top': '366'
         },
         {
-            'id' : 'location3',
-            'left' : '0',
-            'top' : '366'
+            'id': 'location3',
+            'left': '0',
+            'top': '366'
         },
         {
-            'id' : 'location4',
-            'left' : '450',
-            'top' : '150'
+            'id': 'location4',
+            'left': '450',
+            'top': '150'
         }
     ];
 
@@ -46,7 +46,7 @@ var locations = [
     {'node_label': '195', 'room_label': 'FT231', 'coordinate_z': 9.08, 'coordinate_y': 20.54, 'coordinate_x': 10.94}
 ]
 
-function pixelConverter(x,y){
+function pixelConverter(x, y) {
     var xPix = x * 25.4;
     var yPix = y * 25.2;
 
@@ -59,36 +59,58 @@ function pixelConverter(x,y){
 };
 
 
-function floorMapper(data){
-     var nodes = $.each(data, function(i,node){
+function floorMapper(data) {
+    var nodes = $.each(data, function (i, node) {
         // due to the bug in the python backend x and y must be interchanged
         var axis = pixelConverter(node.coordinate_y, node.coordinate_x);
         node.coordinate_x = axis[0]
         node.coordinate_y = axis[1]
     })
-setPoints(nodes)
+    setPoints(nodes)
 };
 
-function setPoints(nodes){
-    $.each(nodes, function(i, node){
+function setPoints(nodes) {
+    $.each(nodes, function (i, node) {
         var str = '<div id="node' + node.node_label + '" class="pointer"/>'
         $('#ruler').append(str)
 
         var str1 = '#node' + node.node_label
-        $(str1).css('left', node.coordinate_x + 'px' )
+        $(str1).css('left', node.coordinate_x + 'px')
         $(str1).css('top', node.coordinate_y + 'px')
     })
 };
 
-function showGraphPanel(){
+
+function drawChart() {
+
+    var barChartData = {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [
+            {
+                fillColor: "orange",
+                strokeColor: "orangered",
+                data: [65, 59, 90, 81, 56, 55, 40]
+            }
+        ]
+
+    }
+
+    new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
+}
+
+function showGraphPanel() {
+
+    drawChart();
+
     $("#accordion").accordion({
         active: 1
     });
+
 };
 
 
 $(function () {
-    $( "#tabs" ).tabs();
+    $("#tabs").tabs();
 
     $("#accordion").accordion({
         collapsible: true,
@@ -97,7 +119,7 @@ $(function () {
 
     floorMapper(locations);
 
-    $('.pointer').click(function(){
+    $('.pointer').click(function () {
         showGraphPanel();
     })
 });
