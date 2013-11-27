@@ -2,8 +2,11 @@ function pixelConverter(x, y) {
     var xPix = x * 25.4;
     var yPix = y * 25.2;
 
-    var xAxis = 0 + xPix;
-    var yAxis = 366 - yPix;
+    //adjusted to calibrate
+    //var xAxis = 0 + xPix;
+    //var yAxis = 366 - yPix;
+    var xAxis = -15 + xPix;
+    var yAxis = 380 - yPix;
 
     var axis = [xAxis, yAxis];
 
