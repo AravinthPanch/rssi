@@ -59,3 +59,10 @@ table {
     right: 20px;
     top: 190px;
 }
+
+.dbLink, .collectionLink{
+    color: darkblue;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}

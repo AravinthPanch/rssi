@@ -1,3 +1,27 @@
+function getDatabaseList() {
+    //var dbUri = 'http://localhost:5000/evarilos/raw_data/v1.0/database'
+    var dbUri = 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database'
+
+    $.getJSON(dbUri, function (result) {
+        $.each(result, function (i, field) {
+            $("#database").append('<div class=dbLink href=' + field + '>' + i + '</div>');
+        })
+        $('.dbLink').click(function (event) {
+            $.getJSON($(event.target).attr('href'), function (result) {
+                $("#database").html('')
+                $.each(result, function (i, field) {
+                    $("#database").append('<div class=collectionLink href=' + field + '>' + i + '</div>');
+                })
+                $('.collectionLink').click(function (event) {
+                    $.getJSON($(event.target).attr('href'), function (result) {
+                        console.log(result)
+                    })
+                })
+            })
+        });
+    })
+};
+
 function pixelConverter(x, y) {
     var xPix = x * 25.4;
     var yPix = y * 25.2;
@@ -34,20 +58,20 @@ function setPoints(nodes) {
     })
 };
 
-function updateNodeDetailUI(node, room){
-  $('#infoTab-1').html("")
-  $('#infoTab-1').append("<b>Node Label : </b>" + node)
-  $('#infoTab-1').append("<br>")
-  $('#infoTab-1').append("<b>Room Label : </b>" + room)
+function updateNodeDetailUI(node, room) {
+    $('#infoTab-1').html("")
+    $('#infoTab-1').append("<b>Node Label : </b>" + node)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Room Label : </b>" + room)
 };
 
-function extractRssi(node){
+function extractRssi(node) {
     console.log()
     var extractedRssi = []
-    _.each(rawDataRssi[0], function(i){
-        if(i.location.node_label == node){
-            updateNodeDetailUI(i.location.node_label,i.location.room_label )
-            _.each(i.rawRSSI, function(n){
+    _.each(rawDataRssi[0], function (i) {
+        if (i.location.node_label == node) {
+            updateNodeDetailUI(i.location.node_label, i.location.room_label)
+            _.each(i.rawRSSI, function (n) {
                 extractedRssi.push(n.rssi)
             })
         }
@@ -58,13 +82,13 @@ function extractRssi(node){
     var resultLabel = []
     var resultData = []
 
-    _.each(groupedRssi, function(i){
+    _.each(groupedRssi, function (i) {
 //        console.log(i[0] + ' ' + i.length)
         resultLabel.push(i[0])
         resultData.push(i.length)
         resultRssi.push({
-            'rssi' : i[0],
-            'run' : i.length
+            'rssi': i[0],
+            'run': i.length
         })
     })
 
@@ -74,7 +98,7 @@ function extractRssi(node){
 //    console.log(resultRssi)
 //    console.log(JSON.stringify(resultRssi))
 
-    return { 'label' : resultLabel, 'rssi' : resultData }
+    return { 'label': resultLabel, 'rssi': resultData }
 }
 
 function drawChart(data) {
@@ -95,7 +119,7 @@ function showGraphPanel(node_label) {
     var data = extractRssi(node_label)
     drawChart(data);
     $("#accordion").accordion({
-        active: 1
+        active: 2
     });
 };
 
@@ -107,10 +131,10 @@ $(function () {
         collapsible: true,
         active: 0
     });
-
+    getDatabaseList();
     floorMapper(locations);
     $('.pointer').click(function (event) {
-        var node_label= (event.target.id).substr(4,6)
+        var node_label = (event.target.id).substr(4, 6)
         console.log(node_label)
         showGraphPanel(node_label);
     })
