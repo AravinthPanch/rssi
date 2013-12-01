@@ -16,6 +16,7 @@ table {
     height: 486px;
     width: 930px;
     border: solid 1px #000000;
+    float: left;
 }
 
 #ruler{
@@ -60,9 +61,40 @@ table {
     top: 190px;
 }
 
-.dbLink, .collectionLink{
+.dbLink{
     color: darkblue;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.dbLink.clicked{
+    color: #000000;
+    font-size: 14px;
+}
+
+.collectionLink{
+    color: darkblue;
+    font-size: 12px;
+    padding-left: 10px;
+    cursor: pointer;
+}
+#databases{
+    float: left;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+}
+#collections{
+    float: left;
+    width: 500px;
+    height: 300px;
+    margin: 10px;
+}
+#accesspoints{
+    float: right;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    width: 330px;
+    height: 95%;
 }
