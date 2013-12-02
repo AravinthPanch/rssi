@@ -8,14 +8,19 @@ $(function () {
     loadData();
 });
 
+
 /*
  * Constants - URI, UI DOM
  * */
 var dataBaseUriRemote = 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database';
 var dataBaseUriLocal = 'http://localhost:5000/evarilos/raw_data/v1.0/database';
-var rssiData = [];
-var ssidData = [];
-var chartData = [];
+var rssiData = []; // Complete JSON of selected Collection
+var locationData = []; // All Locations of selected Collection
+var nodeData = []; // Details of selected Node
+var ssidData = []; // Complete JSON of grouped SSID of selected Node
+var selectedSsidData = []; // Currently selected data of SSID
+var chartData = []; // Chart Data of selected SSID
+
 
 /*
  * Initiates all Jquery UI. Tabs and Accordions are used.
@@ -34,6 +39,7 @@ function initiateUI() {
     });
 }
 
+
 /*
  * Load data from Evarilos Cloud Server.
  * 3 Sets of Ajax Requests are sent to retrieve JSON Data of
@@ -43,6 +49,7 @@ function initiateUI() {
 function loadData() {
     loadDatabaseList(dataBaseUriLocal);
 }
+
 
 /*
  * Sends AJAX Request to the given URI and returns the result in JSON
@@ -68,7 +75,7 @@ function loadDatabaseList(uri) {
  *
  * */
 function loadCollectionList(el) {
-    $('#collection-1').html('')
+    $('#collection-1').empty()
     $(el).addClass('clicked')
 
     var uri = $(el).attr('href')
@@ -82,6 +89,7 @@ function loadCollectionList(el) {
         })
     })
 }
+
 
 /*
  * Get the RSSI data , cache it in the variable RssiData and Load Locations on the floor plan
@@ -106,6 +114,7 @@ function loadLocations(data) {
     floorMapper(locations)
 }
 
+
 /*
  * Convert the Locations into Co-Ordinate and Set the points in the floor
  * */
@@ -118,6 +127,7 @@ function floorMapper(data) {
     })
     setPoints(nodes)
 }
+
 
 /*
  * Convert the Locations into Co-Ordinate to fit the floor plan
@@ -135,13 +145,19 @@ function pixelConverter(x, y) {
 
     var axis = [xAxis, yAxis];
     return axis
-};
+}
+
 
 /*
  * Convert the Locations into Co-Ordinate to fit the floor plan
  * */
 function setPoints(data) {
+    $('#ruler').empty()
+    $('#accesspoint-1').empty()
+
     $.each(data, function (i, field) {
+        locationData.push(field.location)
+
         var template = '<div id="node' + field.location.node_label + '" class="pointer"/>'
         $('#ruler').append(template)
 
@@ -160,12 +176,15 @@ function setPoints(data) {
     })
 }
 
+
 /*
  * Load list of Access Points
  * */
 function loadAccessPoints(data) {
     var nodeLabel = data
-    $('#accesspoint-1').html('')
+    $('#accesspoint-1').empty()
+
+    getNodeData(data);
 
     $.each(rssiData, function (i, field) {
         if (field.location.node_label == nodeLabel) {
@@ -179,7 +198,11 @@ function loadAccessPoints(data) {
 
             $('.accessPointUri').click(function (event) {
                 var ssid = $(event.target).attr('value')
-                console.log(ssid)
+                $.each(ssidData, function(i, field){
+                    if(i == ssid){
+                        processRssiData(field)
+                    }
+                })
             })
 
         }
@@ -187,81 +210,108 @@ function loadAccessPoints(data) {
 }
 
 
-
-/*------------------------------------*/
-function extractRssi(node) {
-    console.log()
-    var extractedRssi = []
-    _.each(rawDataRssi[0], function (i) {
-        if (i.location.node_label == node) {
-            updateNodeDetailUI(i.location.node_label, i.location.room_label)
-            _.each(i.rawRSSI, function (n) {
-                console.log(n.sender_ssid)
-                extractedRssi.push(n.rssi)
-            })
+/*
+* Retrieve the node data
+* */
+function getNodeData(data){
+    $.each(locationData, function(i, field){
+        if(field.node_label == data){
+            nodeData = field
         }
     })
+}
 
-    var groupedRssi = _.sortBy(_.groupBy(extractedRssi))
-    var resultRssi = []
-    var resultLabel = []
-    var resultData = []
 
-    _.each(groupedRssi, function (i) {
-//        console.log(i[0] + ' ' + i.length)
-        resultLabel.push(i[0])
-        resultData.push(i.length)
-        resultRssi.push({
-            'rssi': i[0],
-            'run': i.length
+/*
+* Process the data to input into the chart
+* */
+function processRssiData(data){
+    selectedSsidData = data
+
+    var result = []
+    $.each(data, function(i,field){
+        result.push(field.rssi)
+    })
+
+    result = _.groupBy(result)
+    var res = []
+    $.each(result, function(i, field){
+        res.push({
+            'rssi' : i,
+            'runs' : field.length
         })
     })
-
-//    console.log(resultLabel)
-//    console.log(resultData)
-//    console.log(groupedRssi)
-//    console.log(resultRssi)
-//    console.log(JSON.stringify(resultRssi))
-
-    return { 'label': resultLabel, 'rssi': resultData }
+    chartData = _.sortBy(res, function(field){ return -field.rssi})
+    drawChart(chartData)
 }
 
 
-
+/*
+ * Draw the chart
+ * */
 function drawChart(data) {
+    var runs = []
+    var rssi = []
+
+    $.each(data, function(i,field){
+        rssi.push(field.rssi)
+        runs.push(field.runs)
+    })
+
+    updateNodeDataUI(nodeData)
+
     var barChartData = {
-        labels: data.label,
+        labels: rssi,
         datasets: [
             {
                 fillColor: "orange",
                 strokeColor: "orangered",
-                data: data.rssi
+                data: runs
             }
         ]
     }
     new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
+    showGraphPanel()
+}
 
-};
+
+/*
+ * Update the node details in Tab
+ * */
+function updateNodeDataUI(data) {
+    $('#infoTab-1').empty()
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>SSID :</b>" + selectedSsidData[0].sender_ssid)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Node Label : </b>" + data.node_label)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Room Label : </b>" + data.room_label)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y)
+}
 
 
-
-function showGraphPanel(node_label) {
-    var data = extractRssi(node_label)
-    drawChart(data);
+/*
+ * open up the graph Panel
+ * */
+function showGraphPanel() {
     $("#accordion").accordion({
         active: 2
-    });
+    })
+}
 
-};
 
 
-function updateNodeDetailUI(node, room) {
-    $('#infoTab-1').html("")
-    $('#infoTab-1').append("<b>Node Label : </b>" + node)
-    $('#infoTab-1').append("<br>")
-    $('#infoTab-1').append("<b>Room Label : </b>" + room)
 
-};
+
+
+
+
+
+
 
 
 
