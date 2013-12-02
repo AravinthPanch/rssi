@@ -1,10 +1,17 @@
 /*
+* RSSI Distribution Visualization Tool
+* Author: Aravinth, S. Panchadcharam
+* Date: 20 November 2013
+* Email: panch.aravinth@gmail.com
+* */
+
+
+/*
  * DOM Ready using Jquery
  * TODO: Modularity by Require.JS
  * */
 $(function () {
     initiateUI();
-//    loadAccessPoints('229');
     loadData();
 });
 
@@ -281,7 +288,7 @@ function drawChart(data) {
 function updateNodeDataUI(data) {
     $('#infoTab-1').empty()
     $('#infoTab-1').append("<br>")
-    $('#infoTab-1').append("<b>SSID :</b>" + selectedSsidData[0].sender_ssid)
+    $('#infoTab-1').append("<b>SSID : </b>" + selectedSsidData[0].sender_ssid)
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b>Node Label : </b>" + data.node_label)
