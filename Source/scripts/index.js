@@ -1,33 +1,28 @@
 /*
-* DOM Ready using Jquery
-* TODO: Modularity by Require.JS
-* */
+ * DOM Ready using Jquery
+ * TODO: Modularity by Require.JS
+ * */
 $(function () {
     initiateUI();
+//    loadAccessPoints('229');
     loadData();
-
-    getDatabaseList();
-    $('.pointer').click(function (event) {
-        var node_label = (event.target.id).substr(4, 6)
-        console.log(node_label)
-//        showGraphPanel(node_label);
-        listAccessPoints(node_label)
-    })
-
-
 });
 
 /*
-* Constants
-* */
-var dataBaseUriRemote = 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database'
-var dataBaseUriLocal = 'http://localhost:5000/evarilos/raw_data/v1.0/database'
+ * Constants - URI, UI DOM
+ * */
+var dataBaseUriRemote = 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database';
+var dataBaseUriLocal = 'http://localhost:5000/evarilos/raw_data/v1.0/database';
+var rssiData = [];
+var ssidData = [];
+var chartData = [];
 
 /*
-* Initiates all Jquery UI. Tabs and Accordions are used.
-* TODO: Convert unwanted Tabs into DIVs with CSS
-* */
+ * Initiates all Jquery UI. Tabs and Accordions are used.
+ * TODO: Convert unwanted Tabs into DIVs with CSS
+ * */
 function initiateUI() {
+    console.log('UI Initiated')
     $("#tabs").tabs();
     $("#infoTab").tabs();
     $("#databases").tabs();
@@ -40,126 +35,160 @@ function initiateUI() {
 }
 
 /*
-* Load data from Evarilos Cloud Server.
-* 3 Sets of Ajax Requests are sent to retrieve JSON Data of
-* List of Databases, List of Collections and Location Specific Messages
-*TODO: Input Local and Remote Database URI
-* */
-function loadData(){
-
+ * Load data from Evarilos Cloud Server.
+ * 3 Sets of Ajax Requests are sent to retrieve JSON Data of
+ * List of Databases, List of Collections and Location Specific Messages
+ * TODO: Input Local and Remote Database URI
+ * */
+function loadData() {
+    loadDatabaseList(dataBaseUriLocal);
 }
 
-function getDatabaseList(){
-
-}
-
-
-//    var dbUri = 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database'
-
-
-var extRSSI = [];
-function getDatabaseList() {
-    var dbUri = 'http://localhost:5000/evarilos/raw_data/v1.0/database'
-    $.getJSON(dbUri, function (result) {
-        $.each(result, function (i, field) {
-            $("#database-1").append('<div class=dbLink href=' + field + '>' + i + '</div>')
+/*
+ * Sends AJAX Request to the given URI and returns the result in JSON
+ * Load the list of Databases into UI
+ * Binds Click events to load collection
+ * TODO: Define UI Constants
+ * */
+function loadDatabaseList(uri) {
+    $.getJSON(uri, function (results) {
+        $.each(results, function (i, field) {
+            var template = '<div class=dataBaseUri href=' + field + '>' + i + '</div>'
+            $("#database-1").append(template)
         })
-        $('.dbLink').click(function (event) {
-            $(event.target).addClass('clicked')
-            $.getJSON($(event.target).attr('href'), function (result) {
-                $('#collection-1').html('')
-                $.each(result, function (i, field) {
-                    $('#collection-1').append('<div class=collectionLink href=' + field + '>' + i + '</div>')
-                })
-                $('.collectionLink').click(function (event) {
-                    $.getJSON($(event.target).attr('href'), function (result) {
-                        $.each(result, function (i, field) {
-                            $.getJSON(field.URI, function (result) {
-                                extRSSI.push(result)
-//                                listAccessPoints()
-                                loadFrame()
-                            })
-                        })
-                    })
-                })
-            })
-        });
+        $('.dataBaseUri').click(function (event) {
+            //TODO: toggle click
+            loadCollectionList(event.target)
+        })
     })
-
-
-};
-
-function getLocationArray() {
-    var loc = []
-    _.each(extRSSI, function (i) {
-        loc.push(i.location)
-    })
-    return loc
 }
 
-function loadFrame() {
-    var locs = getLocationArray();
-    floorMapper(locs);
-}
+/*
+ * Load the list of Collections into UI
+ *
+ * */
+function loadCollectionList(el) {
+    $('#collection-1').html('')
+    $(el).addClass('clicked')
 
-function listAccessPoints(node) {
-    var exRS = [];
-    _.each(extRSSI, function (i) {
-        if (i.location.node_label == node) {
-            exRS.push(i.rawRSSI)
-        }
+    var uri = $(el).attr('href')
+    $.getJSON(uri, function (results) {
+        $.each(results, function (i, field) {
+            var template = '<div class=collectionUri href=' + field + '>' + i + '</div>'
+            $('#collection-1').append(template)
+        })
+        $('.collectionUri').click(function (event) {
+            loadRssiList(event.target)
+        })
     })
-
-    var exRsAP = _.indexBy(exRS, 'sender_ssid');
-    console.log(exRsAP)
-
 }
+
+/*
+ * Get the RSSI data , cache it in the variable RssiData and Load Locations on the floor plan
+ * */
+function loadRssiList(el) {
+    var uri = $(el).attr('href')
+    $.getJSON(uri, function (results) {
+        rssiData = results
+        loadLocations(results)
+    })
+}
+
+
+/*
+ * Extract the locations from Data and load it onto floor plan
+ * */
+function loadLocations(data) {
+    var locations = []
+    $.each(data, function (i, field) {
+        locations.push(field)
+    })
+    floorMapper(locations)
+}
+
+/*
+ * Convert the Locations into Co-Ordinate and Set the points in the floor
+ * */
+function floorMapper(data) {
+    var nodes = $.each(data, function (i, field) {
+        // due to the bug in the python backend x and y must be interchanged
+        var axis = pixelConverter(field.location.coordinate_y, field.location.coordinate_x);
+        field.location.coordinate_x = axis[0]
+        field.location.coordinate_y = axis[1]
+    })
+    setPoints(nodes)
+}
+
+/*
+ * Convert the Locations into Co-Ordinate to fit the floor plan
+ * */
 function pixelConverter(x, y) {
     var xPix = x * 25.4;
-
     var yPix = y * 25.2;
+
     //adjusted to calibrate
     //var xAxis = 0 + xPix;
     //var yAxis = 366 - yPix;
-    var xAxis = -15 + xPix;
 
+    var xAxis = -15 + xPix;
     var yAxis = 380 - yPix;
 
     var axis = [xAxis, yAxis];
     return axis
-
 };
-function floorMapper(data) {
-    var nodes = $.each(data, function (i, node) {
-        console.log(node.coordinate_x)
-        // due to the bug in the python backend x and y must be interchanged
-        var axis = pixelConverter(node.coordinate_y, node.coordinate_x);
-        node.coordinate_x = axis[0]
-        node.coordinate_y = axis[1]
+
+/*
+ * Convert the Locations into Co-Ordinate to fit the floor plan
+ * */
+function setPoints(data) {
+    $.each(data, function (i, field) {
+        var template = '<div id="node' + field.location.node_label + '" class="pointer"/>'
+        $('#ruler').append(template)
+
+        var node = '#node' + field.location.node_label
+        $(node).css('left', field.location.coordinate_x + 'px')
+        $(node).css('top', field.location.coordinate_y + 'px')
     })
 
-    setPoints(nodes)
-
-};
-function setPoints(nodes) {
-    $.each(nodes, function (i, node) {
-        var str = '<div id="node' + node.node_label + '" class="pointer"/>'
-        $('#ruler').append(str)
-
-        var str1 = '#node' + node.node_label
-        $(str1).css('left', node.coordinate_x + 'px')
-        $(str1).css('top', node.coordinate_y + 'px')
+    $('.pointer').click(function (event) {
+        var node_label = (event.target.id).substr(4, 6)
+        loadAccessPoints(node_label)
     })
 
-};
-function updateNodeDetailUI(node, room) {
-    $('#infoTab-1').html("")
-    $('#infoTab-1').append("<b>Node Label : </b>" + node)
-    $('#infoTab-1').append("<br>")
-    $('#infoTab-1').append("<b>Room Label : </b>" + room)
+    $("#accordion").accordion({
+        active: 1
+    })
+}
 
-};
+/*
+ * Load list of Access Points
+ * */
+function loadAccessPoints(data) {
+    var nodeLabel = data
+    $('#accesspoint-1').html('')
 
+    $.each(rssiData, function (i, field) {
+        if (field.location.node_label == nodeLabel) {
+            var rssi = field.rawRSSI
+            ssidData = _.groupBy(rssi, function(run){ return run.sender_ssid })
+
+            $.each(ssidData, function (i, field) {
+                var template = '<div class=accessPointUri value=' + i + '>' + i + '</div>'
+                $('#accesspoint-1').append(template)
+            })
+
+            $('.accessPointUri').click(function (event) {
+                var ssid = $(event.target).attr('value')
+                console.log(ssid)
+            })
+
+        }
+    })
+}
+
+
+
+/*------------------------------------*/
 function extractRssi(node) {
     console.log()
     var extractedRssi = []
@@ -196,6 +225,9 @@ function extractRssi(node) {
 
     return { 'label': resultLabel, 'rssi': resultData }
 }
+
+
+
 function drawChart(data) {
     var barChartData = {
         labels: data.label,
@@ -210,6 +242,9 @@ function drawChart(data) {
     new Chart(document.getElementById("canvas").getContext("2d")).Bar(barChartData);
 
 };
+
+
+
 function showGraphPanel(node_label) {
     var data = extractRssi(node_label)
     drawChart(data);
@@ -218,6 +253,18 @@ function showGraphPanel(node_label) {
     });
 
 };
+
+
+function updateNodeDetailUI(node, room) {
+    $('#infoTab-1').html("")
+    $('#infoTab-1').append("<b>Node Label : </b>" + node)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Room Label : </b>" + room)
+
+};
+
+
+
 
 
 

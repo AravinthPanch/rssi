@@ -61,24 +61,33 @@ table {
     top: 190px;
 }
 
-.dbLink{
+.dataBaseUri{
     color: darkblue;
     font-size: 12px;
     font-weight: bold;
     cursor: pointer;
 }
 
-.dbLink.clicked{
+.dataBaseUri.clicked{
     color: #000000;
     font-size: 14px;
 }
 
-.collectionLink{
+.collectionUri{
     color: darkblue;
     font-size: 12px;
-    padding-left: 10px;
+    font-weight: bold;
     cursor: pointer;
+    margin: 2px;
 }
+.accessPointUri{
+    color: darkblue;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 2px;
+}
+
 #databases{
     float: left;
     width: 300px;
