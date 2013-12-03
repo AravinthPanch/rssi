@@ -68,11 +68,6 @@ table {
     cursor: pointer;
 }
 
-.dataBaseUri.clicked{
-    color: #000000;
-    font-size: 14px;
-}
-
 .collectionUri{
     color: darkblue;
     font-size: 12px;
@@ -80,6 +75,7 @@ table {
     cursor: pointer;
     margin: 2px;
 }
+
 .accessPointUri{
     color: darkblue;
     font-size: 12px;
@@ -88,6 +84,17 @@ table {
     margin: 2px;
 }
 
+.clicked{
+    color: #000000;
+    font-size: 14px;
+}
+
+#servers{
+    float: left;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+}
 #databases{
     float: left;
     width: 300px;
@@ -106,4 +113,18 @@ table {
     margin-bottom: 10px;
     width: 330px;
     height: 95%;
+}
+#loader{
+    display: none;
+    position: fixed;
+    left: 600px;
+    top: 300px;
+    height: 60px;
+    width: 200px;
+    background-color: #d3d3d3;
+    border: solid 1px;
+    z-index: 20;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 20px;
 }

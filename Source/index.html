@@ -28,7 +28,7 @@
 
 </head>
 <body>
-
+<div id="loader">Retrieving Data ....</div>
 <!--Menu Tabs-->
 <div id="tabs">
     <ul>
@@ -61,6 +61,18 @@
     <h3>Database</h3>
 
     <div>
+        <div id="servers">
+            <ul>
+                <li><a href="#server-1">List of Servers</a></li>
+            </ul>
+            <div id="server-1">
+                <div id="radio">
+                    <input type="radio" id="radio1" name="radio"><label for="radio1">Local Server</label>
+                    <input type="radio" id="radio2" name="radio"><label for="radio2">Remote Server</label>
+                </div>
+            </div>
+        </div>
+
         <div id="databases">
             <ul>
                 <li><a href="#database-1">List of Databases</a></li>

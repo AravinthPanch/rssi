@@ -1,9 +1,9 @@
 /*
-* RSSI Distribution Visualization Tool
-* Author: Aravinth, S. Panchadcharam
-* Date: 20 November 2013
-* Email: panch.aravinth@gmail.com
-* */
+ * RSSI Distribution Visualization Tool
+ * Author: Aravinth, S. Panchadcharam
+ * Date: 20 November 2013
+ * Email: panch.aravinth@gmail.com
+ * */
 
 
 /*
@@ -21,6 +21,7 @@ $(function () {
  * */
 var dataBaseUriRemote = 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database';
 var dataBaseUriLocal = 'http://localhost:5000/evarilos/raw_data/v1.0/database';
+var server = '';
 var rssiData = []; // Complete JSON of selected Collection
 var locationData = []; // All Locations of selected Collection
 var nodeData = []; // Details of selected Node
@@ -37,6 +38,8 @@ function initiateUI() {
     console.log('UI Initiated')
     $("#tabs").tabs();
     $("#infoTab").tabs();
+    $("#servers").tabs();
+    $("#radio").buttonset();
     $("#databases").tabs();
     $("#collections").tabs();
     $("#accesspoints").tabs();
@@ -54,7 +57,18 @@ function initiateUI() {
  * TODO: Input Local and Remote Database URI
  * */
 function loadData() {
-    loadDatabaseList(dataBaseUriLocal);
+    $('#radio1').click(function () {
+        server = 'local'
+        $("#database-1").empty()
+        $("#collection-1").empty()
+        loadDatabaseList(dataBaseUriLocal);
+    })
+    $('#radio2').click(function () {
+        server = 'remote'
+        $("#database-1").empty()
+        $("#collection-1").empty()
+        loadDatabaseList(dataBaseUriRemote);
+    })
 }
 
 
@@ -65,7 +79,9 @@ function loadData() {
  * TODO: Define UI Constants
  * */
 function loadDatabaseList(uri) {
+    $('#loader').show()
     $.getJSON(uri, function (results) {
+        $('#loader').hide()
         $.each(results, function (i, field) {
             var template = '<div class=dataBaseUri href=' + field + '>' + i + '</div>'
             $("#database-1").append(template)
@@ -102,11 +118,41 @@ function loadCollectionList(el) {
  * Get the RSSI data , cache it in the variable RssiData and Load Locations on the floor plan
  * */
 function loadRssiList(el) {
+    $(el).addClass('clicked')
     var uri = $(el).attr('href')
+    rssiData = []
+
+    switch (server) {
+        case 'local' :
+            $.getJSON(uri, function (results) {
+                rssiData = results
+                loadLocations(rssiData)
+            })
+            break;
+        case  'remote' :
+            loadRssiListRemoteServer(uri)
+            break;
+        default :
+            alert('Server URL Error')
+    }
+}
+
+
+/*
+ * Protocol for Remote
+ * */
+function loadRssiListRemoteServer(uri) {
     $.getJSON(uri, function (results) {
-        rssiData = results
-        loadLocations(results)
+        $.each(results, function(i, field){
+            $.getJSON(field.URI, function (results) {
+                rssiData.push(results)
+            })
+        })
     })
+
+    setTimeout(function(){
+        loadLocations(rssiData)
+    },2000)
 }
 
 
@@ -196,7 +242,9 @@ function loadAccessPoints(data) {
     $.each(rssiData, function (i, field) {
         if (field.location.node_label == nodeLabel) {
             var rssi = field.rawRSSI
-            ssidData = _.groupBy(rssi, function(run){ return run.sender_ssid })
+            ssidData = _.groupBy(rssi, function (run) {
+                return run.sender_ssid
+            })
 
             $.each(ssidData, function (i, field) {
                 var template = '<div class=accessPointUri value=' + i + '>' + i + '</div>'
@@ -204,9 +252,10 @@ function loadAccessPoints(data) {
             })
 
             $('.accessPointUri').click(function (event) {
+                $(event.target).addClass('clicked')
                 var ssid = $(event.target).attr('value')
-                $.each(ssidData, function(i, field){
-                    if(i == ssid){
+                $.each(ssidData, function (i, field) {
+                    if (i == ssid) {
                         processRssiData(field)
                     }
                 })
@@ -218,11 +267,11 @@ function loadAccessPoints(data) {
 
 
 /*
-* Retrieve the node data
-* */
-function getNodeData(data){
-    $.each(locationData, function(i, field){
-        if(field.node_label == data){
+ * Retrieve the node data
+ * */
+function getNodeData(data) {
+    $.each(locationData, function (i, field) {
+        if (field.node_label == data) {
             nodeData = field
         }
     })
@@ -230,25 +279,27 @@ function getNodeData(data){
 
 
 /*
-* Process the data to input into the chart
-* */
-function processRssiData(data){
+ * Process the data to input into the chart
+ * */
+function processRssiData(data) {
     selectedSsidData = data
 
     var result = []
-    $.each(data, function(i,field){
+    $.each(data, function (i, field) {
         result.push(field.rssi)
     })
 
     result = _.groupBy(result)
     var res = []
-    $.each(result, function(i, field){
+    $.each(result, function (i, field) {
         res.push({
-            'rssi' : i,
-            'runs' : field.length
+            'rssi': i,
+            'runs': field.length
         })
     })
-    chartData = _.sortBy(res, function(field){ return -field.rssi})
+    chartData = _.sortBy(res, function (field) {
+        return -field.rssi
+    })
     drawChart(chartData)
 }
 
@@ -260,7 +311,7 @@ function drawChart(data) {
     var runs = []
     var rssi = []
 
-    $.each(data, function(i,field){
+    $.each(data, function (i, field) {
         rssi.push(field.rssi)
         runs.push(field.runs)
     })
@@ -311,7 +362,12 @@ function showGraphPanel() {
 }
 
 
+/*
+* Toggle Click
+* */
+function toggleClick(){
 
+}
 
 
 
