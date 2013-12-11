@@ -140,6 +140,7 @@ function loadRssiList(el) {
 
 /*
  * Protocol for Remote
+ * TODO: Bind data to synchronize
  * */
 function loadRssiListRemoteServer(uri) {
     $.getJSON(uri, function (results) {
@@ -152,7 +153,7 @@ function loadRssiListRemoteServer(uri) {
 
     setTimeout(function(){
         loadLocations(rssiData)
-    },2000)
+    },4000)
 }
 
 
@@ -243,7 +244,7 @@ function loadAccessPoints(data) {
         if (field.location.node_label == nodeLabel) {
             var rssi = field.rawRSSI
             ssidData = _.groupBy(rssi, function (run) {
-                return run.sender_ssid
+                return run.sender_ssid + '_' + run.sender_bssid
             })
 
             $.each(ssidData, function (i, field) {
@@ -340,6 +341,10 @@ function updateNodeDataUI(data) {
     $('#infoTab-1').empty()
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b>SSID : </b>" + selectedSsidData[0].sender_ssid)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>BSSID : </b>" + selectedSsidData[0].sender_bssid)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Total Number of measurements: </b>" + selectedSsidData.length)
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b>Node Label : </b>" + data.node_label)

@@ -11,14 +11,63 @@ table {
 	background-position: top;
 }
 
-#floor_image{
-    background-image: url(../images/floor_tub.png);
-    height: 486px;
-    width: 930px;
-    border: solid 1px #000000;
-    float: left;
+#loader{
+    display: none;
+    position: fixed;
+    left: 600px;
+    top: 300px;
+    height: 60px;
+    width: 200px;
+    background-color: #d3d3d3;
+    border: solid 1px;
+    z-index: 20;
+    text-align: center;
+    padding-top: 30px;
+    font-size: 20px;
 }
 
+.clicked{
+    color: #000000;
+    font-size: 14px;
+}
+
+
+
+/*-------------------------------------------- Database Tab ----*/
+#servers{
+    float: left;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+}
+#databases{
+    float: left;
+    width: 300px;
+    height: 300px;
+    margin: 10px;
+}
+#collections{
+    float: left;
+    width: 500px;
+    height: 300px;
+    margin: 10px;
+}
+.dataBaseUri{
+    color: darkblue;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.collectionUri{
+    color: darkblue;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 2px;
+}
+
+
+/*-------------------------------------------- Floor Plan Tab ----*/
 #ruler{
     position: relative;
     left: 55px;
@@ -40,7 +89,13 @@ table {
     left: 0px;
     top: 366px;
 }
-
+#floor_image{
+    background-image: url(../images/floor_tub.png);
+    height: 486px;
+    width: 930px;
+    border: solid 1px #000000;
+    float: left;
+}
 .yAxis{
     position: absolute;
     left: -55px;
@@ -52,30 +107,13 @@ table {
 .xAxis{
     text-align: center;
 }
-
-#infoTab{
-    height: 200px;
-    width: 200px;
-    position: absolute;
-    right: 20px;
-    top: 190px;
+#accesspoints{
+    float: right;
+    margin-left: 10px;
+    width: 330px;
+    height: 98%;
+    overflow: scroll;
 }
-
-.dataBaseUri{
-    color: darkblue;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.collectionUri{
-    color: darkblue;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 2px;
-}
-
 .accessPointUri{
     color: darkblue;
     font-size: 12px;
@@ -84,47 +122,19 @@ table {
     margin: 2px;
 }
 
-.clicked{
-    color: #000000;
-    font-size: 14px;
-}
 
-#servers{
+/*-------------------------------------------- Graph Tab ----*/
+#graph{
     float: left;
-    width: 300px;
-    height: 300px;
-    margin: 10px;
 }
-#databases{
-    float: left;
-    width: 300px;
-    height: 300px;
-    margin: 10px;
-}
-#collections{
-    float: left;
-    width: 500px;
-    height: 300px;
-    margin: 10px;
-}
-#accesspoints{
+#infoTab{
     float: right;
     margin-left: 10px;
     margin-bottom: 10px;
-    width: 330px;
-    height: 95%;
-}
-#loader{
-    display: none;
-    position: fixed;
-    left: 600px;
-    top: 300px;
-    height: 60px;
     width: 200px;
-    background-color: #d3d3d3;
-    border: solid 1px;
-    z-index: 20;
-    text-align: center;
-    padding-top: 30px;
-    font-size: 20px;
+    height: 95%;
+    overflow-wrap: break-word;
 }
+
+
+
