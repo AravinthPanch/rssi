@@ -110,8 +110,9 @@ table {
 #accesspoints{
     float: right;
     margin-left: 10px;
+    margin-bottom: 10px;
     width: 330px;
-    height: 98%;
+    height: 68%;
     overflow: scroll;
 }
 .accessPointUri{
@@ -120,6 +121,12 @@ table {
     font-weight: bold;
     cursor: pointer;
     margin: 2px;
+}
+#floor_infos{
+    float: right;
+    margin-left: 10px;
+    width: 330px;
+    height: 27%;
 }
 
 

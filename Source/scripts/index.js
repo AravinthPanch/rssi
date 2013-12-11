@@ -29,6 +29,15 @@ var ssidData = []; // Complete JSON of grouped SSID of selected Node
 var selectedSsidData = []; // Currently selected data of SSID
 var chartData = []; // Chart Data of selected SSID
 
+function clearCache(){
+    rssiData = []
+    locationData = []
+    nodeData = []
+    ssidData = []
+    selectedSsidData = []
+    chartData = []
+}
+
 
 /*
  * Initiates all Jquery UI. Tabs and Accordions are used.
@@ -43,6 +52,7 @@ function initiateUI() {
     $("#databases").tabs();
     $("#collections").tabs();
     $("#accesspoints").tabs();
+    $("#floor_infos").tabs();
     $("#accordion").accordion({
         collapsible: true,
         active: 0
@@ -120,7 +130,8 @@ function loadCollectionList(el) {
 function loadRssiList(el) {
     $(el).addClass('clicked')
     var uri = $(el).attr('href')
-    rssiData = []
+
+    clearCache()
 
     switch (server) {
         case 'local' :
@@ -209,6 +220,7 @@ function setPoints(data) {
     $('#ruler').empty()
     $('#accesspoint-1').empty()
 
+
     $.each(data, function (i, field) {
         locationData.push(field.location)
 
@@ -225,9 +237,18 @@ function setPoints(data) {
         loadAccessPoints(node_label)
     })
 
+    updateFloorInfoUi(0)
+
     $("#accordion").accordion({
         active: 1
     })
+}
+
+function updateFloorInfoUi(scan){
+    $('#floor_info-1').empty()
+    $('#floor_info-1').append("<b>Number of Measurement Points : </b>" + locationData.length)
+    $('#floor_info-1').append("<br>")
+    $('#floor_info-1').append("<b>Number of RSSIs measured at Selected Point: </b>" + scan)
 }
 
 
@@ -243,6 +264,9 @@ function loadAccessPoints(data) {
     $.each(rssiData, function (i, field) {
         if (field.location.node_label == nodeLabel) {
             var rssi = field.rawRSSI
+
+            updateFloorInfoUi(rssi.length)
+
             ssidData = _.groupBy(rssi, function (run) {
                 return run.sender_ssid + '_' + run.sender_bssid
             })
@@ -264,6 +288,7 @@ function loadAccessPoints(data) {
 
         }
     })
+
 }
 
 
