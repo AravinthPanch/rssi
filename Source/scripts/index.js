@@ -237,18 +237,23 @@ function setPoints(data) {
         loadAccessPoints(node_label)
     })
 
-    updateFloorInfoUi(0)
+    updateFloorInfoUi({scan:0,latency:0})
 
     $("#accordion").accordion({
         active: 1
     })
 }
 
-function updateFloorInfoUi(scan){
+/*
+ * updateFloorInfoUi
+ * */
+function updateFloorInfoUi(data){
     $('#floor_info-1').empty()
     $('#floor_info-1').append("<b>Number of Measurement Points : </b>" + locationData.length)
     $('#floor_info-1').append("<br>")
-    $('#floor_info-1').append("<b>Number of RSSIs measured at Selected Point: </b>" + scan)
+    $('#floor_info-1').append("<b>Number of RSSIs measured at the selected Point: </b>" + data.scan)
+    $('#floor_info-1').append("<br>")
+    $('#floor_info-1').append("<b>Latency measured at the selected Point: </b>" + data.latency)
 }
 
 
@@ -265,7 +270,11 @@ function loadAccessPoints(data) {
         if (field.location.node_label == nodeLabel) {
             var rssi = field.rawRSSI
 
-            updateFloorInfoUi(rssi.length)
+            if('latency' in field){
+                updateFloorInfoUi({scan:rssi.length,latency:field.latency})
+            }else {
+                updateFloorInfoUi({scan:rssi.length,latency:'Unknown'})
+            }
 
             ssidData = _.groupBy(rssi, function (run) {
                 return run.sender_ssid + '_' + run.sender_bssid
