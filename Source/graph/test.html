@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+    body {
+        font: 10px sans-serif;
+    }
+
+    .bar rect {
+        fill: steelblue;
+        shape-rendering: crispEdges;
+    }
+
+    .bar text {
+        fill: #fff;
+    }
+
+    .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    svg {
+        border: solid #000000 1px;
+    }
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+
+    var values = [79, 74, 75, 71, 74, 75, 71, 74, 74, 74, 74, 74, 78, 74, 74];
+
+    var width = 960;
+    var height = 500;
+
+    var padding = 30;
+    var barWidth = 30;
+
+    var minValue = d3.min(values);
+    var maxValue = d3.max(values);
+
+    var x = d3.scale.linear()
+            .domain([ minValue - 1 , maxValue + 1 ])
+            .range([0, width - 2*padding]);
+
+    var data = d3.layout.histogram()
+            .bins(x.ticks(10))
+            (values);
+
+    var y = d3.scale.linear()
+            .domain([0, d3.max(data, function(d) { return d.y; })])
+            .range([height - 2*padding, 0]);
+
+    var xAxis = d3.svg.axis()
+            .scale(x)
+            .orient("bottom");
+
+    var yAxis = d3.svg.axis()
+            .scale(y)
+            .orient("left");
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g");
+
+    var bar = svg.selectAll(".bar")
+            .data(data)
+            .enter()
+            .append("g")
+            .attr("class", "bar")
+            .append("rect")
+            .attr("x", function (d) {
+                return x(d.x) + padding - (barWidth / 2)
+            })
+            .attr("y", function (d) {
+                return y(d.y) + padding
+            })
+            .attr("width", barWidth)
+            .attr("height", function (d) {
+                return height - 2*padding - y(d.y);
+            });
+
+    svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(" + padding + "," + (height - padding) + ")")
+            .call(xAxis);
+
+    svg.append("g")
+            .attr("class", "y axis")
+            .attr("transform", "translate(" + padding + "," + padding + ")")
+            .call(yAxis);
+
+</script>
