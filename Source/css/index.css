@@ -26,11 +26,6 @@ table {
     font-size: 20px;
 }
 
-.clicked{
-    color: #000000;
-    font-size: 14px;
-}
-
 .selectableList .ui-selecting { background: #d3d3d3; }
 .selectableList .ui-selected { background: steelblue; color: white; }
 .selectableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
@@ -55,20 +50,6 @@ table {
     height: 95%;
     margin-left: 10px;
 }
-.dataBaseUri{
-    color: darkblue;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.collectionUri{
-    color: darkblue;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 2px;
-}
-
 
 /*-------------------------------------------- Floor Plan Tab ----*/
 #ruler{
@@ -81,10 +62,11 @@ table {
 }
 
 .pointer{
-    background-color: darkred;
+    background-color: steelblue;
     position: absolute;
-    height: 15px;
-    width: 15px;
+    height: 14px;
+    width: 14px;
+    border-radius: 7px;
     cursor: pointer;
 }
 
@@ -92,6 +74,7 @@ table {
     left: 0px;
     top: 366px;
 }
+
 #floor {
     background-image: url(../images/floor_tub.png);
     height: 486px;
@@ -99,6 +82,7 @@ table {
     border: solid 1px #000000;
     float: left;
 }
+
 #accesspoints{
     float: right;
     margin-left: 10px;
@@ -107,6 +91,7 @@ table {
     height: 68%;
     overflow: scroll;
 }
+
 .accessPointUri{
     color: darkblue;
     font-size: 12px;
