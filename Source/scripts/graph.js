@@ -1,7 +1,11 @@
-function drawGraph() {
+function drawGraph(values) {
+
+    clearGraph();
+    showGraphPanel();
+    updateNodeDataUI(nodeData);
 
     var width = 1000;
-    var height = 500;
+    var height = 450;
     var padding = 60;
     var barWidth = 30;
 
@@ -107,4 +111,5 @@ function drawGraph() {
         .attr("y", 0 - padding + 20)
         .attr("x", 0 - (height / 2))
         .text("Number of Beacon Packets");
+
 }

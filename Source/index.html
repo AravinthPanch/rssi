@@ -13,8 +13,8 @@
     <script src="libs/jquery-ui/ui/jquery-ui.js"></script>
 
     <!--d3-->
-    <!--<link rel="stylesheet" href="css/graph.css">-->
-    <!--<script src="libs/d3.js"></script>-->
+    <link rel="stylesheet" href="css/graph.css">
+    <script src="libs/d3.js"></script>
     <!--<script src="libs/d3.tip.js"></script>-->
 
     <!--graph.js-->
@@ -22,9 +22,13 @@
 
     <!--index-->
     <link rel="stylesheet" href="css/index.css">
-    <script src="data/data.js"></script>
+    <script src="scripts/cache.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="scripts/dal.js"></script>
+    <script src="scripts/floorMapper.js"></script>
+    <script src="scripts/graph.js"></script>
     <script src="scripts/index.js"></script>
-    <script src="data/rssi.js"></script>
+
 
 </head>
 <body>
@@ -119,9 +123,6 @@
 
     <div>
         <div id="graph">
-            <div class="yAxis">Number of Beacon Packets</div>
-            <canvas id="canvas" height="450px" width="1000px"></canvas>
-            <div class="xAxis">RSSI Values in dBm</div>
         </div>
         <div id="infoTab">
             <ul>
