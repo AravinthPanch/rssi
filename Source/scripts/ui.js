@@ -4,10 +4,10 @@
  * */
 function initiateUI() {
     console.log('UI Initiated')
+    $("#serverList").selectable();
     $("#tabs").tabs();
     $("#infoTab").tabs();
     $("#servers").tabs();
-    $("#radio").buttonset();
     $("#databases").tabs();
     $("#collections").tabs();
     $("#accesspoints").tabs();
@@ -16,6 +16,7 @@ function initiateUI() {
         collapsible: true,
         active: 0
     });
+
 }
 
 /*
@@ -68,4 +69,21 @@ function showGraphPanel() {
 */
 function clearGraph(){
     $("#graph").empty()
+}
+
+function clearDatabaseList(){
+    $("#database-1").empty()
+}
+function clearCollectionList(){
+    $("#collection-1").empty()
+}
+
+function createDatabaseListUI(){
+    $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
+    $("#databaseList").selectable();
+}
+
+function createCollectionListUI(){
+    $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
+    $("#collectionList").selectable();
 }

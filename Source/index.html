@@ -7,21 +7,15 @@
     <!--libs-->
     <script src="libs/jquery.js"></script>
     <script src="libs/underscore.js"></script>
-
-    <!--ui-->
-    <link rel="stylesheet" href="libs/jquery-ui/themes/base/jquery.ui.all.css">
-    <script src="libs/jquery-ui/ui/jquery-ui.js"></script>
-
-    <!--d3-->
-    <link rel="stylesheet" href="css/graph.css">
+    <link rel="stylesheet" href="libs/css/jquery-ui.min.css">
+    <script src="libs/jquery-ui.js"></script>
     <script src="libs/d3.js"></script>
-    <!--<script src="libs/d3.tip.js"></script>-->
 
-    <!--graph.js-->
-    <script src="libs/chart.min.js"></script>
+
 
     <!--index-->
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/graph.css">
     <script src="data/rssi.js"></script>
     <script src="scripts/cache.js"></script>
     <script src="scripts/ui.js"></script>
@@ -71,11 +65,11 @@
                 <li><a href="#server-1">List of Servers</a></li>
             </ul>
             <div id="server-1">
-                <div id="radio">
-                    <input type="radio" id="radio1" name="radio"><label for="radio1">Local Server</label>
-                    <input type="radio" id="radio2" name="radio"><label for="radio2">Remote Server</label>
-                    <input type="radio" id="radio3" name="radio"><label for="radio3">Static Data</label>
-                </div>
+                <ol id="serverList" class="selectableList">
+                    <li class="ui-widget-content" id="server1">Local Server</li>
+                    <li class="ui-widget-content" id="server2">Remote Server</li>
+                    <li class="ui-widget-content" id="server3">Static Data</li>
+                </ol>
             </div>
         </div>
 

@@ -31,26 +31,29 @@ table {
     font-size: 14px;
 }
 
-
+.selectableList .ui-selecting { background: #d3d3d3; }
+.selectableList .ui-selected { background: steelblue; color: white; }
+.selectableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.selectableList li { margin: 3px; padding: 0.4em; font-size: 1.1em; height: 18px; }
+.selectableList {cursor: pointer;}
 
 /*-------------------------------------------- Database Tab ----*/
 #servers{
     float: left;
-    width: 300px;
-    height: 300px;
-    margin: 10px;
+    width: 20%;
+    height: 95%;
 }
 #databases{
     float: left;
-    width: 300px;
-    height: 300px;
-    margin: 10px;
+    width: 20%;
+    height: 95%;
+    margin-left: 10px;
 }
 #collections{
     float: left;
-    width: 500px;
-    height: 300px;
-    margin: 10px;
+    width: 55%;
+    height: 95%;
+    margin-left: 10px;
 }
 .dataBaseUri{
     color: darkblue;

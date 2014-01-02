@@ -5,27 +5,29 @@
  * TODO: Input Local and Remote Database URI
  * */
 function loadData() {
-    $('#radio1').click(function () {
-        server = 'local'
-        $("#database-1").empty()
-        $("#collection-1").empty()
-        loadDatabaseList(dataBaseUriLocal);
-    })
-    $('#radio2').click(function () {
-        server = 'remote'
-        $("#database-1").empty()
-        $("#collection-1").empty()
-        loadDatabaseList(dataBaseUriRemote);
-    })
-    $('#radio3').click(function () {
-        $("#database-1").empty()
-        $("#collection-1").empty()
-        rssiData = staticData
-        loadLocations(staticData)
-    })
-
+    $("#serverList").on("selectableselected", function (event, ui) {
+        switch (ui.selected.id) {
+            case "server1" :
+                server = 'local'
+                clearDatabaseList();
+                clearCollectionList();
+                loadDatabaseList(dataBaseUriLocal);
+                break;
+            case "server2" :
+                server = 'remote'
+                clearDatabaseList();
+                clearCollectionList();
+                loadDatabaseList(dataBaseUriRemote);
+                break;
+            case "server3" :
+                clearDatabaseList();
+                clearCollectionList();
+                rssiData = staticData
+                loadLocations(staticData)
+                break;
+        }
+    });
 }
-
 
 /*
  * Sends AJAX Request to the given URI and returns the result in JSON
@@ -35,14 +37,16 @@ function loadData() {
  * */
 function loadDatabaseList(uri) {
     $('#loader').show()
+    createDatabaseListUI();
     $.getJSON(uri, function (results) {
         $('#loader').hide()
         $.each(results, function (i, field) {
-            var template = '<div class=dataBaseUri href=' + field + '>' + i + '</div>'
-            $("#database-1").append(template)
+            var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
+            $("#databaseList").append(template)
         })
-        $('.dataBaseUri').click(function (event) {
-            loadCollectionList(event.target)
+
+        $("#databaseList").on("selectableselected", function (event, ui) {
+            loadCollectionList(ui.selected)
         })
     })
 }
@@ -52,17 +56,17 @@ function loadDatabaseList(uri) {
  *
  * */
 function loadCollectionList(el) {
-    $('#collection-1').empty()
-    $(el).addClass('clicked')
+    clearCollectionList();
+    createCollectionListUI();
 
-    var uri = $(el).attr('href')
+    var uri = el.getAttribute('href')
     $.getJSON(uri, function (results) {
         $.each(results, function (i, field) {
-            var template = '<div class=collectionUri href=' + field + '>' + i + '</div>'
-            $('#collection-1').append(template)
+            var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
+            $('#collectionList').append(template)
         })
-        $('.collectionUri').click(function (event) {
-            loadRssiList(event.target)
+        $("#collectionList").on("selectableselected", function (event, ui) {
+            loadRssiList(ui.selected)
         })
     })
 }
@@ -72,11 +76,9 @@ function loadCollectionList(el) {
  * Get the RSSI data , cache it in the variable RssiData and Load Locations on the floor plan
  * */
 function loadRssiList(el) {
-    $(el).addClass('clicked')
-    var uri = $(el).attr('href')
+    clearCache();
 
-    clearCache()
-
+    var uri = el.getAttribute('href')
     switch (server) {
         case 'local' :
             $.getJSON(uri, function (results) {
@@ -98,15 +100,15 @@ function loadRssiList(el) {
  * */
 function loadRssiListRemoteServer(uri) {
     $.getJSON(uri, function (results) {
-        $.each(results, function(i, field){
+        $.each(results, function (i, field) {
             $.getJSON(field.URI, function (results) {
                 rssiData.push(results)
             })
         })
     })
 
-    setTimeout(function(){
+    setTimeout(function () {
         console.log(JSON.stringify(rssiData))
         loadLocations(rssiData)
-    },4000)
+    }, 4000)
 }
