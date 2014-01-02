@@ -52,6 +52,25 @@ function updateNodeDataUI(data) {
     $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x)
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b>Coordinate Z : </b>" + data.coordinate_z)
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b> Minimum : </b>" + d3.min(graphData))
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b> Maximum : </b>" + d3.max(graphData))
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b> Mean : </b>" + d3.round(d3.mean(graphData),2))
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b> Median : </b>" + d3.median(graphData))
+    $('#infoTab-1').append("<br>")
+
+    var stat = statistic(graphData)
+    $('#infoTab-1').append("<b> Variance : </b>" + d3.round(stat.variance, 2))
+    $('#infoTab-1').append("<br>")
+    $('#infoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
+
+
 }
 
 
