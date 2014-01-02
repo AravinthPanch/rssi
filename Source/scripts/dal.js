@@ -17,6 +17,13 @@ function loadData() {
         $("#collection-1").empty()
         loadDatabaseList(dataBaseUriRemote);
     })
+    $('#radio3').click(function () {
+        $("#database-1").empty()
+        $("#collection-1").empty()
+        rssiData = staticData
+        loadLocations(staticData)
+    })
+
 }
 
 
@@ -35,7 +42,6 @@ function loadDatabaseList(uri) {
             $("#database-1").append(template)
         })
         $('.dataBaseUri').click(function (event) {
-            //TODO: toggle click
             loadCollectionList(event.target)
         })
     })
@@ -100,6 +106,7 @@ function loadRssiListRemoteServer(uri) {
     })
 
     setTimeout(function(){
+        console.log(JSON.stringify(rssiData))
         loadLocations(rssiData)
     },4000)
 }

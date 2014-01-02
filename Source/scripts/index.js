@@ -37,6 +37,7 @@ function loadAccessPoints(data) {
 
     $.each(rssiData, function (i, field) {
         if (field.location.node_label == nodeLabel) {
+
             var rssi = field.rawRSSI
 
             if('latency' in field){
@@ -48,6 +49,7 @@ function loadAccessPoints(data) {
             ssidData = _.groupBy(rssi, function (run) {
                 return run.sender_ssid + '_' + run.sender_bssid
             })
+
 
             $.each(ssidData, function (i, field) {
                 var template = '<div class=accessPointUri value=' + i + '>' + i + '</div>'

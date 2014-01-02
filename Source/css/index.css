@@ -89,7 +89,7 @@ table {
     left: 0px;
     top: 366px;
 }
-#floor_image{
+#floor {
     background-image: url(../images/floor_tub.png);
     height: 486px;
     width: 930px;
@@ -111,7 +111,7 @@ table {
     float: right;
     margin-left: 10px;
     margin-bottom: 10px;
-    width: 330px;
+    width: 325px;
     height: 68%;
     overflow: scroll;
 }
@@ -125,7 +125,7 @@ table {
 #floor_infos{
     float: right;
     margin-left: 10px;
-    width: 330px;
+    width: 325px;
     height: 27%;
 }
 
