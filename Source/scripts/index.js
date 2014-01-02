@@ -50,7 +50,6 @@ function loadAccessPoints(data) {
                 return run.sender_ssid + '_' + run.sender_bssid
             })
 
-
             $.each(ssidData, function (i, field) {
                 var template = '<div class=accessPointUri value=' + i + '>' + i + '</div>'
                 $('#accesspoint-1').append(template)

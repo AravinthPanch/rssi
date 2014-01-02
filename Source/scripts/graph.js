@@ -4,8 +4,8 @@ function drawGraph(values) {
     showGraphPanel();
     updateNodeDataUI(nodeData);
 
-    var width = 1000;
-    var height = 450;
+    var width = 930;
+    var height = 470;
     var padding = 60;
     var barWidth = 30;
 

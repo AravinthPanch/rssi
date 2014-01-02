@@ -96,17 +96,6 @@ table {
     border: solid 1px #000000;
     float: left;
 }
-.yAxis{
-    position: absolute;
-    left: -55px;
-    top: 400px;
-    transform:rotate(-90deg);
-    -ms-transform:rotate(-90deg); /* IE 9 */
-    -webkit-transform:rotate(-90deg); /* Safari and Chrome */
-}
-.xAxis{
-    text-align: center;
-}
 #accesspoints{
     float: right;
     margin-left: 10px;
@@ -138,8 +127,8 @@ table {
     float: right;
     margin-left: 10px;
     margin-bottom: 10px;
-    width: 200px;
-    height: 95%;
+    width: 325px;
+    height: 96%;
     overflow-wrap: break-word;
 }
 
