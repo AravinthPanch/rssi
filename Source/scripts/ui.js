@@ -64,11 +64,20 @@ function showGraphPanel() {
     })
 }
 
+function showFloorPanel() {
+    $("#accordion").accordion({
+        active: 1
+    })
+}
+
 /*
 * Clear The SVG of Graph
 */
 function clearGraph(){
     $("#graph").empty()
+}
+function clearFloor(){
+    $("#ruler").empty()
 }
 
 function clearDatabaseList(){
@@ -80,6 +89,12 @@ function clearCollectionList(){
 function clearAccesspointList(){
     $("#accesspoint-1").empty()
 }
+
+function createMeasurementPointsList(){
+    $('#floor').append('<ol id="pointsList" class="selectablePoints ruler"></ol>')
+    $("#pointsList").selectable();
+}
+
 
 function createDatabaseListUI(){
     $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')

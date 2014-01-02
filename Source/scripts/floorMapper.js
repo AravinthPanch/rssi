@@ -35,29 +35,27 @@ function pixelConverter(x, y) {
  * Convert the Locations into Co-Ordinate to fit the floor plan
  * */
 function setPoints(data) {
-    $('#ruler').empty()
-    $('#accesspoint-1').empty()
+    clearFloor();
+    clearAccesspointList();
+    createMeasurementPointsList();
 
     $.each(data, function (i, field) {
         locationData.push(field.location)
 
-        var template = '<div id="node' + field.location.node_label + '" class="pointer"/>'
-        $('#ruler').append(template)
+        var template = '<li class="ui-widget-content pointer" id=node' + field.location.node_label + '/>'
+        $('#pointsList').append(template)
 
         var node = '#node' + field.location.node_label
         $(node).css('left', field.location.coordinate_x + 'px')
         $(node).css('top', field.location.coordinate_y + 'px')
     })
 
-    $('.pointer').click(function (event) {
-        var node_label = (event.target.id).substr(4, 6)
+    $("#pointsList").on("selectableselected", function (event, ui) {
+        var node_label = ui.selected.id.substr(4, 6)
         loadAccessPoints(node_label)
     })
 
-    updateFloorInfoUi({scan:0,latency:0})
-
-    $("#accordion").accordion({
-        active: 1
-    })
+    updateFloorInfoUi({scan: 0, latency: 0});
+    showFloorPanel();
 }
 

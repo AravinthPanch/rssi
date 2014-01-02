@@ -28,9 +28,13 @@ table {
 
 .selectableList .ui-selecting { background: #d3d3d3; }
 .selectableList .ui-selected { background: steelblue; color: white; }
-.selectableList { list-style-type: none; margin: 0; padding: 0; width: auto; overflow:hidden;}
-.selectableList li { margin: 3px; padding: 0.4em; font-size: 1.1em; height: 18px; }
+.selectableList { list-style-type: none; margin: 0; padding: 0; width: auto; overflow-wrap: break-word;}
+.selectableList li { margin: 3px; padding: 0.4em; font-size: 1.1em; height: auto; }
 .selectableList {cursor: pointer;}
+
+.selectablePoints .ui-selecting { background: #d3d3d3; }
+.selectablePoints .ui-selected { background: steelblue; border: solid 1px }
+.selectablePoints li { background: #670c16; border: none }
 
 /*-------------------------------------------- Database Tab ----*/
 #servers{
@@ -52,7 +56,7 @@ table {
 }
 
 /*-------------------------------------------- Floor Plan Tab ----*/
-#ruler{
+.ruler{
     position: relative;
     left: 55px;
     top: 30px;
@@ -62,7 +66,6 @@ table {
 }
 
 .pointer{
-    background-color: steelblue;
     position: absolute;
     height: 14px;
     width: 14px;
