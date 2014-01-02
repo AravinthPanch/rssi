@@ -28,7 +28,7 @@ table {
 
 .selectableList .ui-selecting { background: #d3d3d3; }
 .selectableList .ui-selected { background: steelblue; color: white; }
-.selectableList { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+.selectableList { list-style-type: none; margin: 0; padding: 0; width: auto; overflow:hidden;}
 .selectableList li { margin: 3px; padding: 0.4em; font-size: 1.1em; height: 18px; }
 .selectableList {cursor: pointer;}
 

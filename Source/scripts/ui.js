@@ -77,6 +77,9 @@ function clearDatabaseList(){
 function clearCollectionList(){
     $("#collection-1").empty()
 }
+function clearAccesspointList(){
+    $("#accesspoint-1").empty()
+}
 
 function createDatabaseListUI(){
     $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
@@ -86,4 +89,9 @@ function createDatabaseListUI(){
 function createCollectionListUI(){
     $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
     $("#collectionList").selectable();
+}
+
+function createAccesspointListUI(){
+    $('#accesspoint-1').append('<ol id="accesspointList" class="selectableList"></ol>')
+    $("#accesspointList").selectable();
 }

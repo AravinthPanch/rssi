@@ -27,41 +27,51 @@ function loadLocations(data) {
     floorMapper(locations)
 }
 
+var ssNew = [];
+var ssNew1 = [];
+var ssNew2 = [];
 /*
  * Load list of Access Points
  * */
 function loadAccessPoints(data) {
-    var nodeLabel = data
-    $('#accesspoint-1').empty()
-
+    clearAccesspointList();
+    createAccesspointListUI();
     getNodeData(data);
 
+    var nodeLabel = data
     $.each(rssiData, function (i, field) {
         if (field.location.node_label == nodeLabel) {
 
             var rssi = field.rawRSSI
 
-            if('latency' in field){
-                updateFloorInfoUi({scan:rssi.length,latency:field.latency})
-            }else {
-                updateFloorInfoUi({scan:rssi.length,latency:'Unknown'})
+            if ('latency' in field) {
+                updateFloorInfoUi({scan: rssi.length, latency: field.latency})
+            } else {
+                updateFloorInfoUi({scan: rssi.length, latency: 'Unknown'})
             }
 
-            ssidData = _.groupBy(rssi, function (run) {
+            var rssiDataGrouped = _.groupBy(rssi, function (run) {
                 return run.sender_ssid + '_' + run.sender_bssid
             })
 
-            $.each(ssidData, function (i, field) {
-                var template = '<div class=accessPointUri value=' + i + '>' + i + '</div>'
-                $('#accesspoint-1').append(template)
+            var rssiDataArrayed = [];
+
+            $.each(rssiDataGrouped, function (i, field) {
+                rssiDataArrayed.push({ssid: i, data: field})
             })
 
-            $('.accessPointUri').click(function (event) {
-                $(event.target).addClass('clicked')
-                var ssid = $(event.target).attr('value')
+            ssidData = _.sortBy(rssiDataArrayed, function(d){ return d.ssid.toLowerCase() })
+
+            $.each(ssidData, function (i, field) {
+                var template = '<li class="ui-widget-content" value=' + field.ssid + '>' + field.ssid + '</li>'
+                $('#accesspointList').append(template)
+            })
+
+            $("#accesspointList").on("selectableselected", function (event, ui) {
+                var ssid = ui.selected.getAttribute("value")
                 $.each(ssidData, function (i, field) {
-                    if (i == ssid) {
-                        processRssiData(field)
+                    if (field.ssid == ssid) {
+                        processRssiData(field.data)
                     }
                 })
             })
@@ -87,7 +97,9 @@ function getNodeData(data) {
  * */
 function processRssiData(data) {
     selectedSsidData = data
-    graphData = _.map(selectedSsidData, function(d){ return d.rssi})
+    graphData = _.map(selectedSsidData, function (d) {
+        return d.rssi
+    })
     drawGraph(graphData)
 }
 
