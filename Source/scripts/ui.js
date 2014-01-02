@@ -77,7 +77,7 @@ function clearGraph(){
     $("#graph").empty()
 }
 function clearFloor(){
-    $("#ruler").empty()
+    $("#pointsList").empty()
 }
 
 function clearDatabaseList(){
