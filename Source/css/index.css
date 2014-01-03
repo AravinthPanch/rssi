@@ -34,6 +34,7 @@ table {
 
 .selectablePoints .ui-selecting { background: #d3d3d3; }
 .selectablePoints .ui-selected { background: steelblue; border: solid 1px }
+.selectablePoints { list-style-type: none; margin: 0; padding: 0;}
 .selectablePoints li { background: brown; border: none }
 
 
