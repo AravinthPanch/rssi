@@ -96,9 +96,11 @@ var view = {
      * Convert the Locations into Co-Ordinate to fit the floor plan
      * */
     updateNodeUi: function (data) {
-        this.clearFloor();
+        this.clearFloor()
+        this.clearAccesspointList()
         this.createNodeList()
 
+        app.nodeList = []
         $.each(data, function (key, val) {
             app.nodeList.push(val.location)
 

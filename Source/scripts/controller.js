@@ -40,6 +40,7 @@ var controller = {
         });
 
         app.eventBus.subscribe("selectedCollectionData:retrieved", function () {
+            app.rawData = []
             collection.getRawData(app.selectedCollectionData)
         });
 
