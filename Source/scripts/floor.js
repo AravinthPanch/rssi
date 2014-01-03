@@ -4,10 +4,16 @@ var floor = {
      * */
     mapCoordinates: function (data) {
         app.rawData = $.each(data, function (key, val) {
+
+            val.location["coordinate_x_original"] = val.location.coordinate_x
+            val.location["coordinate_y_original"] = val.location.coordinate_y
+
             // due to the bug in the python backend x and y must be interchanged
             var axis = floor.pixelConverter(val.location.coordinate_y, val.location.coordinate_x);
+
             val.location.coordinate_x = axis[0]
             val.location.coordinate_y = axis[1]
+
         })
         app.eventBus.publish("coordinates:mapped")
     },
@@ -24,6 +30,9 @@ var floor = {
 
         var xAxis = -15 + xPix;
         var yAxis = 380 - yPix;
+
+        xAxis = d3.round(xAxis,2)
+        yAxis = d3.round(yAxis,2)
 
         var axis = [xAxis, yAxis];
         return axis

@@ -5,7 +5,7 @@ var view = {
      * TODO: Convert unwanted Tabs into DIVs with CSS
      * */
 
-    initiateUI: function () {
+    initialize: function () {
         $("#serverList").selectable();
         this.bindServerListUi();
         $("#tabs").tabs();
@@ -46,6 +46,10 @@ var view = {
             $("#databaseList").append(template)
         })
         $("#databaseList").on("selectableselected", function (event, ui) {
+            app.selectedDatabase = {
+                name: $(ui.selected).text(),
+                uri: ui.selected.getAttribute('href')
+            }
             app.eventBus.publish("database:selected", ui.selected.getAttribute('href'))
         })
     },
@@ -65,6 +69,10 @@ var view = {
             $('#collectionList').append(template)
         })
         $("#collectionList").on("selectableselected", function (event, ui) {
+            app.selectedCollection = {
+                name: $(ui.selected).text(),
+                uri: ui.selected.getAttribute('href')
+            }
             app.eventBus.publish("collection:selected", ui.selected.getAttribute('href'))
         })
     },
@@ -123,26 +131,7 @@ var view = {
     updateAccessPointUi: function (data) {
         this.clearAccesspointList();
         this.createAccesspointListUi();
-
-        if ('latency' in data) {
-            this.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
-        } else {
-            this.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
-        }
-
-        var rssiDataGrouped = _.groupBy(data.rawRSSI, function (run) {
-            return run.sender_ssid + '_' + run.sender_bssid
-        })
-
-        var rssiDataArrayed = [];
-
-        $.each(rssiDataGrouped, function (i, field) {
-            rssiDataArrayed.push({ssid: i, data: field})
-        })
-
-        app.processedRssiData = _.sortBy(rssiDataArrayed, function (d) {
-            return d.ssid.toLowerCase()
-        })
+        this.updateFloorInfo(data)
 
         $.each(app.processedRssiData, function (key, val) {
             var template = '<li class="ui-widget-content" value=' + val.ssid + '>' + val.ssid + '</li>'
@@ -154,6 +143,14 @@ var view = {
             app.eventBus.publish("accessPoint:selected", ssid)
         })
 
+    },
+
+    updateFloorInfo: function (data) {
+        if ('latency' in data) {
+            this.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
+        } else {
+            this.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
+        }
     },
 
     /*
@@ -184,7 +181,7 @@ var view = {
     /*
      * Update the node details in Tab
      * */
-    updateNodeDataUI: function (data) {
+    updateGraphInfoUi: function (data) {
         var stat = controller.statisticsCalculator(app.graphData)
         $('#infoTab-1').empty()
         $('#infoTab-1').append("<br>")
@@ -199,9 +196,9 @@ var view = {
         $('#infoTab-1').append("<br>")
         $('#infoTab-1').append("<b>Room Label : </b>" + data.room_label)
         $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x)
+        $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x_original)
         $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y)
+        $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y_original)
         $('#infoTab-1').append("<br>")
         $('#infoTab-1').append("<b>Coordinate Z : </b>" + data.coordinate_z)
         $('#infoTab-1').append("<br>")
@@ -217,6 +214,16 @@ var view = {
         $('#infoTab-1').append("<b> Variance : </b>" + d3.round(stat.variance, 2))
         $('#infoTab-1').append("<br>")
         $('#infoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
+    },
+
+    updateMetadataUi: function (data) {
+        $('#description').empty()
+        $.each(data.scenario, function (key, val) {
+            var heading = '<h3>' + key + '</h3>'
+            var text = '<p>' + val + '</p>'
+            var template = '<li class="ui-widget-content" >' + heading + text + '</li>'
+            $('#description').append(template)
+        })
     }
 
 

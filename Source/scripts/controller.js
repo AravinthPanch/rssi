@@ -10,7 +10,7 @@
  * DOM Ready
  * */
 $(function () {
-    view.initiateUI()
+    view.initialize()
     controller.initialize()
 });
 
@@ -18,29 +18,29 @@ $(function () {
 var controller = {
 
     initialize: function () {
-        app.eventBus.subscribe("server:selected", function (data) {
-            controller.serverSelected(data)
+        app.eventBus.subscribe("server:selected", function (serverId) {
+            controller.serverSelected(serverId)
         });
 
         app.eventBus.subscribe("databaseList:retrieved", function () {
             view.updateDatabaseListUi(app.databaseList)
         });
 
-        app.eventBus.subscribe("database:selected", function (data) {
-            collection.getCollectionList(data)
+        app.eventBus.subscribe("database:selected", function (databaseUri) {
+            collection.getCollectionList(databaseUri)
         });
 
         app.eventBus.subscribe("collectionList:retrieved", function () {
             view.updateCollectionListUi(app.collectionList)
         });
 
-        app.eventBus.subscribe("collection:selected", function (data) {
+        app.eventBus.subscribe("collection:selected", function (collectionUri) {
             view.showLoader()
-            collection.getSelectedCollection(data)
+            collection.getSelectedCollectionData(collectionUri)
         });
 
-        app.eventBus.subscribe("selectedCollection:retrieved", function () {
-            collection.getRawData(app.selectedCollection)
+        app.eventBus.subscribe("selectedCollectionData:retrieved", function () {
+            collection.getRawData(app.selectedCollectionData)
         });
 
         app.eventBus.subscribe("rawData:retrieved", function () {
@@ -55,13 +55,21 @@ var controller = {
         });
 
         app.eventBus.subscribe("node:selected", function (data) {
-            controller.getSelectedNodeData(data)
+            collection.getSelectedNodeData(data)
+            collection.processedRssiData(app.selectedNodeData)
             view.updateAccessPointUi(app.selectedNodeData)
         });
 
         app.eventBus.subscribe("accessPoint:selected", function (data) {
-            controller.processGraphData(data)
-            drawGraph(app.graphData)
+            collection.processGraphData(data)
+            view.showGraphPanel()
+            view.updateGraphInfoUi(app.selectedNodeData.location)
+            graph.draw(app.graphData)
+            collection.getMetadataId(app.selectedNodeData.metadata_id)
+        });
+
+        app.eventBus.subscribe("metadata:retrieved", function () {
+            view.updateMetadataUi(app.metadata)
         });
     },
 
@@ -78,36 +86,6 @@ var controller = {
                 floor.mapCoordinates(app.rawData)
                 break;
         }
-    },
-    convertRawData: function (data) {
-        var res = []
-        $.each(data, function (key, val) {
-            res.push(val)
-        })
-        return res
-    },
-    /*
-     * Retrieve the node data
-     * */
-    getSelectedNodeData: function (data) {
-        $.each(app.rawData, function (key, val) {
-            if (val.location.node_label == data) {
-                app.selectedNodeData = val
-            }
-        })
-    },
-    /*
-     * Process the data to input into the chart.JS
-     * */
-    processGraphData: function (data) {
-        $.each(app.processedRssiData, function (key, val) {
-            if (val.ssid == data) {
-                app.selectedSsidData = val
-                app.graphData = _.map(app.selectedSsidData.data, function (d) {
-                    return d.rssi
-                })
-            }
-        })
     },
 
     statisticsCalculator: function (a) {
