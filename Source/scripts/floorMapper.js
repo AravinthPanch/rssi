@@ -39,8 +39,12 @@ function setPoints(data) {
     clearAccesspointList();
     createMeasurementPointsList();
 
+
+
     $.each(data, function (i, field) {
         locationData.push(field.location)
+
+
 
         var template = '<li class="ui-widget-content pointer" id=node' + field.location.node_label + '/>'
         $('#pointsList').append(template)

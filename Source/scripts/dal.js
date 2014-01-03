@@ -40,14 +40,7 @@ function loadDatabaseList(uri) {
     createDatabaseListUI();
     $.getJSON(uri, function (results) {
         $('#loader').hide()
-        $.each(results, function (i, field) {
-            var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
-            $("#databaseList").append(template)
-        })
-
-        $("#databaseList").on("selectableselected", function (event, ui) {
-            loadCollectionList(ui.selected)
-        })
+        updateDatabaseListUi(results)
     })
 }
 
@@ -61,13 +54,7 @@ function loadCollectionList(el) {
 
     var uri = el.getAttribute('href')
     $.getJSON(uri, function (results) {
-        $.each(results, function (i, field) {
-            var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
-            $('#collectionList').append(template)
-        })
-        $("#collectionList").on("selectableselected", function (event, ui) {
-            loadRssiList(ui.selected)
-        })
+        updateCollectionListUi(results);
     })
 }
 

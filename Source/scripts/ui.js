@@ -20,9 +20,65 @@ function initiateUI() {
 }
 
 /*
+ * open up the graph Panel
+ * */
+function showGraphPanel() {
+    $("#accordion").accordion({
+        active: 2
+    })
+}
+
+function showFloorPanel() {
+    $("#accordion").accordion({
+        active: 1
+    })
+}
+
+/*
+ * Clear The SVG of Graph
+ */
+function clearGraph() {
+    $("#graph").empty()
+}
+function clearFloor() {
+    $("#pointsList").empty()
+}
+
+function clearDatabaseList() {
+    $("#database-1").empty()
+}
+function clearCollectionList() {
+    $("#collection-1").empty()
+}
+function clearAccesspointList() {
+    $("#accesspoint-1").empty()
+}
+
+function createMeasurementPointsList() {
+    $('#floor').append('<ol id="pointsList" class="selectablePoints ruler"></ol>')
+    $("#pointsList").selectable();
+}
+
+
+function createDatabaseListUI() {
+    $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
+    $("#databaseList").selectable();
+}
+
+function createCollectionListUI() {
+    $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
+    $("#collectionList").selectable();
+}
+
+function createAccesspointListUI() {
+    $('#accesspoint-1').append('<ol id="accesspointList" class="selectableList"></ol>')
+    $("#accesspointList").selectable();
+}
+
+/*
  * updateFloorInfoUi
  * */
-function updateFloorInfoUi(data){
+function updateFloorInfoUi(data) {
     $('#floor_info-1').empty()
     $('#floor_info-1').append("<b>Number of Measurement Points : </b>" + locationData.length)
     $('#floor_info-1').append("<br>")
@@ -31,11 +87,11 @@ function updateFloorInfoUi(data){
     $('#floor_info-1').append("<b>Latency measured at the selected Point: </b>" + data.latency)
 }
 
-
 /*
  * Update the node details in Tab
  * */
 function updateNodeDataUI(data) {
+    var stat = statistic(graphData)
     $('#infoTab-1').empty()
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b>SSID : </b>" + selectedSsidData[0].sender_ssid)
@@ -60,72 +116,33 @@ function updateNodeDataUI(data) {
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b> Maximum : </b>" + d3.max(graphData))
     $('#infoTab-1').append("<br>")
-    $('#infoTab-1').append("<b> Mean : </b>" + d3.round(d3.mean(graphData),2))
+    $('#infoTab-1').append("<b> Mean : </b>" + d3.round(d3.mean(graphData), 2))
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b> Median : </b>" + d3.median(graphData))
     $('#infoTab-1').append("<br>")
-
-    var stat = statistic(graphData)
     $('#infoTab-1').append("<b> Variance : </b>" + d3.round(stat.variance, 2))
     $('#infoTab-1').append("<br>")
     $('#infoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
-
-
 }
 
-
-/*
- * open up the graph Panel
- * */
-function showGraphPanel() {
-    $("#accordion").accordion({
-        active: 2
+function updateDatabaseListUi(data) {
+    $.each(data, function (i, field) {
+        var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
+        $("#databaseList").append(template)
+    })
+    $("#databaseList").on("selectableselected", function (event, ui) {
+        loadCollectionList(ui.selected)
     })
 }
 
-function showFloorPanel() {
-    $("#accordion").accordion({
-        active: 1
+function updateCollectionListUi(data) {
+    $.each(data, function (i, field) {
+        var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
+        $('#collectionList').append(template)
+    })
+    $("#collectionList").on("selectableselected", function (event, ui) {
+        loadRssiList(ui.selected)
     })
 }
 
-/*
-* Clear The SVG of Graph
-*/
-function clearGraph(){
-    $("#graph").empty()
-}
-function clearFloor(){
-    $("#pointsList").empty()
-}
 
-function clearDatabaseList(){
-    $("#database-1").empty()
-}
-function clearCollectionList(){
-    $("#collection-1").empty()
-}
-function clearAccesspointList(){
-    $("#accesspoint-1").empty()
-}
-
-function createMeasurementPointsList(){
-    $('#floor').append('<ol id="pointsList" class="selectablePoints ruler"></ol>')
-    $("#pointsList").selectable();
-}
-
-
-function createDatabaseListUI(){
-    $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
-    $("#databaseList").selectable();
-}
-
-function createCollectionListUI(){
-    $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
-    $("#collectionList").selectable();
-}
-
-function createAccesspointListUI(){
-    $('#accesspoint-1').append('<ol id="accesspointList" class="selectableList"></ol>')
-    $("#accesspointList").selectable();
-}

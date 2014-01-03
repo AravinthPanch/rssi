@@ -6,7 +6,6 @@
  * */
 
 
-
 /*
  * DOM Ready
  * */
@@ -27,9 +26,7 @@ function loadLocations(data) {
     floorMapper(locations)
 }
 
-var ssNew = [];
-var ssNew1 = [];
-var ssNew2 = [];
+
 /*
  * Load list of Access Points
  * */
