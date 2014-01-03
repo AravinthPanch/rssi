@@ -6,15 +6,72 @@
  * */
 
 
-
-
 /*
  * DOM Ready
  * */
 $(function () {
-    initiateUI();
-    loadData();
+    view.initiateUI();
+
+    app.eventBus.subscribe("server:selected", function (data) {
+        controller.serverSelected(data)
+    });
+
+    app.eventBus.subscribe("databaseList:retrieved", function (data) {
+        app.databaseList = data
+        view.updateDatabaseListUi(data)
+    });
+
+    app.eventBus.subscribe("database:selected", function (data) {
+        collection.getCollectionList(data)
+    });
+
+    app.eventBus.subscribe("collectionList:retrieved", function (data) {
+        app.collectionList = data
+        view.updateCollectionListUi(data)
+    });
+
+    app.eventBus.subscribe("collection:selected", function (data) {
+        view.showLoader()
+        collection.getSelectedCollection(data)
+    });
+
+    app.eventBus.subscribe("selectedCollection:retrieved", function (data) {
+        app.selectedCollection = data
+        collection.getRawData(data)
+    });
+
+    app.eventBus.subscribe("rawData:retrieved", function () {
+        view.hideLoader()
+        loadLocations(app.rawData)
+    });
+
 });
+
+
+var controller = {
+    serverSelected: function (data) {
+        switch (data) {
+            case "server1" :
+                collection.getDatabaseList(app.dataBaseUriLocal);
+                break;
+            case "server2" :
+                collection.getDatabaseList(app.dataBaseUriRemote);
+                break;
+            case "server3" :
+                rssiData = staticData
+                loadLocations(staticData)
+                break;
+        }
+    },
+    loadLocations: function (data) {
+        var locations =
+        $.each(data, function (i, field) {
+            locations.push(field)
+        })
+
+//    floorMapper(locations)
+    }
+}
 
 
 /*
@@ -25,7 +82,8 @@ function loadLocations(data) {
     $.each(data, function (i, field) {
         locations.push(field)
     })
-    floorMapper(locations)
+
+//    floorMapper(locations)
 }
 
 
@@ -59,7 +117,9 @@ function loadAccessPoints(data) {
                 rssiDataArrayed.push({ssid: i, data: field})
             })
 
-            ssidData = _.sortBy(rssiDataArrayed, function(d){ return d.ssid.toLowerCase() })
+            ssidData = _.sortBy(rssiDataArrayed, function (d) {
+                return d.ssid.toLowerCase()
+            })
 
             $.each(ssidData, function (i, field) {
                 var template = '<li class="ui-widget-content" value=' + field.ssid + '>' + field.ssid + '</li>'
@@ -103,11 +163,10 @@ function processRssiData(data) {
 }
 
 
-
 function statistic(a) {
     var r = {mean: 0, variance: 0, deviation: 0}, t = a.length;
-    for(var m, s = 0, l = t; l--; s += a[l]);
-    for(m = r.mean = s / t, l = t, s = 0; l--; s += Math.pow(a[l] - m, 2));
+    for (var m, s = 0, l = t; l--; s += a[l]);
+    for (m = r.mean = s / t, l = t, s = 0; l--; s += Math.pow(a[l] - m, 2));
     return r.deviation = Math.sqrt(r.variance = s / t), r;
 }
 

@@ -1,3 +1,17 @@
+var floor = {
+    mapCoordinates: function (data) {
+        var nodes = $.each(data, function (i, field) {
+            // due to the bug in the python backend x and y must be interchanged
+            var axis = pixelConverter(field.location.coordinate_y, field.location.coordinate_x);
+            field.location.coordinate_x = axis[0]
+            field.location.coordinate_y = axis[1]
+        })
+        setPoints(nodes)
+    }
+
+}
+
+
 /*
  * Convert the Locations into Co-Ordinate and Set the points in the floor
  * */
@@ -40,10 +54,8 @@ function setPoints(data) {
     createMeasurementPointsList();
 
 
-
     $.each(data, function (i, field) {
         locationData.push(field.location)
-
 
 
         var template = '<li class="ui-widget-content pointer" id=node' + field.location.node_label + '/>'
@@ -62,4 +74,5 @@ function setPoints(data) {
     updateFloorInfoUi({scan: 0, latency: 0});
     showFloorPanel();
 }
+
 

@@ -1,74 +1,107 @@
-/*
- * Initiates all Jquery UI. Tabs and Accordions are used.
- * TODO: Convert unwanted Tabs into DIVs with CSS
- * */
-function initiateUI() {
-    console.log('UI Initiated')
-    $("#serverList").selectable();
-    $("#tabs").tabs();
-    $("#infoTab").tabs();
-    $("#servers").tabs();
-    $("#databases").tabs();
-    $("#collections").tabs();
-    $("#accesspoints").tabs();
-    $("#floor_infos").tabs();
-    $("#accordion").accordion({
-        collapsible: true,
-        active: 0
-    });
+var view = {
+
+    /*
+     * Initiates all Jquery UI. Tabs and Accordions are used.
+     * TODO: Convert unwanted Tabs into DIVs with CSS
+     * */
+
+    initiateUI: function () {
+        $("#serverList").selectable();
+        this.bindServerListUi();
+        $("#tabs").tabs();
+        $("#infoTab").tabs();
+        $("#servers").tabs();
+        $("#databases").tabs();
+        $("#collections").tabs();
+        $("#accesspoints").tabs();
+        $("#floor_infos").tabs();
+        $("#accordion").accordion({
+            collapsible: true,
+            active: 0
+        });
+    },
+
+    bindServerListUi: function () {
+        $("#serverList").on("selectableselected", function (event, ui) {
+            app.eventBus.publish("server:selected", ui.selected.id)
+        });
+    },
+
+    showLoader: function () {
+        $('#loader').show()
+    },
+
+    hideLoader: function () {
+        $('#loader').hide()
+    },
+
+    createDatabaseListUi: function () {
+        $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
+        $("#databaseList").selectable();
+    },
+
+    updateDatabaseListUi: function (data) {
+        $.each(data, function (key, val) {
+            var template = '<li class="ui-widget-content" href=' + val + '>' + key + '</li>'
+            $("#databaseList").append(template)
+        })
+        $("#databaseList").on("selectableselected", function (event, ui) {
+            app.eventBus.publish("database:selected", ui.selected.getAttribute('href'))
+        })
+    },
+
+    clearCollectionList: function () {
+        $("#collection-1").empty()
+    },
+
+    createCollectionListUi: function () {
+        $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
+        $("#collectionList").selectable();
+    },
+
+    updateCollectionListUi: function (data) {
+        $.each(data, function (key, val) {
+            var template = '<li class="ui-widget-content" href=' + val + '>' + key + '</li>'
+            $('#collectionList').append(template)
+        })
+        $("#collectionList").on("selectableselected", function (event, ui) {
+            app.eventBus.publish("collection:selected", ui.selected.getAttribute('href'))
+        })
+    },
+
+    showGraphPanel: function () {
+        $("#accordion").accordion({
+            active: 2
+        })
+    },
+    showFloorPanel: function () {
+        $("#accordion").accordion({
+            active: 1
+        })
+    },
+    clearGraph: function () {
+        $("#graph").empty()
+    },
+    clearFloor: function () {
+        $("#pointsList").empty()
+    },
+    clearDatabaseList: function () {
+        $("#database-1").empty()
+    },
+
+    clearAccesspointList: function () {
+        $("#accesspoint-1").empty()
+    },
+
 
 }
 
-/*
- * open up the graph Panel
- * */
-function showGraphPanel() {
-    $("#accordion").accordion({
-        active: 2
-    })
-}
-
-function showFloorPanel() {
-    $("#accordion").accordion({
-        active: 1
-    })
-}
-
-/*
- * Clear The SVG of Graph
- */
-function clearGraph() {
-    $("#graph").empty()
-}
-function clearFloor() {
-    $("#pointsList").empty()
-}
-
-function clearDatabaseList() {
-    $("#database-1").empty()
-}
-function clearCollectionList() {
-    $("#collection-1").empty()
-}
-function clearAccesspointList() {
-    $("#accesspoint-1").empty()
-}
 
 function createMeasurementPointsList() {
     $('#floor').append('<ol id="pointsList" class="selectablePoints ruler"></ol>')
     $("#pointsList").selectable();
 }
 
-
-function createDatabaseListUI() {
-    $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
-    $("#databaseList").selectable();
-}
-
-function createCollectionListUI() {
-    $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
-    $("#collectionList").selectable();
-}
 
 function createAccesspointListUI() {
     $('#accesspoint-1').append('<ol id="accesspointList" class="selectableList"></ol>')
@@ -125,24 +158,8 @@ function updateNodeDataUI(data) {
     $('#infoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
 }
 
-function updateDatabaseListUi(data) {
-    $.each(data, function (i, field) {
-        var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
-        $("#databaseList").append(template)
-    })
-    $("#databaseList").on("selectableselected", function (event, ui) {
-        loadCollectionList(ui.selected)
-    })
-}
 
-function updateCollectionListUi(data) {
-    $.each(data, function (i, field) {
-        var template = '<li class="ui-widget-content" href=' + field + '>' + i + '</li>'
-        $('#collectionList').append(template)
-    })
-    $("#collectionList").on("selectableselected", function (event, ui) {
-        loadRssiList(ui.selected)
-    })
-}
+
+
 
 
