@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>RSSI</title>
+
+    <!--libs-->
+    <script src="libs/jquery.js"></script>
+    <script src="libs/underscore.js"></script>
+    <link rel="stylesheet" href="libs/css/jquery-ui.min.css">
+    <script src="libs/jquery-ui.js"></script>
+    <script src="libs/d3.js"></script>
+    <script src="libs/amplify.min.js"></script>
+
+    <!--index-->
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/graph.css">
+    <script src="data/data.js"></script>
+    <script src="scripts/globals.js"></script>
+    <script src="scripts/floor.js"></script>
+    <script src="scripts/graph.js"></script>
+    <script src="scripts/collection.js"></script>
+    <script src="scripts/view.js"></script>
+    <script src="scripts/controller.js"></script>
+
+</head>
+<body>
+<div id="loader">Retrieving Data ....</div>
+<!--Menu Tabs-->
+<div id="tabs">
+    <ul>
+        <li><a href="#indexTab">Index</a></li>
+        <li><a href="#tabs-2">Info</a></li>
+        <li><a href="#tabs-3">Help</a></li>
+    </ul>
+    <div id="indexTab">
+        <div id="title">RSSI Tool</div>
+        <div id="tkn"></div>
+        <div id="twist"></div>
+        <div id="iMind"></div>
+        <div id="evarilos"></div>
+    </div>
+    <div id="tabs-2">
+        <h4>Aravinth, S. Panchadcharam</h4>
+
+        <h4>Supervisors:</h4>
+
+        <h4>Dr. Arash Behboodi</h4>
+
+        <h4>Filip Lemic </h4>
+    </div>
+    <div id="tabs-3">
+        <p></p>
+    </div>
+</div>
+
+<!--Accordions-->
+<div id="accordion">
+
+    <h3>Database</h3>
+
+    <div>
+        <div id="servers">
+            <ul>
+                <li><a href="#server-1">List of Servers</a></li>
+            </ul>
+            <div id="server-1">
+                <ol id="serverList" class="selectableList">
+                    <li class="ui-widget-content" id="server1">Local Server</li>
+                    <li class="ui-widget-content" id="server2">Remote Server</li>
+                    <li class="ui-widget-content" id="server3">Static Data</li>
+                </ol>
+            </div>
+        </div>
+
+        <div id="databases">
+            <ul>
+                <li><a href="#database-1">List of Databases</a></li>
+            </ul>
+            <div id="database-1">
+            </div>
+        </div>
+        <div id="collections">
+            <ul>
+                <li><a href="#collection-1">List of Collections</a></li>
+            </ul>
+            <div id="collection-1">
+            </div>
+        </div>
+
+
+    </div>
+
+    <h3>Floor Plan</h3>
+
+    <div>
+        <div id="floor">
+        </div>
+        <div id="accesspoints">
+            <ul>
+                <li><a href="#accesspoint-1">List of Access Points</a></li>
+            </ul>
+            <div id="accesspoint-1">
+            </div>
+        </div>
+        <div id="floor_infos">
+            <ul>
+                <li><a href="#floor_info-1">Floor Detail</a></li>
+            </ul>
+            <div id="floor_info-1">
+            </div>
+        </div>
+
+    </div>
+
+    <h3>Graph</h3>
+
+    <div>
+        <div id="graph">
+        </div>
+        <div id="infoTab">
+            <ul>
+                <li><a href="#infoTab-1">Node Details</a></li>
+            </ul>
+            <div id="infoTab-1">
+            </div>
+        </div>
+
+    </div>
+
+    <h3>Experiment Description</h3>
+
+    <div>
+
+        <ol id="description" class="selectableList">
+
+        </ol>
+
+    </div>
+</div>
+
+</body>
+</html>
