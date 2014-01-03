@@ -8,10 +8,12 @@ var collection = {
      * */
     getDatabaseList: function (data) {
         view.showLoader()
+        view.clearDatabaseList()
         view.createDatabaseListUi()
         $.getJSON(data, function (results) {
             view.hideLoader()
-            app.eventBus.publish("databaseList:retrieved", results)
+            app.databaseList = results
+            app.eventBus.publish("databaseList:retrieved")
         })
     },
     /*
@@ -24,7 +26,8 @@ var collection = {
         view.createCollectionListUi()
         $.getJSON(data, function (results) {
             view.hideLoader()
-            app.eventBus.publish("collectionList:retrieved", results)
+            app.collectionList = results
+            app.eventBus.publish("collectionList:retrieved")
         })
     },
 
@@ -40,12 +43,14 @@ var collection = {
                     app.rawData.push(JSON.parse(results))
                 });
         })
-        app.eventBus.publish("rawData:retrieved", app.rawData)
+        app.rawData = controller.convertRawData(app.rawData)
+        app.eventBus.publish("rawData:retrieved")
     },
 
     getSelectedCollection: function (data) {
         $.getJSON(data, function (results) {
-            app.eventBus.publish("selectedCollection:retrieved", results)
+            app.selectedCollection = results
+            app.eventBus.publish("selectedCollection:retrieved")
         })
     }
 };

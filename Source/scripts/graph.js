@@ -1,8 +1,8 @@
 function drawGraph(values) {
 
-    clearGraph();
-    showGraphPanel();
-    updateNodeDataUI(nodeData);
+    view.clearGraph()
+    view.showGraphPanel()
+    view.updateNodeDataUI(app.selectedNodeData.location)
 
     var width = 930;
     var height = 470;

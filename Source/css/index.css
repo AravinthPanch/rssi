@@ -166,7 +166,7 @@ table {
     /*border: solid 1px red;*/
 }
 
-.pointer {
+.node {
     position: absolute;
     height: 14px;
     width: 14px;
@@ -174,7 +174,7 @@ table {
     cursor: pointer;
 }
 
-.pointer .xy {
+.node .xy {
     left: 0px;
     top: 366px;
 }

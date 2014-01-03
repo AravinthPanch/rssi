@@ -10,31 +10,14 @@ var app = {
     databaseList : [],
     collectionList : [],
     selectedCollection : [],
-    rawData: []
-
+    rawData: [],
+    nodeList: [],
+    selectedNodeData: [],
+    processedRssiData: [],
+    selectedSsidData: [],
+    graphData: []
 }
 
-
-
-
-
-var server = '';
-
-
-
-
-
-
-
-
-
-
-var rssiData = []; // Complete JSON of selected Collection
-var locationData = []; // All Locations of selected Collection
-var nodeData = []; // Details of selected Node
-var ssidData = []; // Complete JSON of grouped SSID of selected Node
-var selectedSsidData = []; // Currently selected data of SSID
-var graphData = []; // Graph Data of selected SSID
 
 function clearCache(){
     rssiData = []
