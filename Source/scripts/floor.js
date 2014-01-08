@@ -9,7 +9,7 @@ var floor = {
             val.location["coordinate_y_original"] = val.location.coordinate_y
 
             // due to the bug in the python backend x and y must be interchanged
-            var axis = floor.pixelConverter(val.location.coordinate_y, val.location.coordinate_x);
+            var axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y);
 
             val.location.coordinate_x = axis[0]
             val.location.coordinate_y = axis[1]
