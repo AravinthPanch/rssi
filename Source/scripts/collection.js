@@ -8,7 +8,6 @@ var collection = {
      * */
     getDatabaseList: function (data) {
         view.showLoader()
-        view.clearDatabaseList()
         view.createDatabaseListUi()
         $.getJSON(data, function (results) {
             view.hideLoader()
@@ -51,7 +50,7 @@ var collection = {
                     app.rawData.push(JSON.parse(results))
                 });
         })
-        app.rawData = this.convertRawData(app.rawData)
+        //app.rawData = this.convertRawData(app.rawData)
         app.eventBus.publish("rawData:retrieved")
     },
 

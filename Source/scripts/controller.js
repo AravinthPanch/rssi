@@ -46,6 +46,9 @@ var controller = {
 
         app.eventBus.subscribe("rawData:retrieved", function () {
             view.hideLoader()
+        });
+
+        app.eventBus.subscribe("floorPlan:selected", function () {
             floor.mapCoordinates(app.rawData)
         });
 
@@ -75,6 +78,9 @@ var controller = {
     },
 
     serverSelected: function (data) {
+        view.clearDatabaseList()
+        view.clearCollectionList()
+        view.resetFloorPlanList()
         switch (data) {
             case "server1" :
                 collection.getDatabaseList(app.dataBaseUriLocal);
@@ -84,6 +90,7 @@ var controller = {
                 break;
             case "server3" :
                 app.rawData = staticData
+                app.selectedFloorPlan = 'twist2Floor'
                 floor.mapCoordinates(app.rawData)
                 break;
         }

@@ -57,9 +57,10 @@
 <!--Accordions-->
 <div id="accordion">
 
+    <!------------------------- Database Tab  -------------------------->
     <h3>Database</h3>
-
     <div>
+        <!-- List of Severs -->
         <div id="servers">
             <ul>
                 <li><a href="#server-1">List of Servers</a></li>
@@ -73,70 +74,92 @@
             </div>
         </div>
 
+        <!-- List of databases -->
         <div id="databases">
             <ul>
                 <li><a href="#database-1">List of Databases</a></li>
             </ul>
-            <div id="database-1">
-            </div>
+            <div id="database-1"></div>
         </div>
+
+        <!-- List of collections -->
         <div id="collections">
             <ul>
                 <li><a href="#collection-1">List of Collections</a></li>
             </ul>
-            <div id="collection-1">
+            <div id="collection-1"></div>
+        </div>
+
+        <!-- List of Floor Plans -->
+        <div id="floorPlans">
+            <ul>
+                <li><a href="#floorPlan-1">List of Floor Plans</a></li>
+            </ul>
+            <div id="floorPlan-1">
+                <ol id="floorPlanList" class="selectableList">
+                    <li class="ui-widget-content" id="twist2Floor">TWIST 2nd Floor</li>
+                    <li class="ui-widget-content" id="twist3Floor">TWIST 3rd Floor</li>
+                    <li class="ui-widget-content" id="twist4Floor">TWIST 4th Floor</li>
+                    <li class="ui-widget-content" id="iLab">iLab</li>
+                </ol>
             </div>
         </div>
 
-
     </div>
 
+    <!------------------------- Floor Tab  -------------------------->
     <h3>Floor Plan</h3>
-
     <div>
-        <div id="floor">
+
+        <!-- Floor Plan -->
+        <div id="floorContainer">
+            <div id="floor" class="defaultFloor"></div>
         </div>
+
+        <!-- List of AccessPoints -->
         <div id="accesspoints">
             <ul>
                 <li><a href="#accesspoint-1">List of Access Points</a></li>
             </ul>
-            <div id="accesspoint-1">
-            </div>
+            <div id="accesspoint-1"></div>
         </div>
+
+        <!-- Floor Info -->
         <div id="floor_infos">
             <ul>
                 <li><a href="#floor_info-1">Floor Detail</a></li>
             </ul>
-            <div id="floor_info-1">
-            </div>
+            <div id="floor_info-1"></div>
         </div>
 
     </div>
 
+    <!------------------------- Floor Tab  -------------------------->
     <h3>Graph</h3>
 
     <div>
-        <div id="graph">
-        </div>
+
+        <!-- Graph -->
+        <div id="graph"></div>
+
+        <!-- Graph Info -->
         <div id="infoTab">
             <ul>
                 <li><a href="#infoTab-1">Node Details</a></li>
             </ul>
-            <div id="infoTab-1">
-            </div>
+            <div id="infoTab-1"></div>
         </div>
 
     </div>
 
+    <!------------------------- Description Tab  -------------------------->
     <h3>Experiment Description</h3>
 
     <div>
-
-        <ol id="description" class="selectableList">
-
-        </ol>
-
+        <!-- Metadata -->
+        <ol id="description" class="selectableList"></ol>
     </div>
+
 </div>
 
 </body>

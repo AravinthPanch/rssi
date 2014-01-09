@@ -67,6 +67,7 @@ table {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .selectablePoints li {
@@ -151,20 +152,19 @@ table {
 
 #collections {
     float: left;
-    width: 55%;
+    width: 35%;
+    height: 95%;
+    margin-left: 10px;
+}
+#floorPlans {
+    float: left;
+    width: 20%;
     height: 95%;
     margin-left: 10px;
 }
 
+
 /*-------------------------------------------- Floor Plan Tab ----*/
-.ruler {
-    position: relative;
-    left: 55px;
-    top: 30px;
-    width: 805px;
-    height: 380px;
-    /*border: solid 1px red;*/
-}
 
 .node {
     position: absolute;
@@ -179,19 +179,44 @@ table {
     top: 366px;
 }
 
-#floor {
-    background-image: url(../images/floor_tub.png);
-    height: 486px;
-    width: 930px;
-    border: solid 1px #000000;
+#floorContainer {
+    width: 65%;
     float: left;
 }
+
+#floor{
+    border: solid 1px #000000;
+    width: 960px;
+    height: 480px;
+    background-size: 100% 100%;
+}
+
+.defaultFloor {
+    background-image: url(../images/floor_twist_2.png);
+}
+
+.twist2Floor {
+    background-image: url(../images/floor_twist_2.png);
+}
+
+.twist3Floor {
+    background-image: url(../images/floor_twist_3.png);
+}
+
+.twist4Floor {
+    background-image: url(../images/floor_twist_4.png);
+}
+
+.iLab {
+    background-image: url(../images/floor_ilab.png);
+}
+
 
 #accesspoints {
     float: right;
     margin-left: 10px;
     margin-bottom: 10px;
-    width: 325px;
+    width: 25%;
     height: 68%;
     overflow: scroll;
 }
@@ -207,7 +232,7 @@ table {
 #floor_infos {
     float: right;
     margin-left: 10px;
-    width: 325px;
+    width: 25%;
     height: 27%;
 }
 

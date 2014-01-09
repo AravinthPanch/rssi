@@ -8,11 +8,14 @@ var view = {
     initialize: function () {
         $("#serverList").selectable();
         this.bindServerListUi();
+        $("#floorPlanList").selectable();
+        this.bindFlooPlanListUi();
         $("#tabs").tabs();
         $("#infoTab").tabs();
         $("#servers").tabs();
         $("#databases").tabs();
         $("#collections").tabs();
+        $("#floorPlans").tabs();
         $("#accesspoints").tabs();
         $("#floor_infos").tabs();
         $("#accordion").accordion({
@@ -24,6 +27,17 @@ var view = {
     bindServerListUi: function () {
         $("#serverList").on("selectableselected", function (event, ui) {
             app.eventBus.publish("server:selected", ui.selected.id)
+        });
+    },
+
+    bindFlooPlanListUi: function () {
+        $("#floorPlanList").on("selectableselected", function (event, ui) {
+            if(app.selectedFloorPlan != ui.selected.id){
+                app.selectedFloorPlan = ui.selected.id
+                app.eventBus.publish("floorPlan:selected")
+            }else {
+                view.showFloorPanel()
+            }
         });
     },
 
@@ -78,11 +92,11 @@ var view = {
     },
 
     clearFloor: function () {
-        $("#pointsList").empty()
+        $("#floor").empty()
     },
 
     createNodeList: function () {
-        $('#floor').append('<ol id="pointsList" class="selectablePoints ruler"></ol>')
+        $('#floor').append('<ol id="pointsList" class="selectablePoints"></ol>')
         $("#pointsList").selectable();
     },
 
@@ -92,13 +106,24 @@ var view = {
         })
     },
 
+    createFloorPlan: function(){
+        $('#floor').removeClass()
+        $('#floor').addClass(app.selectedFloorPlan)
+    },
+
+    resetFloorPlanList: function(){
+        $('#floorPlanList').selectable("destroy")
+        $("#floorPlanList").selectable()
+    },
+
     /*
      * Convert the Locations into Co-Ordinate to fit the floor plan
      * */
     updateNodeUi: function (data) {
-        this.clearFloor()
-        this.clearAccesspointList()
-        this.createNodeList()
+        view.createFloorPlan()
+        view.clearFloor()
+        view.clearAccesspointList()
+        view.createNodeList()
 
         app.nodeList = []
         $.each(data, function (key, val) {
@@ -108,8 +133,8 @@ var view = {
             $('#pointsList').append(template)
 
             var nodeId = '#node' + val.location.node_label
-            $(nodeId).css('left', val.location.coordinate_x + 'px')
-            $(nodeId).css('top', val.location.coordinate_y + 'px')
+            $(nodeId).css('left', val.location.coordinate_x_translated + 'px')
+            $(nodeId).css('top', val.location.coordinate_y_translated + 'px')
         })
 
         $("#pointsList").on("selectableselected", function (event, ui) {
@@ -131,9 +156,9 @@ var view = {
      * Load list of Access Points
      * */
     updateAccessPointUi: function (data) {
-        this.clearAccesspointList();
-        this.createAccesspointListUi();
-        this.updateFloorInfo(data)
+        view.clearAccesspointList();
+        view.createAccesspointListUi();
+        view.updateFloorInfo(data)
 
         $.each(app.processedRssiData, function (key, val) {
             var template = '<li class="ui-widget-content" value=' + val.ssid + '>' + val.ssid + '</li>'
@@ -149,9 +174,9 @@ var view = {
 
     updateFloorInfo: function (data) {
         if ('latency' in data) {
-            this.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
+            view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
         } else {
-            this.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
+            view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
         }
     },
 
@@ -198,9 +223,9 @@ var view = {
         $('#infoTab-1').append("<br>")
         $('#infoTab-1').append("<b>Room Label : </b>" + data.room_label)
         $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x_original)
+        $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x)
         $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y_original)
+        $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y)
         $('#infoTab-1').append("<br>")
         $('#infoTab-1').append("<b>Coordinate Z : </b>" + data.coordinate_z)
         $('#infoTab-1').append("<br>")
@@ -227,8 +252,6 @@ var view = {
             $('#description').append(template)
         })
     }
-
-
 }
 
 

@@ -8,7 +8,7 @@
     <script src="../libs/jquery-ui.js"></script>
 
     <script>
-        $(function(){
+        $(function () {
             $('#floorFitter').draggable()
             $('#floorFitter').resizable()
         })
@@ -18,7 +18,10 @@
     <style>
         #floor {
             border: solid 1px #000000;
-            background-image: url(../images/floor_twist_2.png);
+            /*background-image: url(../images/floor_twist_2.png);*/
+            /*background-image: url(../images/floor_twist_3.png);*/
+            /*background-image: url(../images/floor_twist_4.png);*/
+            background-image: url(../images/floor_ilab.png);
             width: 960px;
             height: 460px;
             background-size: 100% 100%;
@@ -26,15 +29,13 @@
 
         #floorFitter {
             position: relative;
-            /*border: solid 1px red;*/
             background-color: red;
             opacity: 0.5;
             width: 100px;
             height: 100px;
         }
 
-        .t2{
-            position: relative;
+        .t2 {
             background-color: red;
             opacity: 0.5;
             left: 67px;
@@ -51,6 +52,59 @@
             */
         }
 
+        .t3 {
+            position: absolute;
+            background-color: red;
+            opacity: 0.5;
+            left: 40px;
+            top: 34px;
+            height: 339px;
+            width: 778px;
+
+            /*
+            x_30_units = 778px
+            x_1_unit =  778 / 30 = 25.9
+            y_15_units = 339px
+            y_1_unit =  339 / 15 = 22.6
+            */
+        }
+
+        .t4 {
+            position: absolute;
+            background-color: red;
+            opacity: 0.5;
+            left: 40px;
+            top: 28px;
+            position: absolute;
+            height: 370px;
+            width: 807px;
+
+            /*
+            x_30_units = 807px
+            x_1_unit =  807 / 30 = 26.9
+            y_15_units = 370px
+            y_1_unit =  370 / 15 = 24.6
+            */
+        }
+
+        .ilab {
+            background-color: red;
+            opacity: 0.5;
+            left: 15px;
+            top: 50px;
+            position: absolute;
+            width: 944px;
+            height: 412px;
+
+            /*
+            x_51_units = 944px - 30px
+            x_1_unit =  914 / 51 = 17.92
+            y_15_units = 412 -50 - 15
+            y_1_unit =  347 / 15 = 23.13
+            */
+        }
+
+
     </style>
 
 
@@ -58,7 +112,10 @@
 <body>
 
 <div id="floor">
-    <div class="t2"></div>
+    <!--<div class="t2"></div>-->
+    <!--<div class="t3"></div>-->
+    <div class="t4"></div>
+    <!--<div class="ilab"></div>-->
     <!--<div id="floorFitter" class="ui-widget-content"></div>-->
 </div>
 
