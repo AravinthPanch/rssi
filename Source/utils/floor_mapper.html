@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="../libs/jquery.js"></script>
+    <script src="../libs/underscore.js"></script>
+    <link rel="stylesheet" href="../libs/css/jquery-ui.min.css">
+    <script src="../libs/jquery-ui.js"></script>
+
+    <script>
+        $(function(){
+            $('#floorFitter').draggable()
+            $('#floorFitter').resizable()
+        })
+
+    </script>
+
+    <style>
+        #floor {
+            border: solid 1px #000000;
+            background-image: url(../images/floor_twist_2.png);
+            width: 960px;
+            height: 460px;
+            background-size: 100% 100%;
+        }
+
+        #floorFitter {
+            position: relative;
+            /*border: solid 1px red;*/
+            background-color: red;
+            opacity: 0.5;
+            width: 100px;
+            height: 100px;
+        }
+
+        .t2{
+            position: relative;
+            background-color: red;
+            opacity: 0.5;
+            left: 67px;
+            top: 38px;
+            position: absolute;
+            height: 360px;
+            width: 782px;
+
+            /*
+            x_30_units = 782px
+            x_1_unit =  782 / 30 = 26.07
+            y_15_units = 360px
+            y_1_unit =  360 / 15 = 24
+            */
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+<div id="floor">
+    <div class="t2"></div>
+    <!--<div id="floorFitter" class="ui-widget-content"></div>-->
+</div>
+
+
+</body>
+</html>
