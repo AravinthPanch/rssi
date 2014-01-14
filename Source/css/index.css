@@ -116,6 +116,7 @@ table {
     width: 100px;
     background-size: contain;
     margin-right: 5px;
+    display: none;
 }
 
 #indexTab #iMind {
@@ -125,6 +126,7 @@ table {
     width: 150px;
     margin-top: 10px;
     margin-right: 5px;
+    display: none;
 }
 
 #indexTab #evarilos {
@@ -134,6 +136,7 @@ table {
     width: 150px;
     background-size: contain;
     margin-right: 5px;
+    display: none;
 }
 
 /*-------------------------------------------- Database Tab ----*/
