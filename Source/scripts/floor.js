@@ -4,10 +4,8 @@ var floor = {
      * Convert the Locations into Co-Ordinate and Set the points in the floor
      * */
     mapCoordinates: function (data) {
-        app.filteredBigCollection = $.each(data, function (key, val) {
-
+        app.filteredRawData = $.each(data, function (key, val) {
             var axis;
-
             switch (app.selectedFloorPlan) {
                 case 'twist2Floor':                                
                     axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
@@ -31,11 +29,20 @@ var floor = {
                         (app.floorPlanScale.twist4Floor.top_offset_px + app.floorPlanScale.twist4Floor.height_px ));
                     break;
 
-                case 'iLab':
+                case 'iLab1':
                     axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
-                        app.floorPlanScale.iLab.x_unit, app.floorPlanScale.iLab.y_unit,
-                        app.floorPlanScale.iLab.left_offset_px,
-                        (app.floorPlanScale.iLab.top_offset_px + app.floorPlanScale.iLab.height_px ));
+                        app.floorPlanScale.iLab1.x_unit, app.floorPlanScale.iLab1.y_unit,
+                        app.floorPlanScale.iLab1.left_offset_px,
+                        (app.floorPlanScale.iLab1.top_offset_px + app.floorPlanScale.iLab1.height_px ));
+                    break;
+
+                //iLab2 has (0,0) at top, hence no need to add the height to top_offset
+
+                case 'iLab2':
+                    axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
+                        app.floorPlanScale.iLab2.x_unit, app.floorPlanScale.iLab2.y_unit,
+                        app.floorPlanScale.iLab2.left_offset_px,
+                        (app.floorPlanScale.iLab2.top_offset_px));
                     break;
 
             }
@@ -54,7 +61,14 @@ var floor = {
         var yPix = y * y_unit;
 
         var xAxis = left_offset + xPix;
-        var yAxis = top_offset - yPix;
+        var yAxis;
+
+        //iLab2 has (0,0) at top
+        if( app.selectedFloorPlan == 'iLab2'){
+            yAxis = top_offset + yPix;
+        }else{
+            yAxis = top_offset - yPix;
+        }
 
         var xAxis = d3.round(xAxis, 2)
         var yAxis = d3.round(yAxis, 2)

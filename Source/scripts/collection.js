@@ -140,7 +140,7 @@ var collection = {
 
     filterRawDataByFloor: function(data){
         var zAxis;
-        app.filteredBigCollection = []        
+        app.filteredRawData = []
         switch(app.selectedFloorPlan){
                 case 'twist2Floor':
                 zAxis = 9.08
@@ -151,16 +151,16 @@ var collection = {
                 case 'twist4Floor':
                 zAxis = 16.05
                 break;
-                case 'ilab1':
+                case 'iLab1':
                 zAxis = 3
                 break;
-                case 'ilab2':
+                case 'iLab2':
                 zAxis = 0
                 break;
         }
         $.each(data, function(key, val){
             if(val.location.coordinate_z == zAxis){
-                app.filteredBigCollection.push(val)
+                app.filteredRawData.push(val)
             }
         })            
     }

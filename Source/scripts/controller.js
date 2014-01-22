@@ -50,11 +50,11 @@ var controller = {
 
         app.eventBus.subscribe("floorPlan:selected", function () {            
             collection.filterRawDataByFloor(app.rawData)
-            floor.mapCoordinates(app.filteredBigCollection)
+            floor.mapCoordinates(app.filteredRawData)
         });
 
         app.eventBus.subscribe("coordinates:mapped", function () {
-            view.updateNodeUi(app.filteredBigCollection)
+            view.updateNodeUi(app.filteredRawData)
             view.updateFloorInfoUi({scan: 0, latency: 0});
             view.showFloorPanel()
         });

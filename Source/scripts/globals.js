@@ -16,7 +16,7 @@ var app = {
     selectedCollectionData : [],
     rawData: [],
     selectedFloorPlan: {},
-    filteredBigCollection: {},
+    filteredRawData: {},
     nodeList: [],
     selectedNodeData: [],
     processedRssiData: [],
@@ -49,13 +49,21 @@ var app = {
             left_offset_px : 22,
             top_offset_px : 21
         },
-        iLab : {
-            width_px : 944,
-            height_px : 412,
-            x_unit : 17.92,
-            y_unit : 23.13,
+        iLab1 : {
+            width_px : 948, //x_57.5_units
+            height_px : 415, //y_16.8_units
+            x_unit : 16.49,
+            y_unit : 24.7,
             left_offset_px : 15,
-            top_offset_px : 49
+            top_offset_px : 20
+        },
+        iLab2 : {
+            width_px : 918, //x_52.5_units
+            height_px : 387, //y_16.5_units
+            x_unit : 17.48,
+            y_unit : 23.45,
+            left_offset_px : 35,
+            top_offset_px : 45
         }
     },
 
@@ -84,7 +92,7 @@ var app = {
             left_offset_px : 40,
             top_offset_px : 28
         },
-        iLab : {
+        iLab1 : {
             width_px : 944,
             height_px : 412,
             x_unit : 17.92,
