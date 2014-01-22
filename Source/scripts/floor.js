@@ -4,13 +4,12 @@ var floor = {
      * Convert the Locations into Co-Ordinate and Set the points in the floor
      * */
     mapCoordinates: function (data) {
-        app.rawData = $.each(data, function (key, val) {
+        app.filteredBigCollection = $.each(data, function (key, val) {
 
             var axis;
 
             switch (app.selectedFloorPlan) {
-                case 'twist2Floor':
-                    // due to the bug in the python backend x and y must be interchanged
+                case 'twist2Floor':                                
                     axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.twist2Floor.x_unit, app.floorPlanScale.twist2Floor.y_unit,
                         app.floorPlanScale.twist2Floor.left_offset_px,

@@ -48,12 +48,13 @@ var controller = {
             view.hideLoader()
         });
 
-        app.eventBus.subscribe("floorPlan:selected", function () {
-            floor.mapCoordinates(app.rawData)
+        app.eventBus.subscribe("floorPlan:selected", function () {            
+            collection.filterRawDataByFloor(app.rawData)
+            floor.mapCoordinates(app.filteredBigCollection)
         });
 
         app.eventBus.subscribe("coordinates:mapped", function () {
-            view.updateNodeUi(app.rawData)
+            view.updateNodeUi(app.filteredBigCollection)
             view.updateFloorInfoUi({scan: 0, latency: 0});
             view.showFloorPanel()
         });

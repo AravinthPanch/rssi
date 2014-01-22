@@ -53,7 +53,6 @@ var collection = {
         //app.rawData = this.convertRawData(app.rawData)
         app.eventBus.publish("rawData:retrieved")
     },
-
     /*
      * Retrieve the node data
      * */
@@ -102,7 +101,7 @@ var collection = {
         })
     },
 
-    processedRssiData: function (data){
+    processedRssiData: function (data) {
         var rssiDataGrouped = _.groupBy(data.rawRSSI, function (run) {
             return run.sender_ssid + '_' + run.sender_bssid
         })
@@ -116,6 +115,54 @@ var collection = {
         app.processedRssiData = _.sortBy(rssiDataArrayed, function (d) {
             return d.ssid.toLowerCase()
         })
+    },
+
+    groupRssiData: function (data, groupBy) {
+        var res = [];
+        switch (groupBy) {
+            case 'ssid' :
+                res = _.groupBy(data.rawRSSI, function (run) {
+                    return run.sender_ssid + '_' + run.sender_bssid
+                })
+
+                $.each(res, function (i, field) {
+                    rssiDataArrayed.push({ssid: i, data: field})
+                })
+
+                break;
+            case 'channel' :
+                res = _.groupBy(data.rawRSSI, function (run) {
+                    return run._channel
+                })
+                break;
+        }
+    },
+
+    filterRawDataByFloor: function(data){
+        var zAxis;
+        app.filteredBigCollection = []        
+        switch(app.selectedFloorPlan){
+                case 'twist2Floor':
+                zAxis = 9.08
+                break;
+                case 'twist3Floor':
+                zAxis = 12.37
+                break;
+                case 'twist4Floor':
+                zAxis = 16.05
+                break;
+                case 'ilab1':
+                zAxis = 3
+                break;
+                case 'ilab2':
+                zAxis = 0
+                break;
+        }
+        $.each(data, function(key, val){
+            if(val.location.coordinate_z == zAxis){
+                app.filteredBigCollection.push(val)
+            }
+        })            
     }
 
 };

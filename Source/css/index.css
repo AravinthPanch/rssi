@@ -210,8 +210,12 @@ table {
     background-image: url(../images/floor_twist_4.png);
 }
 
-.iLab {
-    background-image: url(../images/floor_ilab.png);
+.iLab1 {
+    background-image: url(../images/floor_ilab_1.png);
+}
+
+.iLab2 {
+    background-image: url(../images/floor_ilab_2.png);
 }
 
 

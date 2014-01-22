@@ -32,12 +32,8 @@ var view = {
 
     bindFlooPlanListUi: function () {
         $("#floorPlanList").on("selectableselected", function (event, ui) {
-            if(app.selectedFloorPlan != ui.selected.id){
-                app.selectedFloorPlan = ui.selected.id
-                app.eventBus.publish("floorPlan:selected")
-            }else {
-                view.showFloorPanel()
-            }
+            app.selectedFloorPlan = ui.selected.id
+            app.eventBus.publish("floorPlan:selected")
         });
     },
 

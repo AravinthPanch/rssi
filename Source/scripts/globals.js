@@ -16,6 +16,7 @@ var app = {
     selectedCollectionData : [],
     rawData: [],
     selectedFloorPlan: {},
+    filteredBigCollection: {},
     nodeList: [],
     selectedNodeData: [],
     processedRssiData: [],
