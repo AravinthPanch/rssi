@@ -125,17 +125,17 @@ var view = {
         $.each(data, function (key, val) {
             app.nodeList.push(val.location)
 
-            var template = '<li class="ui-widget-content node" id=node' + val.location.node_label + '/>'
+            var template = '<li class="ui-widget-content node" id=node' + val.data_id + '/>'
             $('#pointsList').append(template)
 
-            var nodeId = '#node' + val.location.node_label
+            var nodeId = '#node' + val.data_id
             $(nodeId).css('left', val.location.coordinate_x_translated + 'px')
             $(nodeId).css('top', val.location.coordinate_y_translated + 'px')
         })
 
         $("#pointsList").on("selectableselected", function (event, ui) {
-            var node_label = ui.selected.id.substr(4, 6)
-            app.eventBus.publish("node:selected", node_label)
+            var nodeId = ui.selected.id.substr(4)
+            app.eventBus.publish("node:selected", nodeId)
         })
     },
 

@@ -52,8 +52,8 @@ var app = {
         iLab1 : {
             width_px : 948, //x_57.5_units
             height_px : 415, //y_16.8_units
-            x_unit : 16.49,
-            y_unit : 24.7,
+            x_unit : 14,
+            y_unit : 25,
             left_offset_px : 15,
             top_offset_px : 20
         },

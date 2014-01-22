@@ -58,7 +58,7 @@ var collection = {
      * */
     getSelectedNodeData: function (data) {
         $.each(app.rawData, function (key, val) {
-            if (val.location.node_label == data) {
+            if (val.data_id == data) {
                 app.selectedNodeData = val
             }
         })
