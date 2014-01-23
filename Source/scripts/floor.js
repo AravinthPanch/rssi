@@ -4,7 +4,7 @@ var floor = {
      * Convert the Locations into Co-Ordinate and Set the points in the floor
      * */
     mapCoordinates: function (data) {
-        app.filteredRawData = $.each(data, function (key, val) {
+        app.filteredRawDataByFloor = $.each(data, function (key, val) {
             var axis;
             switch (app.selectedFloorPlan) {
                 case 'twist2Floor':                                

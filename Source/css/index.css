@@ -11,6 +11,7 @@ table {
     background-position: top;
 }
 
+
 #loader {
     display: none;
     position: fixed;
@@ -158,6 +159,7 @@ table {
     width: 35%;
     height: 95%;
     margin-left: 10px;
+    overflow: scroll;
 }
 #floorPlans {
     float: left;
@@ -218,6 +220,11 @@ table {
     background-image: url(../images/floor_ilab_2.png);
 }
 
+.ui-menu { width: 100px; margin: 10px; }
+
+#channelMenu {
+    display: none;
+}
 
 #accesspoints {
     float: right;

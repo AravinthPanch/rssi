@@ -16,6 +16,7 @@ var collection = {
             app.eventBus.publish("databaseList:retrieved")
         })
     },
+
     /*
      * Load the list of Collections into UI
      *
@@ -53,6 +54,34 @@ var collection = {
         //app.rawData = this.convertRawData(app.rawData)
         app.eventBus.publish("rawData:retrieved")
     },
+
+    filterRawDataByFloor: function (data) {
+        var zAxis;
+        app.filteredRawDataByFloor = []
+        switch (app.selectedFloorPlan) {
+            case 'twist2Floor':
+                zAxis = 9.08
+                break;
+            case 'twist3Floor':
+                zAxis = 12.37
+                break;
+            case 'twist4Floor':
+                zAxis = 16.05
+                break;
+            case 'iLab1':
+                zAxis = 3
+                break;
+            case 'iLab2':
+                zAxis = 0
+                break;
+        }
+        $.each(data, function (key, val) {
+            if (val.location.coordinate_z == zAxis) {
+                app.filteredRawDataByFloor.push(val)
+            }
+        })
+    },
+
     /*
      * Retrieve the node data
      * */
@@ -63,6 +92,67 @@ var collection = {
             }
         })
     },
+
+    groupNodeDataByChannel: function (data) {
+        if ('channel' in data.rawRSSI[0]) {
+            var nodeDataGroupedByChannel = _.groupBy(data.rawRSSI, function (val) {
+                return val.channel
+            })
+
+            app.groupedNodeDataByChannel = [];
+            app.channelList = [];
+
+            $.each(nodeDataGroupedByChannel, function (key, val) {
+                app.channelList.push(key)
+                app.groupedNodeDataByChannel.push({channel: key, data: val})
+            })
+            app.channelList = _.sortBy(app.channelList)
+
+        }else {
+            app.groupedNodeDataByChannel = [];
+            app.channelList = ['unknown'];
+            app.groupedNodeDataByChannel.push({channel: 'unknown', data: data.rawRSSI})
+        }
+    },
+
+    getSelectedChannelData: function(data){
+        $.each(app.groupedNodeDataByChannel, function (key, val) {
+            if (val.channel == data) {
+                app.selectedChannelData = val
+            }
+        })
+    },
+
+    groupSelectedChannelDataBySsid: function(data){
+        var rssiDataGrouped = _.groupBy(data.data, function (val) {
+             return val.sender_ssid + '_' + val.sender_bssid
+        })
+
+        var rssiDataArrayed = [];
+
+        $.each(rssiDataGrouped, function (key, val) {
+             rssiDataArrayed.push({ssid: key, data: val})
+        })
+
+        app.groupedSsidData = _.sortBy(rssiDataArrayed, function (val) {
+             return val.ssid.toLowerCase()
+        })
+    },
+
+    /*
+     * Process the data to input into the chart.JS
+     * */
+    processGraphData: function (data) {
+        $.each(app.groupedSsidData, function (key, val) {
+            if (val.ssid == data) {
+                app.selectedSsidData = val
+                app.graphData = _.map(app.selectedSsidData.data, function (d) {
+                    return d.rssi
+                })
+            }
+        })
+    },
+
 
     getMetadataId: function (data) {
         $.getJSON(app.metadataUri, function (results) {
@@ -79,43 +169,6 @@ var collection = {
         })
     },
 
-    convertRawData: function (data) {
-        var res = []
-        $.each(data, function (key, val) {
-            res.push(val)
-        })
-        return res
-    },
-
-    /*
-     * Process the data to input into the chart.JS
-     * */
-    processGraphData: function (data) {
-        $.each(app.processedRssiData, function (key, val) {
-            if (val.ssid == data) {
-                app.selectedSsidData = val
-                app.graphData = _.map(app.selectedSsidData.data, function (d) {
-                    return d.rssi
-                })
-            }
-        })
-    },
-
-    processedRssiData: function (data) {
-        var rssiDataGrouped = _.groupBy(data.rawRSSI, function (run) {
-            return run.sender_ssid + '_' + run.sender_bssid
-        })
-
-        var rssiDataArrayed = [];
-
-        $.each(rssiDataGrouped, function (i, field) {
-            rssiDataArrayed.push({ssid: i, data: field})
-        })
-
-        app.processedRssiData = _.sortBy(rssiDataArrayed, function (d) {
-            return d.ssid.toLowerCase()
-        })
-    },
 
     groupRssiData: function (data, groupBy) {
         var res = [];
@@ -138,32 +191,6 @@ var collection = {
         }
     },
 
-    filterRawDataByFloor: function(data){
-        var zAxis;
-        app.filteredRawData = []
-        switch(app.selectedFloorPlan){
-                case 'twist2Floor':
-                zAxis = 9.08
-                break;
-                case 'twist3Floor':
-                zAxis = 12.37
-                break;
-                case 'twist4Floor':
-                zAxis = 16.05
-                break;
-                case 'iLab1':
-                zAxis = 3
-                break;
-                case 'iLab2':
-                zAxis = 0
-                break;
-        }
-        $.each(data, function(key, val){
-            if(val.location.coordinate_z == zAxis){
-                app.filteredRawData.push(val)
-            }
-        })            
-    }
 
 };
 

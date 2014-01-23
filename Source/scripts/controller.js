@@ -50,23 +50,29 @@ var controller = {
 
         app.eventBus.subscribe("floorPlan:selected", function () {            
             collection.filterRawDataByFloor(app.rawData)
-            floor.mapCoordinates(app.filteredRawData)
+            floor.mapCoordinates(app.filteredRawDataByFloor)
         });
 
         app.eventBus.subscribe("coordinates:mapped", function () {
-            view.updateNodeUi(app.filteredRawData)
+            view.updateNodeUi(app.filteredRawDataByFloor)
             view.updateFloorInfoUi({scan: 0, latency: 0});
             view.showFloorPanel()
         });
 
-        app.eventBus.subscribe("node:selected", function (data) {
-            collection.getSelectedNodeData(data)
-            collection.processedRssiData(app.selectedNodeData)
-            view.updateAccessPointUi(app.selectedNodeData)
+        app.eventBus.subscribe("node:selected", function (selectedNodeId) {
+            collection.getSelectedNodeData(selectedNodeId)
+            collection.groupNodeDataByChannel(app.selectedNodeData)
+            view.updateChannelList(app.channelList)
         });
 
-        app.eventBus.subscribe("accessPoint:selected", function (data) {
-            collection.processGraphData(data)
+        app.eventBus.subscribe("channel:selected", function (selectedChannel) {
+            collection.getSelectedChannelData(selectedChannel)
+            collection.groupSelectedChannelDataBySsid(app.selectedChannelData)
+            view.updateAccessPointUi(app.groupedSsidData)
+        });
+
+        app.eventBus.subscribe("accessPoint:selected", function (selectedSsidData) {
+            collection.processGraphData(selectedSsidData)
             view.showGraphPanel()
             view.updateGraphInfoUi(app.selectedNodeData.location)
             graph.draw(app.graphData)

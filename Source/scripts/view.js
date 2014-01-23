@@ -123,7 +123,9 @@ var view = {
 
         app.nodeList = []
         $.each(data, function (key, val) {
-            app.nodeList.push(val.location)
+            var node = val.location
+            node.data_id = val.data_id
+            app.nodeList.push(node)
 
             var template = '<li class="ui-widget-content node" id=node' + val.data_id + '/>'
             $('#pointsList').append(template)
@@ -138,6 +140,33 @@ var view = {
             app.eventBus.publish("node:selected", nodeId)
         })
     },
+
+    activateChannelMenu: function(){
+        $("#channelMenu").menu();
+        $("#channelMenu").show();
+    },
+
+    clearChannelMenu: function () {
+        $("#channelList").empty()
+    },
+
+    updateChannelList: function(data){
+        view.clearChannelMenu()
+//        view.clearAccesspointList()
+
+        $.each(data, function (key, val) {
+            var template = '<li id=channel' + val + '>' + '<a>' + val + '</a>' + '</li>'
+            $('#channelList').append(template)
+        })
+
+        view.activateChannelMenu()
+
+        $("#channelMenu").on("menuselect", function (event, ui) {
+            var channel = ui.item.context.id.substr(7)
+            app.eventBus.publish("channel:selected", channel)
+        })
+    },
+
 
     clearAccesspointList: function () {
         $("#accesspoint-1").empty()
@@ -154,9 +183,9 @@ var view = {
     updateAccessPointUi: function (data) {
         view.clearAccesspointList();
         view.createAccesspointListUi();
-        view.updateFloorInfo(data)
+        view.updateFloorInfo(app.selectedNodeData)
 
-        $.each(app.processedRssiData, function (key, val) {
+        $.each(data, function (key, val) {
             var template = '<li class="ui-widget-content" value=' + val.ssid + '>' + val.ssid + '</li>'
             $('#accesspointList').append(template)
         })
