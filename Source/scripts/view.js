@@ -2,7 +2,6 @@ var view = {
 
     /*
      * Initiates all Jquery UI. Tabs and Accordions are used.
-     * TODO: Convert unwanted Tabs into DIVs with CSS
      * */
 
     initialize: function () {
@@ -16,6 +15,7 @@ var view = {
         $("#databases").tabs();
         $("#collections").tabs();
         $("#floorPlans").tabs();
+        $("#channelMenu").menu();
         $("#accesspoints").tabs();
         $("#floor_infos").tabs();
         $("#accordion").accordion({
@@ -56,6 +56,7 @@ var view = {
             $("#databaseList").append(template)
         })
         $("#databaseList").on("selectableselected", function (event, ui) {
+            view.resetFloorPlanList()
             app.selectedDatabase = {
                 name: $(ui.selected).text(),
                 uri: ui.selected.getAttribute('href')
@@ -75,10 +76,11 @@ var view = {
 
     updateCollectionListUi: function (data) {
         $.each(data, function (key, val) {
-            var template = '<li class="ui-widget-content" href=' + val + '>' + key + '</li>'
+            var template = '<li class="ui-widget-content" href=' + val.uri + '>' + val.collection + '</li>'
             $('#collectionList').append(template)
         })
         $("#collectionList").on("selectableselected", function (event, ui) {
+            view.resetFloorPlanList()
             app.selectedCollection = {
                 name: $(ui.selected).text(),
                 uri: ui.selected.getAttribute('href')
@@ -102,14 +104,13 @@ var view = {
         })
     },
 
-    createFloorPlan: function(){
+    createFloorPlan: function () {
         $('#floor').removeClass()
         $('#floor').addClass(app.selectedFloorPlan)
     },
 
-    resetFloorPlanList: function(){
-        $('#floorPlanList').selectable("destroy")
-        $("#floorPlanList").selectable()
+    resetFloorPlanList: function () {
+        $('#floorPlanList').find('.ui-selected').removeClass("ui-selected")
     },
 
     /*
@@ -118,6 +119,7 @@ var view = {
     updateNodeUi: function (data) {
         view.createFloorPlan()
         view.clearFloor()
+        view.clearChannelMenu()
         view.clearAccesspointList()
         view.createNodeList()
 
@@ -136,23 +138,24 @@ var view = {
         })
 
         $("#pointsList").on("selectableselected", function (event, ui) {
+            view.clearAccesspointList()
             var nodeId = ui.selected.id.substr(4)
             app.eventBus.publish("node:selected", nodeId)
         })
     },
 
-    activateChannelMenu: function(){
-        $("#channelMenu").menu();
+    activateChannelMenu: function () {
+        $("#channelMenu").menu("refresh")
         $("#channelMenu").show();
     },
 
     clearChannelMenu: function () {
+        $("#channelMenu").hide();
         $("#channelList").empty()
     },
 
-    updateChannelList: function(data){
+    updateChannelList: function (data) {
         view.clearChannelMenu()
-//        view.clearAccesspointList()
 
         $.each(data, function (key, val) {
             var template = '<li id=channel' + val + '>' + '<a>' + val + '</a>' + '</li>'
@@ -183,7 +186,6 @@ var view = {
     updateAccessPointUi: function (data) {
         view.clearAccesspointList();
         view.createAccesspointListUi();
-        view.updateFloorInfo(app.selectedNodeData)
 
         $.each(data, function (key, val) {
             var template = '<li class="ui-widget-content" value=' + val.ssid + '>' + val.ssid + '</li>'
@@ -198,11 +200,16 @@ var view = {
     },
 
     updateFloorInfo: function (data) {
-        if ('latency' in data) {
-            view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
+        if (_.isEmpty(data)) {
+            view.updateFloorInfoUi({scan: 0, latency: 0})
         } else {
-            view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
+            if ('latency' in data) {
+                view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
+            } else {
+                view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
+            }
         }
+
     },
 
     /*

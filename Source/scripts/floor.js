@@ -7,7 +7,7 @@ var floor = {
         app.filteredRawDataByFloor = $.each(data, function (key, val) {
             var axis;
             switch (app.selectedFloorPlan) {
-                case 'twist2Floor':                                
+                case 'twist2Floor':
                     axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.twist2Floor.x_unit, app.floorPlanScale.twist2Floor.y_unit,
                         app.floorPlanScale.twist2Floor.left_offset_px,
@@ -44,11 +44,9 @@ var floor = {
                         app.floorPlanScale.iLab2.left_offset_px,
                         (app.floorPlanScale.iLab2.top_offset_px));
                     break;
-
             }
             val.location.coordinate_x_translated = axis[0]
             val.location.coordinate_y_translated = axis[1]
-
         })
         app.eventBus.publish("coordinates:mapped")
     },
@@ -64,9 +62,9 @@ var floor = {
         var yAxis;
 
         //iLab2 has (0,0) at top
-        if( app.selectedFloorPlan == 'iLab2'){
+        if (app.selectedFloorPlan == 'iLab2') {
             yAxis = top_offset + yPix;
-        }else{
+        } else {
             yAxis = top_offset - yPix;
         }
 

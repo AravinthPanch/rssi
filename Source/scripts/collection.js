@@ -4,7 +4,6 @@ var collection = {
      * Sends AJAX Request to the given URI and returns the result in JSON
      * Load the list of Databases into UI
      * Binds Click events to load collection
-     * TODO: Define UI Constants
      * */
     getDatabaseList: function (data) {
         view.showLoader()
@@ -28,6 +27,14 @@ var collection = {
         $.getJSON(data, function (results) {
             view.hideLoader()
             app.collectionList = results
+
+            app.collectionList = [];
+            $.each(results, function(key,val){
+                app.collectionList.push({collection: key, uri: val})
+            })
+            app.collectionList = _.sortBy(app.collectionList, function(val) {
+                return val.collection.toLowerCase();
+            })
             app.eventBus.publish("collectionList:retrieved")
         })
     },
@@ -35,6 +42,7 @@ var collection = {
     getSelectedCollectionData: function (data) {
         $.getJSON(data, function (results) {
             app.selectedCollectionData = results
+            app.metadataId = results[0].metadata_id
             app.eventBus.publish("selectedCollectionData:retrieved")
         })
     },
@@ -43,6 +51,7 @@ var collection = {
      * Get the RSSI data , cache it in the variable RssiData and Load Locations on the floor plan
      * */
     getRawData: function (data) {
+        app.rawData = []
         $.each(data, function (key, val) {
             $.ajax({
                 url: val.URI,
@@ -51,7 +60,6 @@ var collection = {
                     app.rawData.push(JSON.parse(results))
                 });
         })
-        //app.rawData = this.convertRawData(app.rawData)
         app.eventBus.publish("rawData:retrieved")
     },
 
@@ -108,14 +116,14 @@ var collection = {
             })
             app.channelList = _.sortBy(app.channelList)
 
-        }else {
+        } else {
             app.groupedNodeDataByChannel = [];
             app.channelList = ['unknown'];
             app.groupedNodeDataByChannel.push({channel: 'unknown', data: data.rawRSSI})
         }
     },
 
-    getSelectedChannelData: function(data){
+    getSelectedChannelData: function (data) {
         $.each(app.groupedNodeDataByChannel, function (key, val) {
             if (val.channel == data) {
                 app.selectedChannelData = val
@@ -123,19 +131,19 @@ var collection = {
         })
     },
 
-    groupSelectedChannelDataBySsid: function(data){
+    groupSelectedChannelDataBySsid: function (data) {
         var rssiDataGrouped = _.groupBy(data.data, function (val) {
-             return val.sender_ssid + '_' + val.sender_bssid
+            return val.sender_ssid + '_' + val.sender_bssid
         })
 
         var rssiDataArrayed = [];
 
         $.each(rssiDataGrouped, function (key, val) {
-             rssiDataArrayed.push({ssid: key, data: val})
+            rssiDataArrayed.push({ssid: key, data: val})
         })
 
         app.groupedSsidData = _.sortBy(rssiDataArrayed, function (val) {
-             return val.ssid.toLowerCase()
+            return val.ssid.toLowerCase()
         })
     },
 
@@ -153,44 +161,22 @@ var collection = {
         })
     },
 
-
     getMetadataId: function (data) {
         $.getJSON(app.metadataUri, function (results) {
             var uri = results[app.selectedDatabase.name]
             $.getJSON(uri, function (results) {
                 $.each(results, function (key, val) {
-                    val.metadata_id = data
-                    $.getJSON(val.URI, function (results) {
-                        app.metadata = results
-                        app.eventBus.publish("metadata:retrieved")
-                    })
+                    if (val.metadata_id == data) {
+                        $.getJSON(val.URI, function (results) {
+                            app.metadata = results
+                            app.eventBus.publish("metadata:retrieved")
+                        })
+                    }
+
                 })
             })
         })
-    },
-
-
-    groupRssiData: function (data, groupBy) {
-        var res = [];
-        switch (groupBy) {
-            case 'ssid' :
-                res = _.groupBy(data.rawRSSI, function (run) {
-                    return run.sender_ssid + '_' + run.sender_bssid
-                })
-
-                $.each(res, function (i, field) {
-                    rssiDataArrayed.push({ssid: i, data: field})
-                })
-
-                break;
-            case 'channel' :
-                res = _.groupBy(data.rawRSSI, function (run) {
-                    return run._channel
-                })
-                break;
-        }
-    },
-
+    }
 
 };
 

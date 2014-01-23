@@ -40,28 +40,33 @@ var controller = {
         });
 
         app.eventBus.subscribe("selectedCollectionData:retrieved", function () {
-            app.rawData = []
             collection.getRawData(app.selectedCollectionData)
         });
 
         app.eventBus.subscribe("rawData:retrieved", function () {
             view.hideLoader()
+            collection.getMetadataId(app.metadataId)
         });
 
-        app.eventBus.subscribe("floorPlan:selected", function () {            
+        app.eventBus.subscribe("metadata:retrieved", function () {
+            view.updateMetadataUi(app.metadata)
+        });
+
+        app.eventBus.subscribe("floorPlan:selected", function () {
             collection.filterRawDataByFloor(app.rawData)
             floor.mapCoordinates(app.filteredRawDataByFloor)
         });
 
         app.eventBus.subscribe("coordinates:mapped", function () {
             view.updateNodeUi(app.filteredRawDataByFloor)
-            view.updateFloorInfoUi({scan: 0, latency: 0});
+            view.updateFloorInfo(app.selectedNodeData)
             view.showFloorPanel()
         });
 
         app.eventBus.subscribe("node:selected", function (selectedNodeId) {
             collection.getSelectedNodeData(selectedNodeId)
             collection.groupNodeDataByChannel(app.selectedNodeData)
+            view.updateFloorInfo(app.selectedNodeData)
             view.updateChannelList(app.channelList)
         });
 
@@ -76,12 +81,9 @@ var controller = {
             view.showGraphPanel()
             view.updateGraphInfoUi(app.selectedNodeData.location)
             graph.draw(app.graphData)
-            collection.getMetadataId(app.selectedNodeData.metadata_id)
+
         });
 
-        app.eventBus.subscribe("metadata:retrieved", function () {
-            view.updateMetadataUi(app.metadata)
-        });
     },
 
     serverSelected: function (data) {
