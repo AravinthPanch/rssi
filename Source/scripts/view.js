@@ -1,3 +1,8 @@
+/**
+* This is the view
+*
+* @class view
+*/
 var view = {
 
     /*
@@ -241,7 +246,7 @@ var view = {
      * Update the node details in Tab
      * */
     updateGraphInfoUi: function (data) {
-        var stat = controller.statisticsCalculator(app.graphData)
+        var stat = utils.statisticsCalculator(app.graphData)
         $('#infoTab-1').empty()
         $('#infoTab-1').append("<br>")
         $('#infoTab-1').append("<b>SSID : </b>" + app.selectedSsidData.data[0].sender_ssid)

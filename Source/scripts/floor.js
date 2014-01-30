@@ -1,3 +1,8 @@
+/**
+* This is the floor
+*
+* @class floor
+*/
 var floor = {
 
     /*

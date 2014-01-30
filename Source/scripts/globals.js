@@ -1,10 +1,17 @@
-/*
- * Globals
- * */
-
-
+/**
+* This is the globals
+*
+* @class globals
+*/
 var app = {
     eventBus: amplify,
+    
+    /**
+    URL of the remote server...
+
+    @property dataBaseUriRemote 
+    @type String    
+    **/
     dataBaseUriRemote: 'http://ec2-54-217-136-137.eu-west-1.compute.amazonaws.com:5000/evarilos/raw_data/v1.0/database',
     dataBaseUriLocal: 'http://localhost:5000/evarilos/raw_data/v1.0/database',
     metadataUri: '',

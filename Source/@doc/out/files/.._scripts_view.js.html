@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>../scripts/view.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title=""></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: </em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/collection.html">collection</a></li>
+            
+                <li><a href="../classes/controller.html">controller</a></li>
+            
+                <li><a href="../classes/floor.html">floor</a></li>
+            
+                <li><a href="../classes/globals.html">globals</a></li>
+            
+                <li><a href="../classes/graph.html">graph</a></li>
+            
+                <li><a href="../classes/utils.html">utils</a></li>
+            
+                <li><a href="../classes/view.html">view</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/APP.html">APP</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: ../scripts/view.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+* This is the view
+*
+* @class view
+*/
+var view = {
+
+    /*
+     * Initiates all Jquery UI. Tabs and Accordions are used.
+     * */
+
+    initialize: function () {
+        $(&quot;#serverList&quot;).selectable();
+        this.bindServerListUi();
+        $(&quot;#floorPlanList&quot;).selectable();
+        this.bindFlooPlanListUi();
+        $(&quot;#tabs&quot;).tabs();
+        $(&quot;#infoTab&quot;).tabs();
+        $(&quot;#servers&quot;).tabs();
+        $(&quot;#databases&quot;).tabs();
+        $(&quot;#collections&quot;).tabs();
+        $(&quot;#floorPlans&quot;).tabs();
+        $(&quot;#channelMenu&quot;).menu();
+        $(&quot;#accesspoints&quot;).tabs();
+        $(&quot;#floor_infos&quot;).tabs();
+        $(&quot;#accordion&quot;).accordion({
+            collapsible: true,
+            active: 0
+        });
+    },
+
+    bindServerListUi: function () {
+        $(&quot;#serverList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
+            app.eventBus.publish(&quot;server:selected&quot;, ui.selected.id)
+        });
+    },
+
+    bindFlooPlanListUi: function () {
+        $(&quot;#floorPlanList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
+            app.selectedFloorPlan = ui.selected.id
+            app.eventBus.publish(&quot;floorPlan:selected&quot;)
+        });
+    },
+
+    showLoader: function () {
+        $(&#x27;#loader&#x27;).show()
+    },
+
+    hideLoader: function () {
+        $(&#x27;#loader&#x27;).hide()
+    },
+
+    createDatabaseListUi: function () {
+        $(&#x27;#database-1&#x27;).append(&#x27;&lt;ol id=&quot;databaseList&quot; class=&quot;selectableList&quot;&gt;&lt;/ol&gt;&#x27;)
+        $(&quot;#databaseList&quot;).selectable();
+    },
+
+    updateDatabaseListUi: function (data) {
+        $.each(data, function (key, val) {
+            var template = &#x27;&lt;li class=&quot;ui-widget-content&quot; href=&#x27; + val + &#x27;&gt;&#x27; + key + &#x27;&lt;/li&gt;&#x27;
+            $(&quot;#databaseList&quot;).append(template)
+        })
+        $(&quot;#databaseList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
+            view.resetFloorPlanList()
+            app.selectedDatabase = {
+                name: $(ui.selected).text(),
+                uri: ui.selected.getAttribute(&#x27;href&#x27;)
+            }
+            app.eventBus.publish(&quot;database:selected&quot;, ui.selected.getAttribute(&#x27;href&#x27;))
+        })
+    },
+
+    clearCollectionList: function () {
+        $(&quot;#collection-1&quot;).empty()
+    },
+
+    createCollectionListUi: function () {
+        $(&#x27;#collection-1&#x27;).append(&#x27;&lt;ol id=&quot;collectionList&quot; class=&quot;selectableList&quot;&gt;&lt;/ol&gt;&#x27;)
+        $(&quot;#collectionList&quot;).selectable();
+    },
+
+    updateCollectionListUi: function (data) {
+        $.each(data, function (key, val) {
+            var template = &#x27;&lt;li class=&quot;ui-widget-content&quot; href=&#x27; + val.uri + &#x27;&gt;&#x27; + val.collection + &#x27;&lt;/li&gt;&#x27;
+            $(&#x27;#collectionList&#x27;).append(template)
+        })
+        $(&quot;#collectionList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
+            view.resetFloorPlanList()
+            app.selectedCollection = {
+                name: $(ui.selected).text(),
+                uri: ui.selected.getAttribute(&#x27;href&#x27;)
+            }
+            app.eventBus.publish(&quot;collection:selected&quot;, ui.selected.getAttribute(&#x27;href&#x27;))
+        })
+    },
+
+    clearFloor: function () {
+        $(&quot;#floor&quot;).empty()
+    },
+
+    createNodeList: function () {
+        $(&#x27;#floor&#x27;).append(&#x27;&lt;ol id=&quot;pointsList&quot; class=&quot;selectablePoints&quot;&gt;&lt;/ol&gt;&#x27;)
+        $(&quot;#pointsList&quot;).selectable();
+    },
+
+    showFloorPanel: function () {
+        $(&quot;#accordion&quot;).accordion({
+            active: 1
+        })
+    },
+
+    createFloorPlan: function () {
+        $(&#x27;#floor&#x27;).removeClass()
+        $(&#x27;#floor&#x27;).addClass(app.selectedFloorPlan)
+    },
+
+    resetFloorPlanList: function () {
+        $(&#x27;#floorPlanList&#x27;).find(&#x27;.ui-selected&#x27;).removeClass(&quot;ui-selected&quot;)
+    },
+
+    /*
+     * Convert the Locations into Co-Ordinate to fit the floor plan
+     * */
+    updateNodeUi: function (data) {
+        view.createFloorPlan()
+        view.clearFloor()
+        view.clearChannelMenu()
+        view.clearAccesspointList()
+        view.createNodeList()
+
+        app.nodeList = []
+        $.each(data, function (key, val) {
+            var node = val.location
+            node.data_id = val.data_id
+            app.nodeList.push(node)
+
+            var template = &#x27;&lt;li class=&quot;ui-widget-content node&quot; id=node&#x27; + val.data_id + &#x27;/&gt;&#x27;
+            $(&#x27;#pointsList&#x27;).append(template)
+
+            var nodeId = &#x27;#node&#x27; + val.data_id
+            $(nodeId).css(&#x27;left&#x27;, val.location.coordinate_x_translated + &#x27;px&#x27;)
+            $(nodeId).css(&#x27;top&#x27;, val.location.coordinate_y_translated + &#x27;px&#x27;)
+        })
+
+        $(&quot;#pointsList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
+            view.clearAccesspointList()
+            var nodeId = ui.selected.id.substr(4)
+            app.eventBus.publish(&quot;node:selected&quot;, nodeId)
+        })
+    },
+
+    activateChannelMenu: function () {
+        $(&quot;#channelMenu&quot;).menu(&quot;refresh&quot;)
+        $(&quot;#channelMenu&quot;).show();
+    },
+
+    clearChannelMenu: function () {
+        $(&quot;#channelMenu&quot;).hide();
+        $(&quot;#channelList&quot;).empty()
+    },
+
+    updateChannelList: function (data) {
+        view.clearChannelMenu()
+
+        $.each(data, function (key, val) {
+            var template = &#x27;&lt;li id=channel&#x27; + val + &#x27;&gt;&#x27; + &#x27;&lt;a&gt;&#x27; + val + &#x27;&lt;/a&gt;&#x27; + &#x27;&lt;/li&gt;&#x27;
+            $(&#x27;#channelList&#x27;).append(template)
+        })
+
+        view.activateChannelMenu()
+
+        $(&quot;#channelMenu&quot;).on(&quot;menuselect&quot;, function (event, ui) {
+            var channel = ui.item.context.id.substr(7)
+            app.eventBus.publish(&quot;channel:selected&quot;, channel)
+        })
+    },
+
+
+    clearAccesspointList: function () {
+        $(&quot;#accesspoint-1&quot;).empty()
+    },
+
+    createAccesspointListUi: function () {
+        $(&#x27;#accesspoint-1&#x27;).append(&#x27;&lt;ol id=&quot;accesspointList&quot; class=&quot;selectableList&quot;&gt;&lt;/ol&gt;&#x27;)
+        $(&quot;#accesspointList&quot;).selectable();
+    },
+
+    /*
+     * Load list of Access Points
+     * */
+    updateAccessPointUi: function (data) {
+        view.clearAccesspointList();
+        view.createAccesspointListUi();
+
+        $.each(data, function (key, val) {
+            var template = &#x27;&lt;li class=&quot;ui-widget-content&quot; value=&#x27; + val.ssid + &#x27;&gt;&#x27; + val.ssid + &#x27;&lt;/li&gt;&#x27;
+            $(&#x27;#accesspointList&#x27;).append(template)
+        })
+
+        $(&quot;#accesspointList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
+            var ssid = ui.selected.getAttribute(&quot;value&quot;)
+            app.eventBus.publish(&quot;accessPoint:selected&quot;, ssid)
+        })
+
+    },
+
+    updateFloorInfo: function (data) {
+        if (_.isEmpty(data)) {
+            view.updateFloorInfoUi({scan: 0, latency: 0})
+        } else {
+            if (&#x27;latency&#x27; in data) {
+                view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
+            } else {
+                view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: &#x27;Unknown&#x27;})
+            }
+        }
+
+    },
+
+    /*
+     * updateFloorInfoUi
+     * */
+    updateFloorInfoUi: function (data) {
+        $(&#x27;#floor_info-1&#x27;).empty()
+        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;b&gt;Number of Measurement Points : &lt;/b&gt;&quot; + app.nodeList.length)
+        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;b&gt;Number of RSSIs measured at the selected Point: &lt;/b&gt;&quot; + data.scan)
+        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;b&gt;Latency measured at the selected Point: &lt;/b&gt;&quot; + data.latency)
+    },
+
+    showGraphPanel: function () {
+        $(&quot;#accordion&quot;).accordion({
+            active: 2
+        })
+    },
+
+    clearGraph: function () {
+        $(&quot;#graph&quot;).empty()
+    },
+
+    clearDatabaseList: function () {
+        $(&quot;#database-1&quot;).empty()
+    },
+    /*
+     * Update the node details in Tab
+     * */
+    updateGraphInfoUi: function (data) {
+        var stat = utils.statisticsCalculator(app.graphData)
+        $(&#x27;#infoTab-1&#x27;).empty()
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;SSID : &lt;/b&gt;&quot; + app.selectedSsidData.data[0].sender_ssid)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;BSSID : &lt;/b&gt;&quot; + app.selectedSsidData.data[0].sender_bssid)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Total Number of measurements: &lt;/b&gt;&quot; + app.selectedSsidData.data.length)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Node Label : &lt;/b&gt;&quot; + data.node_label)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Room Label : &lt;/b&gt;&quot; + data.room_label)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate X : &lt;/b&gt;&quot; + data.coordinate_x)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate Y : &lt;/b&gt;&quot; + data.coordinate_y)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate Z : &lt;/b&gt;&quot; + data.coordinate_z)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Minimum : &lt;/b&gt;&quot; + d3.min(app.graphData))
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Maximum : &lt;/b&gt;&quot; + d3.max(app.graphData))
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Mean : &lt;/b&gt;&quot; + d3.round(d3.mean(app.graphData), 2))
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Median : &lt;/b&gt;&quot; + d3.median(app.graphData))
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Variance : &lt;/b&gt;&quot; + d3.round(stat.variance, 2))
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Deviation : &lt;/b&gt;&quot; + d3.round(stat.deviation, 2))
+    },
+
+    updateMetadataUi: function (data) {
+        $(&#x27;#description&#x27;).empty()
+        $.each(data.scenario, function (key, val) {
+            var heading = &#x27;&lt;h3&gt;&#x27; + key + &#x27;&lt;/h3&gt;&#x27;
+            var text = &#x27;&lt;p&gt;&#x27; + val + &#x27;&lt;/p&gt;&#x27;
+            var template = &#x27;&lt;li class=&quot;ui-widget-content&quot; &gt;&#x27; + heading + text + &#x27;&lt;/li&gt;&#x27;
+            $(&#x27;#description&#x27;).append(template)
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

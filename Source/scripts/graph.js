@@ -1,3 +1,8 @@
+/**
+* This is the graph
+*
+* @class graph
+*/
 var graph = {
 
     draw: function (values) {
