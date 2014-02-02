@@ -1,5 +1,6 @@
 /**
- * Util contains functions of utilities which are used in APP
+ * Util contains functions of Javascript functions which are used in APP.
+ * There are also other standalone utilities have been used which can be found under /utils/*.html
  *
  * @class utils
  */

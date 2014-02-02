@@ -157,7 +157,7 @@
             "namespace": "",
             "file": "../scripts/floor.js",
             "line": 1,
-            "description": "This is the floor"
+            "description": "Floor translates and maps the coordinates of the location information that is included in the RawData.\nThis is achieved based on Offset and Units which are calculated from every Floor Plan image.\nFloorPlan Image properties are calculated using utils/floor_mapper.html and stored under globals.js"
         },
         "globals": {
             "name": "globals",
@@ -171,7 +171,7 @@
             "namespace": "",
             "file": "../scripts/globals.js",
             "line": 1,
-            "description": "This is the globals"
+            "description": "Globals contains properties, constants and variables used in APP.\nImportant data used during the lifecycle of APP are stored under Globals for the purpose having clean global variables and debugging."
         },
         "graph": {
             "name": "graph",
@@ -199,7 +199,7 @@
             "namespace": "",
             "file": "../scripts/utils.js",
             "line": 1,
-            "description": "Util contains functions of utilities which are used in APP"
+            "description": "Util contains functions of Javascript functions which are used in APP.\nThere are also other standalone utilities have been used which can be found under /utils/*.html"
         },
         "view": {
             "name": "view",
@@ -743,7 +743,7 @@
                 {
                     "name": "selectedCollectionUrls",
                     "description": "The Internal URLs of the selected Collection",
-                    "type": "String"
+                    "type": "Array"
                 }
             ],
             "class": "collection",
@@ -759,7 +759,7 @@
                 {
                     "name": "rawData",
                     "description": "The rawData of the selected Collection",
-                    "type": "String"
+                    "type": "Array"
                 }
             ],
             "class": "collection",
@@ -791,7 +791,7 @@
                 {
                     "name": "selectedNodeData",
                     "description": "The Data of the selected Node in the FloorPlan",
-                    "type": "String"
+                    "type": "Array"
                 }
             ],
             "class": "collection",
@@ -823,7 +823,7 @@
                 {
                     "name": "selectedChannelData",
                     "description": "The Data of  of the selected Channel",
-                    "type": "String"
+                    "type": "Array"
                 }
             ],
             "class": "collection",
@@ -838,8 +838,8 @@
             "params": [
                 {
                     "name": "selectedSsidData",
-                    "description": "The SSID_BSSID of the selected AccessPoint",
-                    "type": "String"
+                    "description": "The SSID_BSSID Data of the selected AccessPoint",
+                    "type": "Array"
                 }
             ],
             "class": "collection",
@@ -1046,9 +1046,80 @@
             "module": "APP"
         },
         {
+            "file": "../scripts/floor.js",
+            "line": 10,
+            "description": "It maps the coordinates of location in RawData to the selected Floor Plan",
+            "itemtype": "method",
+            "name": "mapCoordinates",
+            "params": [
+                {
+                    "name": "rawData",
+                    "description": "The RawData of the selected collection",
+                    "type": "Array"
+                }
+            ],
+            "class": "floor",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/floor.js",
+            "line": 64,
+            "description": "It translates the original coordinates according to the size of the Floor Plan",
+            "itemtype": "method",
+            "name": "pixelConverter",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "Original X axis of the location",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "Original Y axis of the location",
+                    "type": "Number"
+                },
+                {
+                    "name": "x_unit",
+                    "description": "One Unit of X Axis of the location in pixels of Floor Plan",
+                    "type": "Number"
+                },
+                {
+                    "name": "y_unit",
+                    "description": "One Unit of Y Axis of the location in pixels of Floor Plan",
+                    "type": "Number"
+                },
+                {
+                    "name": "left_offset",
+                    "description": "Offset of the Floor Plan Image from left",
+                    "type": "Number"
+                },
+                {
+                    "name": "top_offset",
+                    "description": "Offset of the Floor Plan Image from top",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Translated X and Y axis",
+                "type": "Object"
+            },
+            "class": "floor",
+            "module": "APP"
+        },
+        {
             "file": "../scripts/globals.js",
             "line": 9,
-            "description": "URL of the remote server...",
+            "description": "AmplifyJS global variable is assigned as Eventbus",
+            "itemtype": "property",
+            "name": "eventBus",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 17,
+            "description": "URL of the remote server",
             "itemtype": "property",
             "name": "dataBaseUriRemote",
             "type": "String",
@@ -1056,8 +1127,218 @@
             "module": "APP"
         },
         {
+            "file": "../scripts/globals.js",
+            "line": 25,
+            "description": "URL of the local server",
+            "itemtype": "property",
+            "name": "dataBaseUriLocal",
+            "type": "String",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 33,
+            "description": "URL of the metadata collection",
+            "itemtype": "property",
+            "name": "metadataUri",
+            "type": "String",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 41,
+            "description": "metadataId of the selected experiment",
+            "itemtype": "property",
+            "name": "metadataId",
+            "type": "String",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 49,
+            "description": "Metadata of the selected experiment",
+            "itemtype": "property",
+            "name": "metadata",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 57,
+            "description": "List of databases of selected server",
+            "itemtype": "property",
+            "name": "databaseList",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 65,
+            "description": "Name and URI of the selected database",
+            "itemtype": "property",
+            "name": "selectedDatabase",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 73,
+            "description": "List of collections of the selected database",
+            "itemtype": "property",
+            "name": "collectionList",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 81,
+            "description": "Name and URI of the selected collection",
+            "itemtype": "property",
+            "name": "selectedCollection",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 89,
+            "description": "Internal URI List of the selected collection",
+            "itemtype": "property",
+            "name": "selectedCollectionData",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 97,
+            "description": "RawData of the selected collection which is a list of RawData from all measurement points of the selected experiment",
+            "itemtype": "property",
+            "name": "rawData",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 105,
+            "description": "Name of the selected floor plan",
+            "itemtype": "property",
+            "name": "selectedFloorPlan",
+            "type": "String",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 113,
+            "description": "RawData filtered by FloorPlan. Even though FloorPlan is selected by USER, some Big collections have data of various FloorPlans altogether\nIn order to filter such RawData, extra function is implemented and the result stored in this variable",
+            "itemtype": "property",
+            "name": "filteredRawDataByFloor",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 122,
+            "description": "List of all measurement points of the selected collection. Measurement Points are defined as nodes through out APP",
+            "itemtype": "property",
+            "name": "nodeList",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 130,
+            "description": "Data of the selected node",
+            "itemtype": "property",
+            "name": "selectedNodeData",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 138,
+            "description": "List of Channel Number which are extracted from the selectedNodeData, if available",
+            "itemtype": "property",
+            "name": "channelList",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 146,
+            "description": "Data of selected Node grouped by Channel number",
+            "itemtype": "property",
+            "name": "groupedNodeDataByChannel",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 154,
+            "description": "Data of selected Channel",
+            "itemtype": "property",
+            "name": "selectedChannelData",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 162,
+            "description": "RSSI Data grouped by SSID_BSSID",
+            "itemtype": "property",
+            "name": "groupedSsidData",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 170,
+            "description": "RSSI Data of the selected SSID_BSSID",
+            "itemtype": "property",
+            "name": "selectedSsidData",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 178,
+            "description": "Extracted RSSI values of the selected SSID_BSSID that will be fed to the graph",
+            "itemtype": "property",
+            "name": "graphData",
+            "type": "Array",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/globals.js",
+            "line": 186,
+            "description": "Properties of FloorPlans that contains size of the FloorPlan Image and One Unit of X,Y Axis of the location in pixels of Floor Plan,\nOffset of the Floor Plan Image from left and top. These properties are calculated using utils/floor_mapper.html",
+            "itemtype": "property",
+            "name": "floorPlanScale",
+            "type": "Object",
+            "class": "globals",
+            "module": "APP"
+        },
+        {
             "file": "../scripts/utils.js",
-            "line": 7,
+            "line": 8,
             "description": "It calculates statistics such as mean, variance, deviation of RSSI",
             "itemtype": "method",
             "name": "statisticsCalculator",

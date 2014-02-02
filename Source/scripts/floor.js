@@ -1,13 +1,17 @@
 /**
-* This is the floor
-*
-* @class floor
-*/
+ * Floor translates and maps the coordinates of the location information that is included in the RawData.
+ * This is achieved based on Offset and Units which are calculated from every Floor Plan image.
+ * FloorPlan Image properties are calculated using utils/floor_mapper.html and stored under globals.js
+ *
+ * @class floor
+ */
 var floor = {
 
-    /*
-     * Convert the Locations into Co-Ordinate and Set the points in the floor
-     * */
+    /**
+     It maps the coordinates of location in RawData to the selected Floor Plan
+     @method mapCoordinates
+     @param {Array} rawData The RawData of the selected collection
+     **/
     mapCoordinates: function (data) {
         app.filteredRawDataByFloor = $.each(data, function (key, val) {
             var axis;
@@ -55,9 +59,19 @@ var floor = {
         })
         app.eventBus.publish("coordinates:mapped")
     },
-    /*
-     * Convert the Locations into Co-Ordinate to fit the floor plan
-     * */
+
+
+    /**
+     It translates the original coordinates according to the size of the Floor Plan
+     @method pixelConverter
+     @param {Number} x Original X axis of the location
+     @param {Number} y Original Y axis of the location
+     @param {Number} x_unit One Unit of X Axis of the location in pixels of Floor Plan
+     @param {Number} y_unit One Unit of Y Axis of the location in pixels of Floor Plan
+     @param {Number} left_offset Offset of the Floor Plan Image from left
+     @param {Number} top_offset Offset of the Floor Plan Image from top
+     @return {Object} Translated X and Y axis
+     **/
     pixelConverter: function (x, y, x_unit, y_unit, left_offset, top_offset) {
 
         var xPix = x * x_unit;
@@ -78,7 +92,6 @@ var floor = {
 
         var axis = [xAxis, yAxis];
         return axis;
-
     }
 
 }

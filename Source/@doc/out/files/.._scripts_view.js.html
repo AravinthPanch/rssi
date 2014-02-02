@@ -112,24 +112,36 @@ var view = {
      * */
 
     initialize: function () {
+        this.bindTitleTabsUi();
         $(&quot;#serverList&quot;).selectable();
         this.bindServerListUi();
         $(&quot;#floorPlanList&quot;).selectable();
         this.bindFlooPlanListUi();
-        $(&quot;#tabs&quot;).tabs();
-        $(&quot;#infoTab&quot;).tabs();
+        $(&quot;#titleTabs&quot;).tabs();
         $(&quot;#servers&quot;).tabs();
         $(&quot;#databases&quot;).tabs();
         $(&quot;#collections&quot;).tabs();
         $(&quot;#floorPlans&quot;).tabs();
         $(&quot;#channelMenu&quot;).menu();
         $(&quot;#accesspoints&quot;).tabs();
-        $(&quot;#floor_infos&quot;).tabs();
+        $(&quot;#floorInfoTabs&quot;).tabs();
+        $(&quot;#graphInfoTabs&quot;).tabs();
         $(&quot;#accordion&quot;).accordion({
             collapsible: true,
             active: 0
         });
     },
+
+    bindTitleTabsUi: function (){
+        $( &quot;#titleTabs&quot; ).on( &quot;tabsactivate&quot;, function( event, ui ) {
+            if(ui.newTab.context.hash == &#x27;#docTab&#x27;){
+                $(&quot;#accordion&quot;).hide()
+            }else {
+                $(&quot;#accordion&quot;).show()
+            }
+        } );
+    },
+
 
     bindServerListUi: function () {
         $(&quot;#serverList&quot;).on(&quot;selectableselected&quot;, function (event, ui) {
@@ -143,6 +155,7 @@ var view = {
             app.eventBus.publish(&quot;floorPlan:selected&quot;)
         });
     },
+
 
     showLoader: function () {
         $(&#x27;#loader&#x27;).show()
@@ -323,12 +336,12 @@ var view = {
      * updateFloorInfoUi
      * */
     updateFloorInfoUi: function (data) {
-        $(&#x27;#floor_info-1&#x27;).empty()
-        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;b&gt;Number of Measurement Points : &lt;/b&gt;&quot; + app.nodeList.length)
-        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;b&gt;Number of RSSIs measured at the selected Point: &lt;/b&gt;&quot; + data.scan)
-        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#floor_info-1&#x27;).append(&quot;&lt;b&gt;Latency measured at the selected Point: &lt;/b&gt;&quot; + data.latency)
+        $(&#x27;#floorInfoTab-1&#x27;).empty()
+        $(&#x27;#floorInfoTab-1&#x27;).append(&quot;&lt;b&gt;Number of Measurement Points : &lt;/b&gt;&quot; + app.nodeList.length)
+        $(&#x27;#floorInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#floorInfoTab-1&#x27;).append(&quot;&lt;b&gt;Number of RSSIs measured at the selected Point: &lt;/b&gt;&quot; + data.scan)
+        $(&#x27;#floorInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#floorInfoTab-1&#x27;).append(&quot;&lt;b&gt;Latency measured at the selected Point: &lt;/b&gt;&quot; + data.latency)
     },
 
     showGraphPanel: function () {
@@ -349,37 +362,37 @@ var view = {
      * */
     updateGraphInfoUi: function (data) {
         var stat = utils.statisticsCalculator(app.graphData)
-        $(&#x27;#infoTab-1&#x27;).empty()
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;SSID : &lt;/b&gt;&quot; + app.selectedSsidData.data[0].sender_ssid)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;BSSID : &lt;/b&gt;&quot; + app.selectedSsidData.data[0].sender_bssid)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Total Number of measurements: &lt;/b&gt;&quot; + app.selectedSsidData.data.length)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Node Label : &lt;/b&gt;&quot; + data.node_label)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Room Label : &lt;/b&gt;&quot; + data.room_label)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate X : &lt;/b&gt;&quot; + data.coordinate_x)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate Y : &lt;/b&gt;&quot; + data.coordinate_y)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate Z : &lt;/b&gt;&quot; + data.coordinate_z)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Minimum : &lt;/b&gt;&quot; + d3.min(app.graphData))
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Maximum : &lt;/b&gt;&quot; + d3.max(app.graphData))
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Mean : &lt;/b&gt;&quot; + d3.round(d3.mean(app.graphData), 2))
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Median : &lt;/b&gt;&quot; + d3.median(app.graphData))
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Variance : &lt;/b&gt;&quot; + d3.round(stat.variance, 2))
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
-        $(&#x27;#infoTab-1&#x27;).append(&quot;&lt;b&gt; Deviation : &lt;/b&gt;&quot; + d3.round(stat.deviation, 2))
+        $(&#x27;#graphInfoTab-1&#x27;).empty()
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;SSID : &lt;/b&gt;&quot; + app.selectedSsidData.data[0].sender_ssid)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;BSSID : &lt;/b&gt;&quot; + app.selectedSsidData.data[0].sender_bssid)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;Total Number of measurements: &lt;/b&gt;&quot; + app.selectedSsidData.data.length)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;Node Label : &lt;/b&gt;&quot; + data.node_label)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;Room Label : &lt;/b&gt;&quot; + data.room_label)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate X : &lt;/b&gt;&quot; + data.coordinate_x)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate Y : &lt;/b&gt;&quot; + data.coordinate_y)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt;Coordinate Z : &lt;/b&gt;&quot; + data.coordinate_z)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt; Minimum : &lt;/b&gt;&quot; + d3.min(app.graphData))
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt; Maximum : &lt;/b&gt;&quot; + d3.max(app.graphData))
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt; Mean : &lt;/b&gt;&quot; + d3.round(d3.mean(app.graphData), 2))
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt; Median : &lt;/b&gt;&quot; + d3.median(app.graphData))
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt; Variance : &lt;/b&gt;&quot; + d3.round(stat.variance, 2))
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;br&gt;&quot;)
+        $(&#x27;#graphInfoTab-1&#x27;).append(&quot;&lt;b&gt; Deviation : &lt;/b&gt;&quot; + d3.round(stat.deviation, 2))
     },
 
     updateMetadataUi: function (data) {

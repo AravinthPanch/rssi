@@ -64,7 +64,7 @@ var collection = {
     /**
      It retrieves the complete RawData of the selected Collection from backend
      @method getRawData
-     @param {String} selectedCollectionUrls The Internal URLs of the selected Collection
+     @param {Array} selectedCollectionUrls The Internal URLs of the selected Collection
      **/
     getRawData: function (data) {
         app.rawData = []
@@ -83,7 +83,7 @@ var collection = {
     /**
      It filters the RawData based on the selected Floor Plan
      @method filterRawDataByFloor
-     @param {String} rawData The rawData of the selected Collection
+     @param {Array} rawData The rawData of the selected Collection
      **/
     filterRawDataByFloor: function (data) {
         var zAxis;
@@ -130,7 +130,7 @@ var collection = {
     /**
      It groups the data of the selected Node based on Channel Number and sorted ascending
      @method groupNodeDataByChannel
-     @param {String} selectedNodeData The Data of the selected Node in the FloorPlan
+     @param {Array} selectedNodeData The Data of the selected Node in the FloorPlan
      **/
     groupNodeDataByChannel: function (data) {
         if ('channel' in data.rawRSSI[0]) {
@@ -172,7 +172,7 @@ var collection = {
     /**
      It groups the data of the selected Channel based on SSID_BSSID and then sorted alphabetically
      @method groupSelectedChannelDataBySsid
-     @param {String} selectedChannelData The Data of  of the selected Channel
+     @param {Array} selectedChannelData The Data of  of the selected Channel
      **/
     groupSelectedChannelDataBySsid: function (data) {
         var rssiDataGrouped = _.groupBy(data.data, function (val) {
@@ -193,7 +193,7 @@ var collection = {
     /**
      It picks only rssi valued from the data of the selected AccessPoint to feed to the Chart
      @method processGraphData
-     @param {String} selectedSsidData The SSID_BSSID of the selected AccessPoint
+     @param {Array} selectedSsidData The SSID_BSSID Data of the selected AccessPoint
      **/
     processGraphData: function (data) {
         $.each(app.groupedSsidData, function (key, val) {

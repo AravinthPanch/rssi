@@ -11,7 +11,6 @@ table {
     background-position: top;
 }
 
-
 #loader {
     display: none;
     position: fixed;
@@ -77,7 +76,7 @@ table {
 }
 
 /*-------------------------------------------- Index Tab ----*/
-#tabs {
+#titleTabs {
     margin-bottom: 5px;
 }
 
@@ -160,13 +159,13 @@ table {
     margin-left: 10px;
     overflow: scroll;
 }
+
 #floorPlans {
     float: left;
     width: 20%;
     height: 95%;
     margin-left: 10px;
 }
-
 
 /*-------------------------------------------- Floor Plan Tab ----*/
 
@@ -188,7 +187,7 @@ table {
     float: left;
 }
 
-#floor{
+#floor {
     border: solid 1px #000000;
     width: 960px;
     height: 480px;
@@ -219,7 +218,10 @@ table {
     background-image: url(../images/floor_ilab_2.png);
 }
 
-.ui-menu { width: 100px; margin: 10px; }
+.ui-menu {
+    width: 100px;
+    margin: 10px;
+}
 
 #channelMenu {
     display: none;
