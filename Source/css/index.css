@@ -242,7 +242,7 @@ table {
     margin: 2px;
 }
 
-#floor_infos {
+#floorInfoTabs {
     float: right;
     margin-left: 10px;
     width: 25%;
@@ -254,7 +254,7 @@ table {
     float: left;
 }
 
-#infoTab {
+#graphInfoTabs {
     float: right;
     margin-left: 10px;
     margin-bottom: 10px;

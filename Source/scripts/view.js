@@ -10,24 +10,36 @@ var view = {
      * */
 
     initialize: function () {
+        this.bindTitleTabsUi();
         $("#serverList").selectable();
         this.bindServerListUi();
         $("#floorPlanList").selectable();
         this.bindFlooPlanListUi();
-        $("#tabs").tabs();
-        $("#infoTab").tabs();
+        $("#titleTabs").tabs();
         $("#servers").tabs();
         $("#databases").tabs();
         $("#collections").tabs();
         $("#floorPlans").tabs();
         $("#channelMenu").menu();
         $("#accesspoints").tabs();
-        $("#floor_infos").tabs();
+        $("#floorInfoTabs").tabs();
+        $("#graphInfoTabs").tabs();
         $("#accordion").accordion({
             collapsible: true,
             active: 0
         });
     },
+
+    bindTitleTabsUi: function (){
+        $( "#titleTabs" ).on( "tabsactivate", function( event, ui ) {
+            if(ui.newTab.context.hash == '#docTab'){
+                $("#accordion").hide()
+            }else {
+                $("#accordion").show()
+            }
+        } );
+    },
+
 
     bindServerListUi: function () {
         $("#serverList").on("selectableselected", function (event, ui) {
@@ -41,6 +53,7 @@ var view = {
             app.eventBus.publish("floorPlan:selected")
         });
     },
+
 
     showLoader: function () {
         $('#loader').show()
@@ -221,12 +234,12 @@ var view = {
      * updateFloorInfoUi
      * */
     updateFloorInfoUi: function (data) {
-        $('#floor_info-1').empty()
-        $('#floor_info-1').append("<b>Number of Measurement Points : </b>" + app.nodeList.length)
-        $('#floor_info-1').append("<br>")
-        $('#floor_info-1').append("<b>Number of RSSIs measured at the selected Point: </b>" + data.scan)
-        $('#floor_info-1').append("<br>")
-        $('#floor_info-1').append("<b>Latency measured at the selected Point: </b>" + data.latency)
+        $('#floorInfoTab-1').empty()
+        $('#floorInfoTab-1').append("<b>Number of Measurement Points : </b>" + app.nodeList.length)
+        $('#floorInfoTab-1').append("<br>")
+        $('#floorInfoTab-1').append("<b>Number of RSSIs measured at the selected Point: </b>" + data.scan)
+        $('#floorInfoTab-1').append("<br>")
+        $('#floorInfoTab-1').append("<b>Latency measured at the selected Point: </b>" + data.latency)
     },
 
     showGraphPanel: function () {
@@ -247,37 +260,37 @@ var view = {
      * */
     updateGraphInfoUi: function (data) {
         var stat = utils.statisticsCalculator(app.graphData)
-        $('#infoTab-1').empty()
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>SSID : </b>" + app.selectedSsidData.data[0].sender_ssid)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>BSSID : </b>" + app.selectedSsidData.data[0].sender_bssid)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Total Number of measurements: </b>" + app.selectedSsidData.data.length)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Node Label : </b>" + data.node_label)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Room Label : </b>" + data.room_label)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b>Coordinate Z : </b>" + data.coordinate_z)
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b> Minimum : </b>" + d3.min(app.graphData))
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b> Maximum : </b>" + d3.max(app.graphData))
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b> Mean : </b>" + d3.round(d3.mean(app.graphData), 2))
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b> Median : </b>" + d3.median(app.graphData))
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b> Variance : </b>" + d3.round(stat.variance, 2))
-        $('#infoTab-1').append("<br>")
-        $('#infoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
+        $('#graphInfoTab-1').empty()
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>SSID : </b>" + app.selectedSsidData.data[0].sender_ssid)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>BSSID : </b>" + app.selectedSsidData.data[0].sender_bssid)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>Total Number of measurements: </b>" + app.selectedSsidData.data.length)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>Node Label : </b>" + data.node_label)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>Room Label : </b>" + data.room_label)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>Coordinate X : </b>" + data.coordinate_x)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>Coordinate Y : </b>" + data.coordinate_y)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b>Coordinate Z : </b>" + data.coordinate_z)
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b> Minimum : </b>" + d3.min(app.graphData))
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b> Maximum : </b>" + d3.max(app.graphData))
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b> Mean : </b>" + d3.round(d3.mean(app.graphData), 2))
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b> Median : </b>" + d3.median(app.graphData))
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b> Variance : </b>" + d3.round(stat.variance, 2))
+        $('#graphInfoTab-1').append("<br>")
+        $('#graphInfoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
     },
 
     updateMetadataUi: function (data) {
