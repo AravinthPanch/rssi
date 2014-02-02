@@ -5,7 +5,7 @@
  *
  * @class controller
  */
-var controller = {
+app.controller = {
 
     /**
      It initialises the controller to process the captured events. These events are triggered in various parts of APP
@@ -20,7 +20,7 @@ var controller = {
          @param {String} serverId The name of the selected Server
          **/
         app.eventBus.subscribe("server:selected", function (serverId) {
-            controller.serverSelected(serverId)
+            app.controller.serverSelected(serverId)
         });
 
 
@@ -29,7 +29,7 @@ var controller = {
          @event databaseList:retrieved
          **/
         app.eventBus.subscribe("databaseList:retrieved", function () {
-            view.updateDatabaseListUi(app.databaseList)
+            app.view.updateDatabaseListUi(app.databaseList)
         });
 
 
@@ -39,7 +39,7 @@ var controller = {
          @param {String} databaseUri The URI of the selected Database
          **/
         app.eventBus.subscribe("database:selected", function (databaseUri) {
-            collection.getCollectionList(databaseUri)
+            app.collection.getCollectionList(databaseUri)
         });
 
 
@@ -48,7 +48,7 @@ var controller = {
          @event collectionList:retrieved
          **/
         app.eventBus.subscribe("collectionList:retrieved", function () {
-            view.updateCollectionListUi(app.collectionList)
+            app.view.updateCollectionListUi(app.collectionList)
         });
 
 
@@ -58,8 +58,8 @@ var controller = {
          @param {String} collectionUri The URI of the selected Collection
          **/
         app.eventBus.subscribe("collection:selected", function (collectionUri) {
-            view.showLoader()
-            collection.getSelectedCollectionData(collectionUri)
+            app.view.showLoader()
+            app.collection.getSelectedCollectionData(collectionUri)
         });
 
 
@@ -68,7 +68,7 @@ var controller = {
          @event selectedCollectionData:retrieved
          **/
         app.eventBus.subscribe("selectedCollectionData:retrieved", function () {
-            collection.getRawData(app.selectedCollectionData)
+            app.collection.getRawData(app.selectedCollectionData)
         });
 
         /**
@@ -76,8 +76,8 @@ var controller = {
          @event rawData:retrieved
          **/
         app.eventBus.subscribe("rawData:retrieved", function () {
-            view.hideLoader()
-            collection.getMetadata(app.metadataId)
+            app.view.hideLoader()
+            app.collection.getMetadata(app.metadataId)
         });
 
 
@@ -86,7 +86,7 @@ var controller = {
          @event metadata:retrieved
          **/
         app.eventBus.subscribe("metadata:retrieved", function () {
-            view.updateMetadataUi(app.metadata)
+            app.view.updateMetadataUi(app.metadata)
         });
 
 
@@ -95,8 +95,8 @@ var controller = {
          @event floorPlan:selected
          **/
         app.eventBus.subscribe("floorPlan:selected", function () {
-            collection.filterRawDataByFloor(app.rawData)
-            floor.mapCoordinates(app.filteredRawDataByFloor)
+            app.collection.filterRawDataByFloor(app.rawData)
+            app.floor.mapCoordinates(app.filteredRawDataByFloor)
         });
 
 
@@ -105,9 +105,9 @@ var controller = {
          @event coordinates:mapped
          **/
         app.eventBus.subscribe("coordinates:mapped", function () {
-            view.updateNodeUi(app.filteredRawDataByFloor)
-            view.updateFloorInfo(app.selectedNodeData)
-            view.showFloorPanel()
+            app.view.updateNodeUi(app.filteredRawDataByFloor)
+            app.view.updateFloorInfo(app.selectedNodeData)
+            app.view.showFloorPanel()
         });
 
 
@@ -117,10 +117,10 @@ var controller = {
          @param {String} selectedNodeId The Id of the selected Node in the FloorPlan
          **/
         app.eventBus.subscribe("node:selected", function (selectedNodeId) {
-            collection.getSelectedNodeData(selectedNodeId)
-            collection.groupNodeDataByChannel(app.selectedNodeData)
-            view.updateFloorInfo(app.selectedNodeData)
-            view.updateChannelList(app.channelList)
+            app.collection.getSelectedNodeData(selectedNodeId)
+            app.collection.groupNodeDataByChannel(app.selectedNodeData)
+            app.view.updateFloorInfo(app.selectedNodeData)
+            app.view.updateChannelList(app.channelList)
         });
 
 
@@ -130,9 +130,9 @@ var controller = {
          @param {Integer} selectedChannel The number of the selected channel
          **/
         app.eventBus.subscribe("channel:selected", function (selectedChannel) {
-            collection.getSelectedChannelData(selectedChannel)
-            collection.groupSelectedChannelDataBySsid(app.selectedChannelData)
-            view.updateAccessPointUi(app.groupedSsidData)
+            app.collection.getSelectedChannelData(selectedChannel)
+            app.collection.groupSelectedChannelDataBySsid(app.selectedChannelData)
+            app.view.updateAccessPointUi(app.groupedSsidData)
         });
 
 
@@ -142,10 +142,10 @@ var controller = {
          @param {String} selectedSsidData The SSID_BSSID of the selected AccessPoint
          **/
         app.eventBus.subscribe("accessPoint:selected", function (selectedSsidData) {
-            collection.processGraphData(selectedSsidData)
-            view.showGraphPanel()
-            view.updateGraphInfoUi(app.selectedNodeData.location)
-            graph.draw(app.graphData)
+            app.collection.processGraphData(selectedSsidData)
+            app.view.showGraphPanel()
+            app.view.updateGraphInfoUi(app.selectedNodeData.location)
+            app.graph.draw(app.graphData)
 
         });
 
@@ -157,20 +157,20 @@ var controller = {
      @param {String} serverId The name of the selected Server
      **/
     serverSelected: function (data) {
-        view.clearDatabaseList()
-        view.clearCollectionList()
-        view.resetFloorPlanList()
+        app.view.clearDatabaseList()
+        app.view.clearCollectionList()
+        app.view.resetFloorPlanList()
         switch (data) {
             case "server1" :
-                collection.getDatabaseList(app.dataBaseUriLocal);
+                app.collection.getDatabaseList(app.dataBaseUriLocal);
                 break;
             case "server2" :
-                collection.getDatabaseList(app.dataBaseUriRemote);
+                app.collection.getDatabaseList(app.dataBaseUriRemote);
                 break;
             case "server3" :
                 app.rawData = staticData
                 app.selectedFloorPlan = 'twist2Floor'
-                floor.mapCoordinates(app.rawData)
+                app.floor.mapCoordinates(app.rawData)
                 break;
         }
     }

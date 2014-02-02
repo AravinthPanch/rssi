@@ -3,7 +3,7 @@
  *
  * @class collection
  */
-var collection = {
+app.collection = {
 
     /**
      It retrieves the list of Databases from backend in Local or Remote Machine based on the selection
@@ -11,10 +11,10 @@ var collection = {
      @param {String} databaseURL The URL of the selected Server in Local or Remote machine
      **/
     getDatabaseList: function (data) {
-        view.showLoader()
-        view.createDatabaseListUi()
+        app.view.showLoader()
+        app.view.createDatabaseListUi()
         $.getJSON(data, function (results) {
-            view.hideLoader()
+            app.view.hideLoader()
             app.databaseList = results
             app.metadataUri = results.metadata
             app.eventBus.publish("databaseList:retrieved")
@@ -28,11 +28,11 @@ var collection = {
      @param {String} databaseUri The URI of the selected Database
      **/
     getCollectionList: function (data) {
-        view.showLoader()
-        view.clearCollectionList()
-        view.createCollectionListUi()
+        app.view.showLoader()
+        app.view.clearCollectionList()
+        app.view.createCollectionListUi()
         $.getJSON(data, function (results) {
-            view.hideLoader()
+            app.view.hideLoader()
             app.collectionList = results
 
             app.collectionList = [];

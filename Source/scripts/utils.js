@@ -4,7 +4,7 @@
  *
  * @class utils
  */
-var utils = {
+app.utils = {
     /**
      It calculates statistics such as mean, variance, deviation of RSSI
      @method statisticsCalculator

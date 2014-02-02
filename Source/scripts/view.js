@@ -1,20 +1,20 @@
 /**
-* This is the view
-*
-* @class view
-*/
-var view = {
+ * View is responsible for UI manipulation, Templates, UI events handling, etc
+ *
+ * @class view
+ */
+app.view = {
 
-    /*
-     * Initiates all Jquery UI. Tabs and Accordions are used.
-     * */
-
+    /**
+     It initializes UI by activating JqueryUI components and binds EventHandlers
+     @method initialize
+     **/
     initialize: function () {
         this.bindTitleTabsUi();
         $("#serverList").selectable();
         this.bindServerListUi();
         $("#floorPlanList").selectable();
-        this.bindFlooPlanListUi();
+        this.bindFloorPlanListUi();
         $("#titleTabs").tabs();
         $("#servers").tabs();
         $("#databases").tabs();
@@ -30,51 +30,87 @@ var view = {
         });
     },
 
-    bindTitleTabsUi: function (){
-        $( "#titleTabs" ).on( "tabsactivate", function( event, ui ) {
-            if(ui.newTab.context.hash == '#docTab'){
+    /**
+     It binds EventHandlers with Callback to Tabs in title.
+     @method bindTitleTabsUi
+     **/
+    bindTitleTabsUi: function () {
+        $("#titleTabs").on("tabsactivate", function (event, ui) {
+            if (ui.newTab.context.hash == '#docTab') {
                 $("#accordion").hide()
-            }else {
+            } else {
                 $("#accordion").show()
             }
-        } );
+        });
     },
 
-
+    /**
+     It binds EventHandlers with Callback to the list of servers
+     @method bindServerListUi
+     **/
     bindServerListUi: function () {
         $("#serverList").on("selectableselected", function (event, ui) {
             app.eventBus.publish("server:selected", ui.selected.id)
         });
     },
 
-    bindFlooPlanListUi: function () {
+    /**
+     It binds EventHandlers with Callback to the list of FloorPlans
+     @method bindFloorPlanListUi
+     **/
+    bindFloorPlanListUi: function () {
         $("#floorPlanList").on("selectableselected", function (event, ui) {
             app.selectedFloorPlan = ui.selected.id
             app.eventBus.publish("floorPlan:selected")
         });
     },
 
-
+    /**
+     It shows the loader when data is being retrieved
+     @method showLoader
+     **/
     showLoader: function () {
         $('#loader').show()
     },
 
+    /**
+     It hides the loader after data is retrieved
+     @method hideLoader
+     **/
     hideLoader: function () {
         $('#loader').hide()
     },
 
+    /**
+     It dynamically creates a database list and activates as JqueryUI Selectable List
+     @method createDatabaseListUi
+     **/
     createDatabaseListUi: function () {
-        $('#database-1').append('<ol id="databaseList" class="selectableList"></ol>')
+        var template = '<ol id="databaseList" class="selectableList"></ol>'
+        $('#database-1').append(template)
         $("#databaseList").selectable();
     },
 
+    /**
+     It clears the database list
+     @method clearDatabaseList
+     **/
+    clearDatabaseList: function () {
+        $("#database-1").empty()
+    },
+
+    /**
+     It adds templates to the list items and add them to the database list and binds EventHandlers with Callback
+     @method updateDatabaseListUi
+     @param {Array} databaseList The list of databases
+     **/
     updateDatabaseListUi: function (data) {
         $.each(data, function (key, val) {
             var template = '<li class="ui-widget-content" href=' + val + '>' + key + '</li>'
             $("#databaseList").append(template)
         })
         $("#databaseList").on("selectableselected", function (event, ui) {
-            view.resetFloorPlanList()
+            app.view.resetFloorPlanList()
             app.selectedDatabase = {
                 name: $(ui.selected).text(),
                 uri: ui.selected.getAttribute('href')
@@ -83,22 +119,36 @@ var view = {
         })
     },
 
+    /**
+     It clears the collection list
+     @method clearCollectionList
+     **/
     clearCollectionList: function () {
         $("#collection-1").empty()
     },
 
+    /**
+     It dynamically creates a collection list and activates as JqueryUI Selectable List
+     @method createCollectionListUi
+     **/
     createCollectionListUi: function () {
-        $('#collection-1').append('<ol id="collectionList" class="selectableList"></ol>')
+        var template = '<ol id="collectionList" class="selectableList"></ol>'
+        $('#collection-1').append(template)
         $("#collectionList").selectable();
     },
 
+    /**
+     It adds templates to the list items and add them to the collection list and binds EventHandlers with Callback
+     @method updateCollectionListUi
+     @param {Array} collectionList The list of collections
+     **/
     updateCollectionListUi: function (data) {
         $.each(data, function (key, val) {
             var template = '<li class="ui-widget-content" href=' + val.uri + '>' + val.collection + '</li>'
             $('#collectionList').append(template)
         })
         $("#collectionList").on("selectableselected", function (event, ui) {
-            view.resetFloorPlanList()
+            app.view.resetFloorPlanList()
             app.selectedCollection = {
                 name: $(ui.selected).text(),
                 uri: ui.selected.getAttribute('href')
@@ -107,39 +157,62 @@ var view = {
         })
     },
 
+    /**
+     It clears the floor
+     @method clearFloor
+     **/
     clearFloor: function () {
         $("#floor").empty()
     },
 
+    /**
+     It dynamically creates a nodes list and activates as JqueryUI Selectable List
+     @method createNodeList
+     **/
     createNodeList: function () {
-        $('#floor').append('<ol id="pointsList" class="selectablePoints"></ol>')
+        var template = '<ol id="pointsList" class="selectablePoints"></ol>'
+        $('#floor').append(template)
         $("#pointsList").selectable();
     },
 
+    /**
+     It shows the floor plan Tab
+     @method showFloorPanel
+     **/
     showFloorPanel: function () {
         $("#accordion").accordion({
             active: 1
         })
     },
 
+    /**
+     It creates the floorPlan container
+     @method createFloorPlan
+     **/
     createFloorPlan: function () {
         $('#floor').removeClass()
         $('#floor').addClass(app.selectedFloorPlan)
     },
 
+    /**
+     It resets the selected node on FloorPlan
+     @method resetFloorPlanList
+     **/
     resetFloorPlanList: function () {
         $('#floorPlanList').find('.ui-selected').removeClass("ui-selected")
     },
 
-    /*
-     * Convert the Locations into Co-Ordinate to fit the floor plan
-     * */
+    /**
+     It adds templates to the list items and add them to the nodes list and binds EventHandlers with Callback
+     @method updateNodeUi
+     @param {Array} filteredRawDataByFloor The RawData of the selected FloorPlan
+     **/
     updateNodeUi: function (data) {
-        view.createFloorPlan()
-        view.clearFloor()
-        view.clearChannelMenu()
-        view.clearAccesspointList()
-        view.createNodeList()
+        app.view.createFloorPlan()
+        app.view.clearFloor()
+        app.view.clearChannelMenu()
+        app.view.clearAccesspointList()
+        app.view.createNodeList()
 
         app.nodeList = []
         $.each(data, function (key, val) {
@@ -156,31 +229,44 @@ var view = {
         })
 
         $("#pointsList").on("selectableselected", function (event, ui) {
-            view.clearAccesspointList()
+            app.view.clearAccesspointList()
             var nodeId = ui.selected.id.substr(4)
             app.eventBus.publish("node:selected", nodeId)
         })
     },
 
+    /**
+     It activates the Channel Menu under accesspoints tab
+     @method activateChannelMenu
+     **/
     activateChannelMenu: function () {
         $("#channelMenu").menu("refresh")
         $("#channelMenu").show();
     },
 
+    /**
+     It clears the Channel menu
+     @method clearChannelMenu
+     **/
     clearChannelMenu: function () {
         $("#channelMenu").hide();
         $("#channelList").empty()
     },
 
+    /**
+     It adds templates to the list items and add them to the channels list and binds EventHandlers with Callback
+     @method updateChannelList
+     @param {Array} channelList The list of channel numbers of selected node
+     **/
     updateChannelList: function (data) {
-        view.clearChannelMenu()
+        app.view.clearChannelMenu()
 
         $.each(data, function (key, val) {
             var template = '<li id=channel' + val + '>' + '<a>' + val + '</a>' + '</li>'
             $('#channelList').append(template)
         })
 
-        view.activateChannelMenu()
+        app.view.activateChannelMenu()
 
         $("#channelMenu").on("menuselect", function (event, ui) {
             var channel = ui.item.context.id.substr(7)
@@ -188,22 +274,32 @@ var view = {
         })
     },
 
-
+    /**
+     It clears the accesspoints list
+     @method clearAccesspointList
+     **/
     clearAccesspointList: function () {
         $("#accesspoint-1").empty()
     },
 
+    /**
+     It dynamically creates a accesspoints list and activates as JqueryUI Selectable List
+     @method createAccesspointListUi
+     **/
     createAccesspointListUi: function () {
-        $('#accesspoint-1').append('<ol id="accesspointList" class="selectableList"></ol>')
+        var template = '<ol id="accesspointList" class="selectableList"></ol>'
+        $('#accesspoint-1').append(template)
         $("#accesspointList").selectable();
     },
 
-    /*
-     * Load list of Access Points
-     * */
+    /**
+     It adds templates to the list items and add them to the accesspoints list and binds EventHandlers with Callback
+     @method updateAccessPointUi
+     @param {Array} groupedSsidData The grouped RSSI data of selected node
+     **/
     updateAccessPointUi: function (data) {
-        view.clearAccesspointList();
-        view.createAccesspointListUi();
+        app.view.clearAccesspointList();
+        app.view.createAccesspointListUi();
 
         $.each(data, function (key, val) {
             var template = '<li class="ui-widget-content" value=' + val.ssid + '>' + val.ssid + '</li>'
@@ -217,22 +313,27 @@ var view = {
 
     },
 
+    /**
+     It updates the information related to the selected node of the selected experiment
+     @method updateFloorInfo
+     **/
     updateFloorInfo: function (data) {
         if (_.isEmpty(data)) {
-            view.updateFloorInfoUi({scan: 0, latency: 0})
+            app.view.updateFloorInfoUi({scan: 0, latency: 0})
         } else {
             if ('latency' in data) {
-                view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
+                app.view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: data.latency})
             } else {
-                view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
+                app.view.updateFloorInfoUi({scan: data.rawRSSI.length, latency: 'Unknown'})
             }
         }
 
     },
 
-    /*
-     * updateFloorInfoUi
-     * */
+    /**
+     It updates the information related to the selected node of the selected experiment
+     @method updateFloorInfoUi
+     **/
     updateFloorInfoUi: function (data) {
         $('#floorInfoTab-1').empty()
         $('#floorInfoTab-1').append("<b>Number of Measurement Points : </b>" + app.nodeList.length)
@@ -242,24 +343,31 @@ var view = {
         $('#floorInfoTab-1').append("<b>Latency measured at the selected Point: </b>" + data.latency)
     },
 
+    /**
+     It shows the graph panel Tab
+     @method showGraphPanel
+     **/
     showGraphPanel: function () {
         $("#accordion").accordion({
             active: 2
         })
     },
 
+    /**
+     It clears the graph panel
+     @method clearGraph
+     **/
     clearGraph: function () {
         $("#graph").empty()
     },
 
-    clearDatabaseList: function () {
-        $("#database-1").empty()
-    },
-    /*
-     * Update the node details in Tab
-     * */
+    /**
+     It updates the information related to graph of the selected experiment
+     @method updateGraphInfoUi
+     @param {Object} selectedNodeData.location The Location data of the selected node
+     **/
     updateGraphInfoUi: function (data) {
-        var stat = utils.statisticsCalculator(app.graphData)
+        var stat = app.utils.statisticsCalculator(app.graphData)
         $('#graphInfoTab-1').empty()
         $('#graphInfoTab-1').append("<br>")
         $('#graphInfoTab-1').append("<b>SSID : </b>" + app.selectedSsidData.data[0].sender_ssid)
@@ -293,6 +401,11 @@ var view = {
         $('#graphInfoTab-1').append("<b> Deviation : </b>" + d3.round(stat.deviation, 2))
     },
 
+    /**
+     It updates the information related to the selected experiment
+     @method updateMetadataUi
+     @param {Object} metadata The metadata of the selected experiment
+     **/
     updateMetadataUi: function (data) {
         $('#description').empty()
         $.each(data.scenario, function (key, val) {

@@ -185,7 +185,7 @@
             "namespace": "",
             "file": "../scripts/graph.js",
             "line": 1,
-            "description": "This is the graph"
+            "description": "Graph gets an Array of RSSI values and draws a Histogram using D3.JS"
         },
         "utils": {
             "name": "utils",
@@ -213,7 +213,7 @@
             "namespace": "",
             "file": "../scripts/view.js",
             "line": 1,
-            "description": "This is the view"
+            "description": "View is responsible for UI manipulation, Templates, UI events handling, etc"
         }
     },
     "classitems": [
@@ -1337,6 +1337,22 @@
             "module": "APP"
         },
         {
+            "file": "../scripts/graph.js",
+            "line": 8,
+            "description": "It draws the SVG based Graph",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "rssi",
+                    "description": "RSSI values of the selected accesspoint",
+                    "type": "Array"
+                }
+            ],
+            "class": "graph",
+            "module": "APP"
+        },
+        {
             "file": "../scripts/utils.js",
             "line": 8,
             "description": "It calculates statistics such as mean, variance, deviation of RSSI",
@@ -1354,6 +1370,325 @@
                 "type": "Number, Array"
             },
             "class": "utils",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 8,
+            "description": "It initializes UI by activating JqueryUI components and binds EventHandlers",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 33,
+            "description": "It binds EventHandlers with Callback to Tabs in title.",
+            "itemtype": "method",
+            "name": "bindTitleTabsUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 47,
+            "description": "It binds EventHandlers with Callback to the list of servers",
+            "itemtype": "method",
+            "name": "bindServerListUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 57,
+            "description": "It binds EventHandlers with Callback to the list of FloorPlans",
+            "itemtype": "method",
+            "name": "bindFloorPlanListUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 68,
+            "description": "It shows the loader when data is being retrieved",
+            "itemtype": "method",
+            "name": "showLoader",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 76,
+            "description": "It hides the loader after data is retrieved",
+            "itemtype": "method",
+            "name": "hideLoader",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 84,
+            "description": "It dynamically creates a database list and activates as JqueryUI Selectable List",
+            "itemtype": "method",
+            "name": "createDatabaseListUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 94,
+            "description": "It clears the database list",
+            "itemtype": "method",
+            "name": "clearDatabaseList",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 102,
+            "description": "It adds templates to the list items and add them to the database list and binds EventHandlers with Callback",
+            "itemtype": "method",
+            "name": "updateDatabaseListUi",
+            "params": [
+                {
+                    "name": "databaseList",
+                    "description": "The list of databases",
+                    "type": "Array"
+                }
+            ],
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 122,
+            "description": "It clears the collection list",
+            "itemtype": "method",
+            "name": "clearCollectionList",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 130,
+            "description": "It dynamically creates a collection list and activates as JqueryUI Selectable List",
+            "itemtype": "method",
+            "name": "createCollectionListUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 140,
+            "description": "It adds templates to the list items and add them to the collection list and binds EventHandlers with Callback",
+            "itemtype": "method",
+            "name": "updateCollectionListUi",
+            "params": [
+                {
+                    "name": "collectionList",
+                    "description": "The list of collections",
+                    "type": "Array"
+                }
+            ],
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 160,
+            "description": "It clears the floor",
+            "itemtype": "method",
+            "name": "clearFloor",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 168,
+            "description": "It dynamically creates a nodes list and activates as JqueryUI Selectable List",
+            "itemtype": "method",
+            "name": "createNodeList",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 178,
+            "description": "It shows the floor plan Tab",
+            "itemtype": "method",
+            "name": "showFloorPanel",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 188,
+            "description": "It creates the floorPlan container",
+            "itemtype": "method",
+            "name": "createFloorPlan",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 197,
+            "description": "It resets the selected node on FloorPlan",
+            "itemtype": "method",
+            "name": "resetFloorPlanList",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 205,
+            "description": "It adds templates to the list items and add them to the nodes list and binds EventHandlers with Callback",
+            "itemtype": "method",
+            "name": "updateNodeUi",
+            "params": [
+                {
+                    "name": "filteredRawDataByFloor",
+                    "description": "The RawData of the selected FloorPlan",
+                    "type": "Array"
+                }
+            ],
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 238,
+            "description": "It activates the Channel Menu under accesspoints tab",
+            "itemtype": "method",
+            "name": "activateChannelMenu",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 247,
+            "description": "It clears the Channel menu",
+            "itemtype": "method",
+            "name": "clearChannelMenu",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 256,
+            "description": "It adds templates to the list items and add them to the channels list and binds EventHandlers with Callback",
+            "itemtype": "method",
+            "name": "updateChannelList",
+            "params": [
+                {
+                    "name": "channelList",
+                    "description": "The list of channel numbers of selected node",
+                    "type": "Array"
+                }
+            ],
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 277,
+            "description": "It clears the accesspoints list",
+            "itemtype": "method",
+            "name": "clearAccesspointList",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 285,
+            "description": "It dynamically creates a accesspoints list and activates as JqueryUI Selectable List",
+            "itemtype": "method",
+            "name": "createAccesspointListUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 295,
+            "description": "It adds templates to the list items and add them to the accesspoints list and binds EventHandlers with Callback",
+            "itemtype": "method",
+            "name": "updateAccessPointUi",
+            "params": [
+                {
+                    "name": "groupedSsidData",
+                    "description": "The grouped RSSI data of selected node",
+                    "type": "Array"
+                }
+            ],
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 316,
+            "description": "It updates the information related to the selected node of the selected experiment",
+            "itemtype": "method",
+            "name": "updateFloorInfo",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 333,
+            "description": "It updates the information related to the selected node of the selected experiment",
+            "itemtype": "method",
+            "name": "updateFloorInfoUi",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 346,
+            "description": "It shows the graph panel Tab",
+            "itemtype": "method",
+            "name": "showGraphPanel",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 356,
+            "description": "It clears the graph panel",
+            "itemtype": "method",
+            "name": "clearGraph",
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 364,
+            "description": "It updates the information related to graph of the selected experiment",
+            "itemtype": "method",
+            "name": "updateGraphInfoUi",
+            "params": [
+                {
+                    "name": "selectedNodeData.location",
+                    "description": "The Location data of the selected node",
+                    "type": "Object"
+                }
+            ],
+            "class": "view",
+            "module": "APP"
+        },
+        {
+            "file": "../scripts/view.js",
+            "line": 404,
+            "description": "It updates the information related to the selected experiment",
+            "itemtype": "method",
+            "name": "updateMetadataUi",
+            "params": [
+                {
+                    "name": "metadata",
+                    "description": "The metadata of the selected experiment",
+                    "type": "Object"
+                }
+            ],
+            "class": "view",
             "module": "APP"
         }
     ],

@@ -1,13 +1,18 @@
 /**
-* This is the graph
+* Graph gets an Array of RSSI values and draws a Histogram using D3.JS
 *
 * @class graph
 */
-var graph = {
+app.graph = {
 
+    /**
+     It draws the SVG based Graph
+     @method draw
+     @param {Array} rssi RSSI values of the selected accesspoint
+     **/
     draw: function (values) {
 
-        view.clearGraph()
+        app.view.clearGraph()
 
         var width = 930;
         var height = 470;

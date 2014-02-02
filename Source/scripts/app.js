@@ -12,7 +12,7 @@
  *
  */
 $(function () {
-    view.initialize()
-    controller.initialize()
+    app.view.initialize()
+    app.controller.initialize()
 });
 

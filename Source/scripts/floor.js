@@ -5,7 +5,7 @@
  *
  * @class floor
  */
-var floor = {
+app.floor = {
 
     /**
      It maps the coordinates of location in RawData to the selected Floor Plan
@@ -17,7 +17,7 @@ var floor = {
             var axis;
             switch (app.selectedFloorPlan) {
                 case 'twist2Floor':
-                    axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
+                    axis = app.floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.twist2Floor.x_unit, app.floorPlanScale.twist2Floor.y_unit,
                         app.floorPlanScale.twist2Floor.left_offset_px,
                         (app.floorPlanScale.twist2Floor.top_offset_px + app.floorPlanScale.twist2Floor.height_px ));
@@ -25,21 +25,21 @@ var floor = {
                     break;
 
                 case 'twist3Floor':
-                    axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
+                    axis = app.floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.twist3Floor.x_unit, app.floorPlanScale.twist3Floor.y_unit,
                         app.floorPlanScale.twist3Floor.left_offset_px,
                         (app.floorPlanScale.twist3Floor.top_offset_px + app.floorPlanScale.twist3Floor.height_px ));
                     break;
 
                 case 'twist4Floor':
-                    axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
+                    axis = app.floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.twist4Floor.x_unit, app.floorPlanScale.twist4Floor.y_unit,
                         app.floorPlanScale.twist4Floor.left_offset_px,
                         (app.floorPlanScale.twist4Floor.top_offset_px + app.floorPlanScale.twist4Floor.height_px ));
                     break;
 
                 case 'iLab1':
-                    axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
+                    axis = app.floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.iLab1.x_unit, app.floorPlanScale.iLab1.y_unit,
                         app.floorPlanScale.iLab1.left_offset_px,
                         (app.floorPlanScale.iLab1.top_offset_px + app.floorPlanScale.iLab1.height_px ));
@@ -48,7 +48,7 @@ var floor = {
                 //iLab2 has (0,0) at top, hence no need to add the height to top_offset
 
                 case 'iLab2':
-                    axis = floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
+                    axis = app.floor.pixelConverter(val.location.coordinate_x, val.location.coordinate_y,
                         app.floorPlanScale.iLab2.x_unit, app.floorPlanScale.iLab2.y_unit,
                         app.floorPlanScale.iLab2.left_offset_px,
                         (app.floorPlanScale.iLab2.top_offset_px));
