@@ -36,7 +36,7 @@ app.view = {
      **/
     bindTitleTabsUi: function () {
         $("#titleTabs").on("tabsactivate", function (event, ui) {
-            if (ui.newTab.context.hash == '#docTab') {
+            if (ui.newTab.context.hash == '#docTab' || ui.newTab.context.hash == '#infoTab') {
                 $("#accordion").hide()
             } else {
                 $("#accordion").show()
