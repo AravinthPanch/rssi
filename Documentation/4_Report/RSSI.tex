@@ -59,28 +59,28 @@
 % ================================================================
 { \sffamily
 
-\thispagestyle{empty}
+\thispagestyle{empty} 
 \begin{tabularx}
 	{\columnwidth}{cXc} 
 	\includegraphics[height=1cm]{TU-Logo-3D-rot.pdf} & & 
 	\includegraphics[height=1cm]{tknlogo.pdf} \\
 \end{tabularx}
 
-\vspace{1.0cm}
+\vspace{1.0cm} 
 \begin{center}
 	{\huge 
 	\noindent Technical University Berlin
 	
 	\vspace{0.5cm}
 	
-	\noindent Telecommunication Networks Group
+	\noindent Telecommunication Networks Group 
 	\begin{center}
 		\rule{15.5cm}{0.4pt} 
 	\end{center}
 	} 
 \end{center}
 \begin{minipage}
-	[][11.0cm][c]{14.5cm} {\Huge
+	[][11.0cm][c]{14.5cm} {\Huge 
 	\begin{center}
 		\trtitle 
 	\end{center}
@@ -102,7 +102,7 @@
 	%\end{center}
 \end{minipage}
 
-\setlength{\fboxrule}{0.4pt} \setlength{\fboxsep}{0.4pt}
+\setlength{\fboxrule}{0.4pt} \setlength{\fboxsep}{0.4pt} 
 \begin{center}
 	
 	\rule{15.5cm}{0.4pt}
@@ -115,7 +115,7 @@
 	
 	{\huge Supervisors: Dr. Arash Behboodi, Filip Lemic}
 	
-	\vspace{0.5cm}
+	\vspace{0.5cm} 
 \end{center}
 }
 
@@ -143,14 +143,60 @@
 % ================================================================
 % Problem Statement
 % ================================================================
-{ 
-\chapter{Problem Statement} }
+\chapter{Problem Statement}
+Beacon Packet frame RSSI
+Changes in RSSI by 
 
 % ================================================================
 % RSSI Visualization Tool
 % ================================================================
-{ 
-\chapter{RSSI Visualization Tool} }
+\chapter{Raw Ranging Data Visualization Tool}
+\section*{Introduction} 
+Measurements yield large amount of raw data which contains the complete information of experiments such as testbed measurement locations, access points, rssi, channel, ssid, bssid, latency. In order to track collected of raw data, a raw ranging data visualization tool was implemented. 
+
+This tools helps us to list and visualize the available databases and collections of experiments under one hood. 
+
+this tool is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers.
+
+This tool makes use of asynchronous ability of Javascript and processes large array of raw data with the help of AJAX.
+
+This tool consists of 4 panels which showcases the work flow in an user friendly manner. Usage and functionality of each panel is explained in the following sections.
+ 
+\section{Database} 
+Database panel is the landing page of this tool. It contains 4 sub-panels. 
+\begin{description}
+\item[List of Servers] lists the URLs of servers which contain RAW data collected from the experiments. Copy of the RAW data can also be stored on the local machine. Remote Server contains the complete set of RAW. Static Data contains a simple set of RAW data for the purpose of debugging. 
+\item[Second] entry
+\end{description}
+
+\begin{figure}
+	[!] \centering 
+	\includegraphics[width=15cm]{Images/tool_db.png} \caption{Dashboard of the visualization tool} \label{fig:tool:db} 
+\end{figure}
+
+\section{Floor Plan} 
+\begin{figure}
+	[!] \centering 
+	\includegraphics[width=15cm]{Images/tool_floor.png} \caption{Floor Plan of the visualization tool} \label{fig:tool:floor} 
+\end{figure}
+
+\section{Graph} 
+\begin{figure}
+	[!] \centering 
+	\includegraphics[width=15cm]{Images/tool_graph.png} \caption{Graph of the visualization tool} \label{fig:tool:graph} 
+\end{figure}
+
+\section{Experiment Description} 
+\begin{figure}
+	[!] \centering 
+	\includegraphics[width=15cm]{Images/tool_des.png} \caption{Experiment Description of the visualization tool} \label{fig:tool:des} 
+\end{figure}
+
+\section{API} 
+\begin{figure}
+	[!] \centering 
+	\includegraphics[width=15cm]{Images/tool_jsDoc.png} \caption{API of the visualization tool} \label{fig:tool:jsDoc} 
+\end{figure}
 
 % ================================================================
 % Design
@@ -162,8 +208,8 @@
 
 \subsubsection{Reference Scenario} 
 \begin{figure}
-	[h] \centering 
-	\includegraphics[width=100mm]{floor} \caption{Locations of measurement points} \label{fig:logo} 
+	[!] \centering 
+	\includegraphics[width=100mm]{floor} \caption{Locations of measurement points} \label{fig:floor} 
 \end{figure}
 
 This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. Ac- cording to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure 1.
@@ -172,10 +218,9 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 
 \paragraph{} The experiments were performed at the weekend afternoon, so the influence of interferes has been minimized. Furthermore, the wireless spectrum has been measured using the WiSpy device attached to the robotic platform and all measurements with the interference threshold above certain level have been repeated. Finally, before each experiment a more detained measurement of the spectrum has been taken with the spectrum analyzer at a predefined location.
 
-\subsubsection{Interference Scenario 1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. Three of such jamming nodes are present at different locations in the testbed environment. Summary of this interference scenario is given in Table 1.
-
+\subsubsection{Interference Scenario 1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. Three of such jamming nodes are present at different locations in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:1}.
 \begin{table}
-	[h] \centering \caption{Interference scenario summary} \label{tb:table} 
+	[h] \centering \caption{Interference scenario summary} \label{tb:interf:1} 
 	\begin{tabular}
 		{|l|l|} \hline \multicolumn{2}{|c|}{Types of interference sources} \\
 		\hline WiFi & \checkmark \\
@@ -207,10 +252,9 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 	\end{tabular}
 \end{table}
 
-\subsubsection{Interference Scenario 2}In this interference scenario instantiated in TWIST testbed interference is created using the IEEE 802.15.4 Tmote Sky nodes. The interference type is jamming on one IEEE 802.15.4 channel with a constant transmit power equal to 0 dBm. Five of these jamming nodes will be present in the testbed environment. Summary of this interference scenario is given in Table 2.
-
+\subsubsection{Interference Scenario 2}In this interference scenario instantiated in TWIST testbed interference is created using the IEEE 802.15.4 Tmote Sky nodes. The interference type is jamming on one IEEE 802.15.4 channel with a constant transmit power equal to 0 dBm. Five of these jamming nodes will be present in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:2}.
 \begin{table}
-	[h] \centering \caption{Interference scenario summary} \label{tb:table} 
+	[h] \centering \caption{Interference scenario summary} \label{tb:interf:2} 
 	\begin{tabular}
 		{|l|l|} \hline \multicolumn{2}{|c|}{Types of interference sources} \\
 		\hline WiFi & \texttimes \\
@@ -242,10 +286,9 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 	\end{tabular}
 \end{table}
 
-\subsubsection{Interference Scenario 3}Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table 3.
-
+\subsubsection{Interference Scenario 3}Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}.
 \begin{table}
-	[h] \centering \caption{Interference scenario summary} \label{tb:table} 
+	[h] \centering \caption{Interference scenario summary} \label{tb:interf:3}
 	\begin{tabular}
 		{|l|l|} \hline \multicolumn{2}{|c|}{Types of interference sources} \\
 		\hline WiFi & \checkmark \\
@@ -280,24 +323,27 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 % ================================================================
 % Experiments
 % ================================================================
-{ 
-\chapter{Experiments} }
-
+\chapter{Experiments} 
+\section{Infrastructure} 
+Experiments are carried out using a robotic platform.
+\begin{figure}
+	[!] \centering 
+	\includegraphics[width=15cm]{Images/evari.png} \caption{Experiment Environment} \label{fig:experiment} 
+\end{figure}
 % ================================================================
-% Re
+% Results
 % ================================================================
-{ 
-\chapter{Results} }
+\chapter{Results}
 
 % ================================================================
 % Conclusion
 % ================================================================
-{ 
-\chapter{Conclusion} }
+\chapter{Conclusion}
 
-\pagebreak
+\pagebreak 
+
 \begin{thebibliography}
 	{9} \bibitem{lamport94} Leslie Lamport \bibitem{lamport95} Leslie Lamport 
 \end{thebibliography}
 
-\end{document}
+\end{document} 
