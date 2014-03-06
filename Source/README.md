@@ -1,4 +1,4 @@
-RAW RAGING DATA VISUALIZATION TOOL v1.0
+RAW RANGING DATA VISUALIZATION TOOL v1.0
 ==================================================================
 
 DESCRIPTION

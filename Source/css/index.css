@@ -136,6 +136,7 @@ table {
     width: 150px;
     background-size: contain;
     margin-right: 5px;
+    display: none;
 }
 
 /*-------------------------------------------- Database Tab ----*/
