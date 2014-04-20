@@ -156,35 +156,40 @@ Measurements yield large amount of raw data which contains the complete informat
 
 This tools helps us to list and visualize the available databases and collections of experiments under one hood. 
 
-this tool is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers.
+This tool is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers.
 
-This tool makes use of asynchronous ability of Javascript and processes large array of raw data with the help of AJAX.
+This tool makes use of asynchronous (AJAX) ability of Javascript and processes large array of raw data.
 
 This tool consists of 4 panels which showcases the work flow in an user friendly manner. Usage and functionality of each panel is explained in the following sections.
  
 \section{Database} 
 Database panel is the landing page of this tool. It contains 4 sub-panels. 
-\begin{description}
-\item[List of Servers] lists the URLs of servers which contain RAW data collected from the experiments. Copy of the RAW data can also be stored on the local machine. Remote Server contains the complete set of RAW. Static Data contains a simple set of RAW data for the purpose of debugging. 
-\item[Second] entry
-\end{description}
-
 \begin{figure}
 	[!] \centering 
 	\includegraphics[width=15cm]{Images/tool_db.png} \caption{Dashboard of the visualization tool} \label{fig:tool:db} 
 \end{figure}
+\begin{description}
+\item[List of Servers] lists URIs of server that contains various RAW data collected from the experiments. Remote Server contains the complete set of RAW data. Copy of the RAW data can also be stored on the local machine. Static Data contains a simple set of RAW data for the purpose of debugging. 
+\item[List of Databases] lists URIs of databases which are stored in the server. 
+\item[List of Collections] lists the collections of experiments which were carried out. URI denotes the name of Testbed, experiment size and experiment type.
+\item[List of Floor Plans] lists the names of the floor plans on which experiments were carried out. Floor Plan must be selected according to the experiment. 
+\end{description}
+
 
 \section{Floor Plan} 
 \begin{figure}
 	[!] \centering 
 	\includegraphics[width=15cm]{Images/tool_floor.png} \caption{Floor Plan of the visualization tool} \label{fig:tool:floor} 
 \end{figure}
+Floor Plan panel contains the map of selected testbed. Once the appropriate floor plan for an experiment is selected, all the measurement points are loaded into the map. Measurement point is circular button that turns blue when it is clicked and it lists RSSI values measured at that geographical point. On the right side of the Floor Plan, Channel and SSID information of the selected measurement point is shown. If the Raw Data contains channel information, then it will be listed in the dropdown other it will be listed as Unknown. RSSI values are grouped together on the basis of same SSID and BSSID. Info tab at the right below shows some specific information about the selected measurement point.
+
 
 \section{Graph} 
 \begin{figure}
 	[!] \centering 
 	\includegraphics[width=15cm]{Images/tool_graph.png} \caption{Graph of the visualization tool} \label{fig:tool:graph} 
 \end{figure}
+Graph panel contains a histogram that is generated dynamically by selected a particular access point on Floor Plan panel. Number of Bins of the histogram are also dynamically adjusted based on the total number of RSSI values measured. Info tab shows coordinate information of the selected measurement points as well as the statistics of RSSI values.
 
 \section{Experiment Description} 
 \begin{figure}
@@ -209,7 +214,7 @@ Database panel is the landing page of this tool. It contains 4 sub-panels.
 \subsubsection{Reference Scenario} 
 \begin{figure}
 	[!] \centering 
-	\includegraphics[width=100mm]{floor} \caption{Locations of measurement points} \label{fig:floor} 
+	\includegraphics[width=100mm]{Images/floor} \caption{Locations of measurement points} \label{fig:floor} 
 \end{figure}
 
 This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. Ac- cording to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure 1.
