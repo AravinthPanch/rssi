@@ -134,18 +134,25 @@
 % ================================================================
 % Introduction
 % ================================================================
-{ 
 \chapter{Introduction} 
-\section*{Beacon Packet} In Wireless Local Area Network (WLAN) Beacon Packets are transmitted periodically to announce the presence of WiFi Network. It contains information of the network such as SSID, BSSID and type of encryption.
+\section{Beacon Packet} In Wireless Local Area Network (WLAN) Beacon frames are transmitted periodically by Base Station Set (BSS) to announce the presence of Wi-Fi Network. Beacon frame is one of the management frames in IEEE 802.11. Figure \ref{fig:beacon} shows the fields of Beacon frame.
 
-\section*{Received Signal Strength Indicator (RSSI)} It indicates the power of signal which is received at the receiver and included into the beacon packet by Network Interface Card. }
+\begin{figure}
+	[!h] \centering 
+	\includegraphics[width=15cm]{Images/beacon_frame.png} \caption{MPDU - Beacon Frame of IEEE 802.11} \label{fig:beacon} 
+\end{figure}
+
+\section{Received Signal Strength Indicator (RSSI)} RSSI is an indication of the power level received by a receiver expressed in dBm. This value is then used to estimate the distance between
+transmitter and receiver. The physics behind this technology
+is the power level decay with distance. RSSI is available in
+most RF receivers.
 
 % ================================================================
 % Problem Statement
 % ================================================================
 \chapter{Problem Statement}
 Beacon Packet frame RSSI
-Changes in RSSI by 
+Changes in RSSI by 	
 
 % ================================================================
 % RSSI Visualization Tool
@@ -154,20 +161,16 @@ Changes in RSSI by
 \section*{Introduction} 
 Measurements yield large amount of raw data which contains the complete information of experiments such as testbed measurement locations, access points, rssi, channel, ssid, bssid, latency. In order to track collected of raw data, a raw ranging data visualization tool was implemented. 
 
-This tools helps us to list and visualize the available databases and collections of experiments under one hood. 
+\paragraph{}This tools helps us to list and visualize the available databases and collections of experiments under one hood. It is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers.It makes use of asynchronous (AJAX) ability of Javascript and processes large array of raw data. This tool consists of 4 panels which showcases the work flow in an user friendly manner. Usage and functionality of each panel is explained in the following sections.
 
-This tool is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers.
-
-This tool makes use of asynchronous (AJAX) ability of Javascript and processes large array of raw data.
-
-This tool consists of 4 panels which showcases the work flow in an user friendly manner. Usage and functionality of each panel is explained in the following sections.
- 
-\section{Database} 
-Database panel is the landing page of this tool. It contains 4 sub-panels. 
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=15cm]{Images/tool_db.png} \caption{Dashboard of the visualization tool} \label{fig:tool:db} 
 \end{figure}
+ 
+\section{Dashboard} 
+Dashboard panel is the landing page of this tool. It contains 4 sub-panels. 
+
 \begin{description}
 \item[List of Servers] lists URIs of server that contains various RAW data collected from the experiments. Remote Server contains the complete set of RAW data. Copy of the RAW data can also be stored on the local machine. Static Data contains a simple set of RAW data for the purpose of debugging. 
 \item[List of Databases] lists URIs of databases which are stored in the server. 
@@ -175,58 +178,56 @@ Database panel is the landing page of this tool. It contains 4 sub-panels.
 \item[List of Floor Plans] lists the names of the floor plans on which experiments were carried out. Floor Plan must be selected according to the experiment. 
 \end{description}
 
-
-\section{Floor Plan} 
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=15cm]{Images/tool_floor.png} \caption{Floor Plan of the visualization tool} \label{fig:tool:floor} 
 \end{figure}
+
+\section{Floor Plan} 
 Floor Plan panel contains the map of selected testbed. Once the appropriate floor plan for an experiment is selected, all the measurement points are loaded into the map. Measurement point is circular button that turns blue when it is clicked and it lists RSSI values measured at that geographical point. On the right side of the Floor Plan, Channel and SSID information of the selected measurement point is shown. If the Raw Data contains channel information, then it will be listed in the dropdown other it will be listed as Unknown. RSSI values are grouped together on the basis of same SSID and BSSID. Info tab at the right below shows some specific information about the selected measurement point.
 
-
-\section{Graph} 
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=15cm]{Images/tool_graph.png} \caption{Graph of the visualization tool} \label{fig:tool:graph} 
 \end{figure}
+
+\section{Graph} 
 Graph panel contains a histogram that is generated dynamically by selected a particular access point on Floor Plan panel. Number of Bins of the histogram are also dynamically adjusted based on the total number of RSSI values measured. Info tab shows coordinate information of the selected measurement points as well as the statistics of RSSI values.
 
-\section{Experiment Description} 
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=15cm]{Images/tool_des.png} \caption{Experiment Description of the visualization tool} \label{fig:tool:des} 
 \end{figure}
+
+\section{Experiment Description} 
 Experiment Description panel contains detail of the experiment such as testbed environment, sender and receiver device specification and interference pattern. This information is stored in Metadata database. 
 
-\section{API} 
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=15cm]{Images/tool_jsDoc.png} \caption{API of the visualization tool} \label{fig:tool:jsDoc} 
 \end{figure}
+
+\section{API} 
 API is a Javascript documentation which can be viewed by clicking on JavascriptDoc button on the top menu. API reveals the Functions, Constants, Views, Collections, Events and Utilities used to visualize the Raw Ranging Data. It helps to extend this program, do further implementation, add new features and debug the code. 
 
 % ================================================================
 % Design
 % ================================================================
 \chapter{Design} 
-\section{Interference} 
-\subsection{Introduction} This document shortly presents initial interference scenarios that will be artificially generated in TKN Wireless Indoor Sensor network Testbed (TWIST) testbed in order to benchmark different indoor localization solutions in the environments with controlled interference. The reason for benchmark representative indoor localization solutions in the environments with con- trolled interference is to determine if and to which extend different types and amounts of Radio Frequency (RF) interference can influence the indoor localization performance. 
-\subsection{Interference Scenarios}
-\label{sec:interference}
+\section{Reference Scenario} 
+This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure \ref{fig:floor}.
 
-\subsubsection{Reference Scenario} 
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=100mm]{Images/floor} \caption{Locations of measurement points} \label{fig:floor} 
 \end{figure}
-
-This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure 1.
 
 \paragraph{} At each measurement point the indoor localization System Under Test (SUT) is requested to estimate location. The SUT device is carried to each measurement location using the robotic platform. The navigation stack of the robotic platform gives one order of magnitude more accurate location estimation than considered SUTs and the location obtained from the robotic platform is considered as the ground truth.
 
 \paragraph{} The experiments were performed at the weekend afternoon, so the influence of interferes has been minimized. Furthermore, the wireless spectrum has been measured using the WiSpy device attached to the robotic platform and all measurements with the interference threshold above certain level have been repeated. Finally, before each experiment a more detained measurement of the spectrum has been taken with the spectrum analyzer at a predefined location.
 
-\subsubsection{Interference Scenario 1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. Three of such jamming nodes are present at different locations in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:1}.
+\section{Interference Scenarios}\label{sec:interference}
+\subsection{Interference Scenario 1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. Three of such jamming nodes are present at different locations in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:1}.
 \begin{table}
 	[h] \centering \caption{Interference scenario summary} \label{tb:interf:1} 
 	\begin{tabular}
@@ -260,7 +261,7 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 	\end{tabular}
 \end{table}
 
-\subsubsection{Interference Scenario 2}In this interference scenario instantiated in TWIST testbed interference is created using the IEEE 802.15.4 Tmote Sky nodes. The interference type is jamming on one IEEE 802.15.4 channel with a constant transmit power equal to 0 dBm. Five of these jamming nodes will be present in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:2}.
+\subsection{Interference Scenario 2}In this interference scenario instantiated in TWIST testbed interference is created using the IEEE 802.15.4 Tmote Sky nodes. The interference type is jamming on one IEEE 802.15.4 channel with a constant transmit power equal to 0 dBm. Five of these jamming nodes will be present in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:2}.
 \begin{table}
 	[h] \centering \caption{Interference scenario summary} \label{tb:interf:2} 
 	\begin{tabular}
@@ -294,7 +295,7 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 	\end{tabular}
 \end{table}
 
-\subsubsection{Interference Scenario 3}Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}.
+\subsection{Interference Scenario 3}Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}.
 \begin{table}
 	[h] \centering \caption{Interference scenario summary} \label{tb:interf:3}
 	\begin{tabular}
@@ -334,11 +335,13 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 \chapter{Experiments} 
 \section{Infrastructure} 
 Experiments are carried on two different Testbeds. As shown in the figure \ref{fig:experiment}, Testbeds provide a robotic automated platform to carry out the experiment. Setting up the measurement points, configuring the nodes, accessing signal generators and various other devices are done with the help of control center. 
-\section{Testbed}
+
 \begin{figure}
-	[!] \centering 
+	[!h] \centering 
 	\includegraphics[width=15cm]{Images/evari.png} \caption{Experiment Environment} \label{fig:experiment} 
 \end{figure}
+
+\section{Testbed}
 \subsection{TWIST}
 The TKN Wireless Indoor Sensor network Testbed (TWIST), developed by the Telecommunication Networks Group (TKN) at the Technische Universität Berlin, is a scalable and flexible testbed architecture for experimenting with wireless sensor network applications in an indoor setting. It provides basic services like node configuration, network-wide programming, out-of-band extraction of debug data and gathering of application data.
 
@@ -419,13 +422,12 @@ In equation \ref{eq:variance},
  $S_{i}^{2}$ is the variance of each cell, where each cell is test results of experiment that satisfies the repeatability condition, $(x_{i} - \bar{X}^2)$ is the difference from the mean value and $n$ is total number of values in the set.
 
 \begin{equation}\label{eq:repeat}
-{S}_r^2 = \frac{\sum\limits_{i=1}^{p} (p_{i} - 1){S}_i^2}
-{\sum\limits_{i=1}^{p}(p_{i} - 1)}
+{S}_r^2 = \frac{\sum\limits_{i=1}^{n} (n_{i} - 1){S}_i^2}
+{\sum\limits_{i=1}^{n}(n_{i} - 1)}
 \end{equation}
 
 In equation \ref{eq:repeat},
-${S}_r^2$ is repeatability variance, p is total number of repetition of cell, $S_{i}^{2}$ is the variance of each cell.
-
+${S}_r^2$ is repeatability variance, n is total number of repetition of cell, $S_{i}^{2}$ is the variance of each cell. 
 
 
 % ================================================================
@@ -436,7 +438,7 @@ ${S}_r^2$ is repeatability variance, p is total number of repetition of cell, $S
 \pagebreak 
 
 \begin{thebibliography}
-	{9} \bibitem{lamport94} Leslie Lamport \bibitem{lamport95} Leslie Lamport 
+	{9} \bibitem{lamport94} Ref1 
 \end{thebibliography}
 
 \end{document} 

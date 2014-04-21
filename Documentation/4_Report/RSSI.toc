@@ -1,35 +1,35 @@
-\contentsline {chapter}{\numberline {1}Introduction}{4}
-\contentsline {chapter}{\numberline {2}Problem Statement}{5}
-\contentsline {chapter}{\numberline {3}Raw Ranging Data Visualization Tool}{6}
-\contentsline {section}{\numberline {3.1}Database}{6}
-\contentsline {section}{\numberline {3.2}Floor Plan}{6}
-\contentsline {section}{\numberline {3.3}Graph}{8}
-\contentsline {section}{\numberline {3.4}Experiment Description}{8}
-\contentsline {section}{\numberline {3.5}API}{8}
+\contentsline {chapter}{\numberline {1}Introduction}{5}
+\contentsline {section}{\numberline {1.1}Beacon Packet}{5}
+\contentsline {section}{\numberline {1.2}Received Signal Strength Indicator (RSSI)}{5}
+\contentsline {chapter}{\numberline {2}Problem Statement}{6}
+\contentsline {chapter}{\numberline {3}Raw Ranging Data Visualization Tool}{7}
+\contentsline {section}{\numberline {3.1}Dashboard}{8}
+\contentsline {section}{\numberline {3.2}Floor Plan}{8}
+\contentsline {section}{\numberline {3.3}Graph}{9}
+\contentsline {section}{\numberline {3.4}Experiment Description}{9}
+\contentsline {section}{\numberline {3.5}API}{9}
 \contentsline {chapter}{\numberline {4}Design}{11}
-\contentsline {section}{\numberline {4.1}Interference}{11}
-\contentsline {subsection}{\numberline {4.1.1}Introduction}{11}
-\contentsline {subsection}{\numberline {4.1.2}Interference Scenarios}{11}
-\contentsline {subsubsection}{Reference Scenario}{11}
-\contentsline {subsubsection}{Interference Scenario 1}{12}
-\contentsline {subsubsection}{Interference Scenario 2}{12}
-\contentsline {subsubsection}{Interference Scenario 3}{12}
-\contentsline {chapter}{\numberline {5}Experiments}{16}
-\contentsline {section}{\numberline {5.1}Infrastructure}{16}
-\contentsline {section}{\numberline {5.2}Testbed}{16}
-\contentsline {subsection}{\numberline {5.2.1}TWIST}{16}
-\contentsline {subsection}{\numberline {5.2.2}iLab.t}{17}
-\contentsline {section}{\numberline {5.3}Experiment Procedure}{17}
-\contentsline {section}{\numberline {5.4}Reference Scenario Experiment}{17}
-\contentsline {subsection}{\numberline {5.4.1}Experiment Description}{18}
-\contentsline {subsection}{\numberline {5.4.2}Environment Description}{18}
-\contentsline {subsection}{\numberline {5.4.3}Sender Description}{18}
-\contentsline {subsection}{\numberline {5.4.4}Receiver Description}{18}
-\contentsline {subsection}{\numberline {5.4.5}Raw Data}{18}
-\contentsline {subsection}{\numberline {5.4.6}Interference Description}{18}
-\contentsline {chapter}{\numberline {6}Analysis}{19}
-\contentsline {section}{\numberline {6.1}Spatial Distribution}{19}
-\contentsline {section}{\numberline {6.2}Repeatability}{19}
-\contentsline {subsection}{\numberline {6.2.1}Repeatability Condition}{19}
-\contentsline {subsection}{\numberline {6.2.2}Repeatability}{19}
-\contentsline {chapter}{\numberline {7}Conclusion}{21}
+\contentsline {section}{\numberline {4.1}Reference Scenario}{11}
+\contentsline {section}{\numberline {4.2}Interference Scenarios}{12}
+\contentsline {subsection}{\numberline {4.2.1}Interference Scenario 1}{12}
+\contentsline {subsection}{\numberline {4.2.2}Interference Scenario 2}{12}
+\contentsline {subsection}{\numberline {4.2.3}Interference Scenario 3}{13}
+\contentsline {chapter}{\numberline {5}Experiments}{15}
+\contentsline {section}{\numberline {5.1}Infrastructure}{15}
+\contentsline {section}{\numberline {5.2}Testbed}{15}
+\contentsline {subsection}{\numberline {5.2.1}TWIST}{15}
+\contentsline {subsection}{\numberline {5.2.2}iLab.t}{16}
+\contentsline {section}{\numberline {5.3}Experiment Procedure}{16}
+\contentsline {section}{\numberline {5.4}Reference Scenario Experiment}{16}
+\contentsline {subsection}{\numberline {5.4.1}Experiment Description}{17}
+\contentsline {subsection}{\numberline {5.4.2}Environment Description}{17}
+\contentsline {subsection}{\numberline {5.4.3}Sender Description}{17}
+\contentsline {subsection}{\numberline {5.4.4}Receiver Description}{17}
+\contentsline {subsection}{\numberline {5.4.5}Raw Data}{17}
+\contentsline {subsection}{\numberline {5.4.6}Interference Description}{17}
+\contentsline {chapter}{\numberline {6}Analysis}{18}
+\contentsline {section}{\numberline {6.1}Spatial Distribution}{18}
+\contentsline {section}{\numberline {6.2}Repeatability}{18}
+\contentsline {subsection}{\numberline {6.2.1}Repeatability Condition}{18}
+\contentsline {subsection}{\numberline {6.2.2}Repeatability}{18}
+\contentsline {chapter}{\numberline {7}Conclusion}{20}

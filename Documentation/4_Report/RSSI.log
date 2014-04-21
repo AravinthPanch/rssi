@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.3.5)  21 APR 2014 18:24
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2014.3.5)  21 APR 2014 21:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1103,135 +1103,118 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20.74> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 132.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 19.08076pt on input line 132.
- (./RSSI.toc)
+ (./RSSI.toc
+Overfull \vbox (1.0pt too high) has occurred while \output is active []
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
+ [3
+
+])
 \tf@toc=\write4
 \openout4 = `RSSI.toc'.
 
 
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
-LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 138.
- [3
-
-]
+ [4]
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 139.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 138.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 13.24796pt on input line 139.
+(Font)              scaled to size 13.24796pt on input line 138.
+<Images/beacon_frame.png, id=44, 480.38293pt x 84.03488pt>
+File: Images/beacon_frame.png Graphic file (type png)
 
-Overfull \vbox (1.0pt too high) has occurred while \output is active []
-
- [4
-
-]
-Chapter 2.
+<use Images/beacon_frame.png>
+Package pdftex.def Info: Images/beacon_frame.png used on input line 142.
+(pdftex.def)             Requested size: 426.79134pt x 74.66pt.
 
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [5
 
-]
-Chapter 3.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 168.
-
-<Images/tool_db.png, id=47, 1385.175pt x 768.8725pt>
-File: Images/tool_db.png Graphic file (type png)
- <use Images/tool_db.png>
-Package pdftex.def Info: Images/tool_db.png used on input line 169.
-(pdftex.def)             Requested size: 426.79134pt x 236.89323pt.
-
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 181.
-
-<Images/tool_floor.png, id=49, 1386.17876pt x 768.8725pt>
-File: Images/tool_floor.png Graphic file (type png)
-
-<use Images/tool_floor.png>
-Package pdftex.def Info: Images/tool_floor.png used on input line 182.
-(pdftex.def)             Requested size: 426.79134pt x 236.72899pt.
+ <./Images/beacon_frame.png>]
+Chapter 2.
 
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [6
 
 ]
+Chapter 3.
+<Images/tool_db.png, id=51, 1385.175pt x 768.8725pt>
+File: Images/tool_db.png Graphic file (type png)
+ <use Images/tool_db.png>
+Package pdftex.def Info: Images/tool_db.png used on input line 168.
+(pdftex.def)             Requested size: 426.79134pt x 236.89323pt.
+
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [7 <./Images/tool_db.png> <./Images/tool_floor.png>]
+ [7
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 189.
+ <./Images/tool_db.png>] <Images/tool_floor.png, id=58, 1386.17876pt x 768.8725
+pt>
+File: Images/tool_floor.png Graphic file (type png)
+
+<use Images/tool_floor.png>
+Package pdftex.def Info: Images/tool_floor.png used on input line 183.
+(pdftex.def)             Requested size: 426.79134pt x 236.72899pt.
 
 <Images/tool_graph.png, id=59, 1385.175pt x 768.8725pt>
 File: Images/tool_graph.png Graphic file (type png)
 
 <use Images/tool_graph.png>
-Package pdftex.def Info: Images/tool_graph.png used on input line 190.
+Package pdftex.def Info: Images/tool_graph.png used on input line 191.
 (pdftex.def)             Requested size: 426.79134pt x 236.89323pt.
 
+Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 196.
-
-<Images/tool_des.png, id=60, 1441.385pt x 763.85374pt>
+ [8 <./Images/tool_floor.png>] <Images/tool_des.png, id=64, 1441.385pt x 763.85
+374pt>
 File: Images/tool_des.png Graphic file (type png)
 
 <use Images/tool_des.png>
-Package pdftex.def Info: Images/tool_des.png used on input line 197.
+Package pdftex.def Info: Images/tool_des.png used on input line 199.
 (pdftex.def)             Requested size: 426.79134pt x 226.17409pt.
 
 
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 203.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<Images/tool_jsDoc.png, id=61, 1442.38875pt x 779.91376pt>
+<Images/tool_jsDoc.png, id=65, 1442.38875pt x 779.91376pt>
 File: Images/tool_jsDoc.png Graphic file (type png)
 
 <use Images/tool_jsDoc.png>
-Package pdftex.def Info: Images/tool_jsDoc.png used on input line 204.
+Package pdftex.def Info: Images/tool_jsDoc.png used on input line 207.
 (pdftex.def)             Requested size: 426.79134pt x 230.76279pt.
 
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [8 <./Images/tool_graph.png>]
+ [9 <./Images/tool_graph.png>]
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [9 <./Images/tool_des.png> <./Images/tool_jsDoc.png>]
-Overfull \vbox (1.0pt too high) has occurred while \output is active []
-
- [10]
+ [10 <./Images/tool_des.png> <./Images/tool_jsDoc.png>]
 Chapter 4.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 219.
-
-<Images/floor.png, id=74, 980.66376pt x 495.8525pt>
+<Images/floor.png, id=75, 980.66376pt x 495.8525pt>
 File: Images/floor.png Graphic file (type png)
  <use Images/floor.png>
-Package pdftex.def Info: Images/floor.png used on input line 220.
+Package pdftex.def Info: Images/floor.png used on input line 222.
 (pdftex.def)             Requested size: 284.52756pt x 143.86163pt.
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 236.
 
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [11
 
  <./Images/floor.png>]
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 235.
-
- (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -1239,68 +1222,65 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [12]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [13]
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [14]
-Overfull \vbox (1.0pt too high) has occurred while \output is active []
-
- [15]
 Chapter 5.
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `!tbp') on input line 339.
-
-<Images/evari.png, id=93, 1001.7425pt x 487.8225pt>
+<Images/evari.png, id=91, 1001.7425pt x 487.8225pt>
 File: Images/evari.png Graphic file (type png)
  <use Images/evari.png>
-Package pdftex.def Info: Images/evari.png used on input line 340.
+Package pdftex.def Info: Images/evari.png used on input line 341.
 (pdftex.def)             Requested size: 426.79134pt x 207.83914pt.
 
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [16
+ [15
 
  <./Images/evari.png>]
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [17]
+ [16]
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [18]
+ [17]
 Chapter 6.
 
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [19
+ [18
 
 ]
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
- [20]
+ [19]
 Chapter 7.
 
+Overfull \vbox (1.0pt too high) has occurred while \output is active []
+
+ [20
+
+]
 Overfull \vbox (1.0pt too high) has occurred while \output is active []
 
  [21
 
 ]
-Overfull \vbox (1.0pt too high) has occurred while \output is active []
-
- [22
-
-]
 (./RSSI.aux) ) 
 Here is how much of TeX's memory you used:
- 13545 strings out of 493315
- 243948 string characters out of 6137905
- 322087 words of memory out of 5000000
- 16660 multiletter control sequences out of 15000+600000
+ 13550 strings out of 493315
+ 244063 string characters out of 6137905
+ 321097 words of memory out of 5000000
+ 16664 multiletter control sequences out of 15000+600000
  62517 words of font info for 89 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 65i,14n,71p,962b,319s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 65i,14n,71p,959b,376s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}<
 /usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
 sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
@@ -1311,10 +1291,10 @@ xlive/2013/texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2013/
 texmf-dist/fonts/type1/urw/symbol/usyr.pfb></usr/local/texlive/2013/texmf-dist/
 fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type
 1/urw/times/utmri8a.pfb>
-Output written on RSSI.pdf (22 pages, 784727 bytes).
+Output written on RSSI.pdf (21 pages, 788686 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
+ 151 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 58 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
