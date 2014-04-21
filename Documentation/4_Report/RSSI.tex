@@ -196,12 +196,14 @@ Graph panel contains a histogram that is generated dynamically by selected a par
 	[!] \centering 
 	\includegraphics[width=15cm]{Images/tool_des.png} \caption{Experiment Description of the visualization tool} \label{fig:tool:des} 
 \end{figure}
+Experiment Description panel contains detail of the experiment such as testbed environment, sender and receiver device specification and interference pattern. This information is stored in Metadata database. 
 
 \section{API} 
 \begin{figure}
 	[!] \centering 
 	\includegraphics[width=15cm]{Images/tool_jsDoc.png} \caption{API of the visualization tool} \label{fig:tool:jsDoc} 
 \end{figure}
+API is a Javascript documentation which can be viewed by clicking on JavascriptDoc button on the top menu. API reveals the Functions, Constants, Views, Collections, Events and Utilities used to visualize the Raw Ranging Data. It helps to extend this program, do further implementation, add new features and debug the code. 
 
 % ================================================================
 % Design
@@ -217,7 +219,7 @@ Graph panel contains a histogram that is generated dynamically by selected a par
 	\includegraphics[width=100mm]{Images/floor} \caption{Locations of measurement points} \label{fig:floor} 
 \end{figure}
 
-This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. Ac- cording to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure 1.
+This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure 1.
 
 \paragraph{} At each measurement point the indoor localization System Under Test (SUT) is requested to estimate location. The SUT device is carried to each measurement location using the robotic platform. The navigation stack of the robotic platform gives one order of magnitude more accurate location estimation than considered SUTs and the location obtained from the robotic platform is considered as the ground truth.
 
@@ -330,11 +332,32 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 % ================================================================
 \chapter{Experiments} 
 \section{Infrastructure} 
-Experiments are carried out using a robotic platform.
+Experiments are carried on two different Testbeds. As shown in the figure \ref{fig:experiment}, Testbeds provide a robotic automated platform to carry out the experiment. Setting up the measurement points, configuring the nodes, accessing signal generators and various other devices are done with the help of control center.
+\section{Testbed}
 \begin{figure}
 	[!] \centering 
 	\includegraphics[width=15cm]{Images/evari.png} \caption{Experiment Environment} \label{fig:experiment} 
 \end{figure}
+\subsection{TWIST}
+The TKN Wireless Indoor Sensor network Testbed (TWIST), developed by the Telecommunication Networks Group (TKN) at the Technische Universität Berlin, is a scalable and flexible testbed architecture for experimenting with wireless sensor network applications in an indoor setting. It provides basic services like node configuration, network-wide programming, out-of-band extraction of debug data and gathering of application data.
+
+It is equipped with 102 TmoteSky nodes and 102 eyesIFX nodes. For the experiments 3 Different Floor Plans are used. Signal Generators are used to generate microwave signals which were used to jam the channel during the experiments. From control center fixed coordinates
+are set to the robot, so that accurate measurement points are achieved in the experiments. 
+
+\subsection{iLab.t}
+The iMinds iLab.t technology centre offers the experimentation environments, the hardware, the measurement equipment and the software tools needed to develop your ICT innovations, and/or test their performance and service quality.
+
+A generic experimentation facility of 100 nodes (dual processor, dual core servers) interconnected via non-blocking 1.5 Tb/s Ethernet switch, called the Virtual Wall. Two generic wireless experimentation facilities of 200 and 80 nodes respectively, specifically targeting innovations involving the use, configuration or set-up of wireless networks (includes Wi-Fi, 802.15.4, Bluetooth, sensor nodes, mobile robots and a mobility emulation set-up), called the w-iLab.t.
+
+\section{Experiment Procedure}
+This shows step by step how experiments were carried out. Even though the experiments were conducted in various environment, procedure of reference experiment is explained here. Since this experiment is conducted under environment where no artificial interference is generated and the presence of uncontrolled interference is minimized, this experiment is referred to as reference scenario.
+\begin{itemize}
+\item 
+\item System Under Test (SUT) is 
+\item Hola
+\end{itemize}
+
+
 % ================================================================
 % Results
 % ================================================================
