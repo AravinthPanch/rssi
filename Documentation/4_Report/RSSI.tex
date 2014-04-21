@@ -212,6 +212,7 @@ API is a Javascript documentation which can be viewed by clicking on JavascriptD
 \section{Interference} 
 \subsection{Introduction} This document shortly presents initial interference scenarios that will be artificially generated in TKN Wireless Indoor Sensor network Testbed (TWIST) testbed in order to benchmark different indoor localization solutions in the environments with controlled interference. The reason for benchmark representative indoor localization solutions in the environments with con- trolled interference is to determine if and to which extend different types and amounts of Radio Frequency (RF) interference can influence the indoor localization performance. 
 \subsection{Interference Scenarios}
+\label{sec:interference}
 
 \subsubsection{Reference Scenario} 
 \begin{figure}
@@ -332,7 +333,7 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 % ================================================================
 \chapter{Experiments} 
 \section{Infrastructure} 
-Experiments are carried on two different Testbeds. As shown in the figure \ref{fig:experiment}, Testbeds provide a robotic automated platform to carry out the experiment. Setting up the measurement points, configuring the nodes, accessing signal generators and various other devices are done with the help of control center.
+Experiments are carried on two different Testbeds. As shown in the figure \ref{fig:experiment}, Testbeds provide a robotic automated platform to carry out the experiment. Setting up the measurement points, configuring the nodes, accessing signal generators and various other devices are done with the help of control center. 
 \section{Testbed}
 \begin{figure}
 	[!] \centering 
@@ -350,18 +351,82 @@ The iMinds iLab.t technology centre offers the experimentation environments, the
 A generic experimentation facility of 100 nodes (dual processor, dual core servers) interconnected via non-blocking 1.5 Tb/s Ethernet switch, called the Virtual Wall. Two generic wireless experimentation facilities of 200 and 80 nodes respectively, specifically targeting innovations involving the use, configuration or set-up of wireless networks (includes Wi-Fi, 802.15.4, Bluetooth, sensor nodes, mobile robots and a mobility emulation set-up), called the w-iLab.t.
 
 \section{Experiment Procedure}
-This shows step by step how experiments were carried out. Even though the experiments were conducted in various environment, procedure of reference experiment is explained here. Since this experiment is conducted under environment where no artificial interference is generated and the presence of uncontrolled interference is minimized, this experiment is referred to as reference scenario.
+This shows step by step how experiments were carried out. 
 \begin{itemize}
-\item 
-\item System Under Test (SUT) is 
-\item Hola
+\item Measurement points of testbed are loaded into the Robot. 
+\item System Under Test (SUT) is equipped with Network Interface Card (NIC) and loaded with program to store RSSI, SSID, BSSID, Latency values.
+\item SUT is placed on the top of the Robot.
+\item Robot is commanded from the control center to move to the first measurement point.
+\item SUT is commanded to start the measurement.
+\item SUT scans the Wireless Spectrum in the environment for WiFi Access Points and stores RSSI, SSID, BSSID, Latency values. This step is iterated 20 times.
+\item Measurements are stored on cloud database.
+\item Robot moves to other measurement point and repeats the above given steps‚
 \end{itemize}
+
+\section{Reference Scenario Experiment}
+Since this experiment is conducted under environment where no artificial interference is generated and the presence of uncontrolled interference is minimized, this experiment is referred to as reference scenario. Experiments with controlled interferences are carried out in the similar way with artificially generated interferences. Section \ref{sec:interference} shows the details of various interferences which were generated during the experiments.
+
+
+\subsection{Experiment Description}
+This mesurements are a runtime (online) survey for fingerprint based indoor localization. The testbed environment is divided into the grid area. Cells of the grid are selected according to the building footprints. Cells are the rectangles/squares of the sizes between 2.5 and 3.5 m. Small offices in the building are divided into 2 cells, bigger offices in 4 cells, while the biggest rooms (mostly laboratories) are divided into 6 cells. Fingerprints are taken on a randomly distributed positions in the testbed area.
+
+\subsection{Environment Description}
+TWIST testbed 2nd floor - Small to medium office environment with bricked walls.
+
+\subsection{Sender Description}
+Senders are all Wi-Fi APs in the area, while the APs specifically used for localization purposes have the SSID = CREW. There is four such devices, mounted on the corners of the 2nd floor of the TWIST testbed. The wireless APs used used for localization are TL-WDR4300 routers, with the fixed channel allocation scheme set on channel 11 (2462 MHz). The transmission power is set to 20 dBm (100 mW), and the traffic model is IEEE 802.11b.
+
+\subsection{Receiver Description}
+Receiver is a MacBook Pro notebook with the AirPort Extreme network interface card (NIC).
+
+\subsection{Raw Data}
+At randomly distributed locations the RSSI fingerprint has been taken. Each fingerprint consists of 20 scans of the wireless environment and RSSI values from beacon packets from all visible APs are taken.
+
+\subsection{Interference Description}
+This is an experiment without controlled interference. Measurements were done in a weekend afternoon and the interference level was monitored using WiSpy 2.4 tool.
 
 
 % ================================================================
 % Results
 % ================================================================
-\chapter{Results}
+\chapter{Analysis}
+\section{Spatial Distribution}
+Spatial Distribution of mean value of RSSIs shows the strength of RSSI values in the geometrical plane of Floor Plan.
+
+\section{Repeatability}
+\subsection{Repeatability Condition}
+It is defined as a condition where independent test results are obtained with the same method on identical test items in the same laboratory by the same operator using the same equipment within short intervals of time.
+
+In our case, it is defined as a condition which satisfies the following:
+\begin{itemize}
+\item Same Testbed
+\item Same Laboratory (Floor)
+\item Same Measurement point
+\item Same Channel
+\item Same Sender (SSID and BSSID)
+\end{itemize}
+
+An experiment which satisfies this condition is called as cell. 
+
+\subsection{Repeatability}
+Repeatability is precision under repeatability condition that describes the minimum variability in results.
+
+\begin{equation}\label{eq:variance}
+{S}_i^2 = {\sigma}^2 =  \frac{\sum\limits_{i=1}^{n} (x_{i} - \bar{X}^2)}{n-1}
+\end{equation}
+
+In equation \ref{eq:variance},
+ $S_{i}^{2}$ is the variance of each cell, where each cell is test results of experiment that satisfies the repeatability condition, $(x_{i} - \bar{X}^2)$ is the difference from the mean value and $n$ is total number of values in the set.
+
+\begin{equation}\label{eq:repeat}
+{S}_r^2 = \frac{\sum\limits_{i=1}^{p} (p_{i} - 1){S}_i^2}
+{\sum\limits_{i=1}^{p}(p_{i} - 1)}
+\end{equation}
+
+In equation \ref{eq:repeat},
+${S}_r^2$ is repeatability variance, p is total number of repetition of cell, $S_{i}^{2}$ is the variance of each cell.
+
+
 
 % ================================================================
 % Conclusion
