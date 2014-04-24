@@ -62,8 +62,8 @@
 \thispagestyle{empty} 
 \begin{tabularx}
 	{\columnwidth}{cXc} 
-	\includegraphics[height=1cm]{TU-Logo-3D-rot.pdf} & & 
-	\includegraphics[height=1cm]{tknlogo.pdf} \\
+	\includegraphics[height=1cm]{Images/TU-Logo-3D-rot.pdf} & & 
+	\includegraphics[height=1cm]{Images/tknlogo.pdf} \\
 \end{tabularx}
 
 \vspace{1.0cm} 
@@ -142,17 +142,42 @@
 	\includegraphics[width=15cm]{Images/beacon_frame.png} \caption{MPDU - Beacon Frame of IEEE 802.11} \label{fig:beacon} 
 \end{figure}
 
-\section{Received Signal Strength Indicator (RSSI)} RSSI is an indication of the power level received by a receiver expressed in dBm. This value is then used to estimate the distance between
-transmitter and receiver. The physics behind this technology
-is the power level decay with distance. RSSI is available in
-most RF receivers.
+\section{Received Signal Strength Indicator (RSSI)} RSSI is an indication of the power level received by a receiver expressed in dBm. RSSI is a generic radio receiver technology metric, which is usually invisible to the user of the device containing the receiver, but is directly known to users of wireless networking of IEEE 802.11 protocol family. RSSI can be used internally in a wireless networking card to determine when the amount of radio energy in the channel is below a certain threshold at which point the network card is clear to send (CTS). Once the card is clear to send, a packet of information can be sent. RSSI is generally visible to the user in the form of signal strength as shown in the Figure \ref{fig:rssi} 
+
+\begin{figure}
+	[!h] \centering 
+	\includegraphics[width=8cm]{Images/rssi.png} \caption{Signal Strength Indicator in Wireless devices } \label{fig:rssi} 
+\end{figure}
 
 % ================================================================
 % Problem Statement
 % ================================================================
 \chapter{Problem Statement}
-Beacon Packet frame RSSI
-Changes in RSSI by 	
+\section{Accuracy}
+Different studies show that RSSI values have significant variations due to various factors.
+\begin{itemize}
+\item RSSI values are reported significantly different by different hardwares.
+\item RSSI values vary with change in temperature.
+\item RSSI values are affected by various interferences.
+\item The relation between RSSI values and distance between
+transmitter and receiver is unreliable.
+\end{itemize}
+
+\begin{figure}
+	[!h] \centering 
+	\includegraphics[width=15cm]{Images/rssi_vendor1.png} \caption{RSSI values recorded from different hardwares} \label{fig:rssi_vendors} 
+\end{figure}
+
+\section{Standardization}
+There is no standardized relationship of any particular physical parameter to the RSSI reading. The 802.11 standard does not define any relationship between RSSI value and power level in mW or dBm. Vendors and chipset makers provide their own accuracy, granularity, and range for the actual power (measured as mW or dBm) and their range of RSSI values (from 0 to RSSI Max). Figure \ref{fig:rssi_vendors} shows the variance of RSSI values due to different hardwares and vendors.
+
+\section{RSSI in Indoor Localization}
+RSSI is also extensively used for RF based ranging and localization purposes. It is then used to estimate the distance between
+transmitter and receiver. The physics behind this technology
+is the power level decay with distance. 
+
+\section{Interferences}
+Due to the reason that RSSI is used for other purposes where the accuracy and reliability should be guaranteed, few experiments were carried out as a part of this project work to analyze the change in RSSI values due to various interferences. Following sections describe about it clearly.
 
 % ================================================================
 % RSSI Visualization Tool
@@ -429,6 +454,11 @@ In equation \ref{eq:variance},
 In equation \ref{eq:repeat},
 ${S}_r^2$ is repeatability variance, n is total number of repetition of cell, $S_{i}^{2}$ is the variance of each cell. 
 
+
+% ================================================================
+% Conclusion
+% ================================================================
+\chapter{Results}
 
 % ================================================================
 % Conclusion
