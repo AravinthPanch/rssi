@@ -78,8 +78,12 @@ app.controller = {
         app.eventBus.subscribe("rawData:retrieved", function () {
             app.view.hideLoader()
             app.collection.getMetadata(app.metadataId)
+            app.utils.dumpPlotData(app.rawData);
         });
 
+        app.eventBus.subscribe("plot:data:retrieved", function () {
+           app.view.updatePlotData();
+        });
 
         /**
          Triggered when Metadata of the selected collection is retrieved from backend

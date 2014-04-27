@@ -266,9 +266,8 @@ var app = {
             left_offset_px: 15,
             top_offset_px: 49
         }
-    }
+    },
 
-
-
+    plotData : {}
 
 }

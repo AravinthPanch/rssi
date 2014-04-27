@@ -414,6 +414,43 @@ app.view = {
             var template = '<li class="ui-widget-content" >' + heading + text + '</li>'
             $('#description').append(template)
         })
+    },
+
+    updatePlotData: function () {
+        $('#plot').empty()
+        var template = 'exp = "' + app.plotData.experiment.substring(12) + '";' + '<br>'
+            + "x = [" + app.plotData.x_axis.join(',') + "];" + '<br>'
+            + "y = [" + app.plotData.y_axis.join(',') + "];" + '<br>'
+            + "z = [" + app.plotData.mean.join(',') + "];" + '<br>'
+            + "variance = [" + app.plotData.variance.join(',') + "];" + '<br>'
+        $('#plot').append(template);
+
+        var rssi = 1;
+        $.each(app.plotData.rssi, function (key, val) {
+            template = "rssi" + rssi + " = [" + val.join(',') + "];" + '<br>'
+            $('#plot').append(template);
+            rssi++;
+        });
+
+        template = "x = x';" + '<br>' + "y = y';" + '<br>' + "z = z';" + '<br>' + "k = mean(z);" + '<br>' + "k = k*-1;" + '<br>'
+            + "[xx,yy] = meshgrid (linspace (0,25,100));" + '<br>'
+            + "griddata (x,y,z,xx,yy);" + '<br>'
+            + "title (exp);" + '<br>'
+            + "xlabel('x co-ordinate distance in meters');" + '<br>'
+            + "ylabel('y co-ordinate distance in meters');" + '<br>'
+            + "zlabel('mean of RSSI values in dBm');" + '<br>'
+            + "clf();" + '<br>'
+            + "%boxplot ({rssi1,rssi2,rssi3,rssi4,rssi5,rssi6,rssi7,rssi8,rssi9,rssi10,rssi11,rssi12,rssi13,rssi14,rssi15,rssi16,rssi17,rssi18,rssi19,rssi20});" + '<br>'
+            + "hold on" + '<br>'
+            + "line([0:21], k, 'color', 'green');" + '<br>'
+            + "hold off" + '<br>'
+            + "title (exp);" + '<br>'
+            + "ylabel('RSSI values in dBm');" + '<br>'
+            + "xlabel('Measurement points');" + '<br>'
+            + "xlim([0,21]);" + '<br>'
+            + 'set(gca, "XTick", [1:20]);' + '<br>';
+
+        $('#plot').append(template);
     }
 }
 
