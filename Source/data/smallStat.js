@@ -146,7 +146,7 @@ function getSmallRepeatability() {
     smallStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small_mean_variance).mean, 2)
 
     var template = "<tr><td>Measurement Points</td><td>X</td><td>Y</td><td>Small01</td><td>Small02</td><td>Small03</td><td>Small04</td><td>Repeatability</td></tr>";
-    $('#repeatTab').append(template)
+    $('#smallTab').append(template)
 
     var i = 1;
     $.each(smallStat, function (key, val) {
@@ -156,7 +156,7 @@ function getSmallRepeatability() {
                 + val.small02_variance + '</td><td>' + val.small03_variance + '</td><td>'
                 + val.small04_variance + '</td><td>' + val.groupVariance
                 + '</td></tr>';
-            $('#repeatTab').append(template)
+            $('#smallTab').append(template)
             i++;
         }
     });
@@ -166,6 +166,6 @@ function getSmallRepeatability() {
         + smallStat[20].small02_mean_variance + '</td><td>' + smallStat[20].small03_mean_variance + '</td><td>'
         + smallStat[20].small03_mean_variance + '</td><td>' + smallStat[20].small_mean_variance
         + '</td></tr>';
-    $('#repeatTab').append(template)
+    $('#smallTab').append(template)
 
 }

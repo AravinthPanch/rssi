@@ -86,6 +86,8 @@ app.controller = {
             app.view.updatePlotDataRepeat();
         });
         getSmallRepeatability();
+        getSigGenRepeatability();
+        getWifiStatRepeatability();
 
         /**
          Triggered when Metadata of the selected collection is retrieved from backend
