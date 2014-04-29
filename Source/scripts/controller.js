@@ -82,7 +82,7 @@ app.controller = {
         });
 
         app.eventBus.subscribe("plot:data:retrieved", function () {
-//           app.view.updatePlotData();
+            app.view.updatePlotData();
             app.view.updatePlotDataRepeat();
         });
         getSmallRepeatability();
@@ -156,7 +156,6 @@ app.controller = {
             app.graph.draw(app.graphData)
 
         });
-
 
 
     },

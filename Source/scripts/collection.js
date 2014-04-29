@@ -76,6 +76,9 @@ app.collection = {
                     app.rawData.push(JSON.parse(results))
                 });
         })
+        app.rawData = _.sortBy(app.rawData, function (res) {
+            return res.location.coordinate_x;
+        });
         app.eventBus.publish("rawData:retrieved")
     },
 
