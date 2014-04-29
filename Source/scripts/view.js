@@ -36,7 +36,8 @@ app.view = {
      **/
     bindTitleTabsUi: function () {
         $("#titleTabs").on("tabsactivate", function (event, ui) {
-            if (ui.newTab.context.hash == '#docTab' || ui.newTab.context.hash == '#infoTab') {
+            if (ui.newTab.context.hash == '#docTab' || ui.newTab.context.hash == '#infoTab'
+                || ui.newTab.context.hash == '#plotTab' || ui.newTab.context.hash == '#statTab') {
                 $("#accordion").hide()
             } else {
                 $("#accordion").show()
@@ -451,7 +452,12 @@ app.view = {
             + 'set(gca, "XTick", [1:20]);' + '<br>';
 
         $('#plot').append(template);
+    },
+    updatePlotDataRepeat: function () {
+        $('#plotTab').empty()
+        $('#plotTab').append(JSON.stringify(app.plotData.repeat))
     }
+
 }
 
 

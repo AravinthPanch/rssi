@@ -25,6 +25,7 @@ app.utils = {
         app.plotData.mean = [];
         app.plotData.variance = [];
         app.plotData.rssi = [];
+        app.plotData.repeat = [];
 
         $.each(data, function (key, val) {
             app.plotData.experiment = app.selectedCollection.name.replace(/_/g, ' ')
@@ -33,16 +34,37 @@ app.utils = {
 
             var rawRSSI = [];
             $.each(val.rawRSSI, function (key, val) {
-                rawRSSI.push(val.rssi)
+                if (val.sender_bssid == "64:70:02:3e:9f:63" && val.sender_ssid == "CREW") {
+                    rawRSSI.push(val.rssi)
+                }
             });
             app.plotData.rssi.push(rawRSSI)
 
             var stat = app.utils.statisticsCalculator(rawRSSI);
-            app.plotData.mean.push(d3.round(stat.mean*-1, 2))
-            app.plotData.variance.push(d3.round(stat.variance),2)
+            app.plotData.mean.push(d3.round(stat.mean * -1, 2))
+            app.plotData.variance.push(d3.round(stat.variance, 2))
+
+            var mean = d3.round(stat.mean * -1, 2)
+            var variance = d3.round(stat.variance, 2)
+
+            app.plotData.repeat.push({
+                'x': val.location.coordinate_x,
+                'y': val.location.coordinate_y,
+                'room': val.location.room_label,
+                'rssi': rawRSSI,
+                'mean': mean,
+                'variance': variance
+            })
+
+            app.plotData.repeat = _.sortBy(app.plotData.repeat, function (data) {
+                return data.x;
+            });
+
 
             app.eventBus.publish("plot:data:retrieved")
         });
+
+
     }
 }
 

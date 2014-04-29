@@ -15,7 +15,9 @@
     <!--index-->
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/graph.css">
+    <link rel="stylesheet" href="css/table.css">
     <script src="data/data.js"></script>
+    <script src="data/smallStat.js"></script>
     <script src="scripts/globals.js"></script>
     <script src="scripts/floor.js"></script>
     <script src="scripts/graph.js"></script>
@@ -34,6 +36,8 @@
         <li><a href="#indexTab">Index</a></li>
         <li><a href="#infoTab">Info</a></li>
         <li><a href="#docTab">JavascriptDoc</a></li>
+        <li><a href="#plotTab">Plot</a></li>
+        <li><a href="#statTab">Statistics</a></li>
     </ul>
     <div id="indexTab">
         <div id="title">Raw Ranging Data Visualization Tool</div>
@@ -104,6 +108,13 @@
             <p>Your browser does not support iframes.</p>
         </iframe>
     </div>
+    <div id="plotTab"></div>
+    <div id="statTab">
+        <table id="repeatTab" style="width: 400px; height: 300px" class="CSSTableGenerator">
+        </table>
+    </div>
+
+
 </div>
 
 <!--Accordions-->
@@ -222,13 +233,6 @@
     <div>
         <!-- Metadata -->
         <ol id="description" class="selectableList"></ol>
-    </div>
-
-    <!------------------------- Plot Tab  -------------------------->
-    <h3>Plot</h3>
-
-    <div>
-        <div id="plot"></div>
     </div>
 
 </div>

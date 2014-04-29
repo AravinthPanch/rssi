@@ -82,8 +82,10 @@ app.controller = {
         });
 
         app.eventBus.subscribe("plot:data:retrieved", function () {
-           app.view.updatePlotData();
+//           app.view.updatePlotData();
+            app.view.updatePlotDataRepeat();
         });
+        getSmallRepeatability();
 
         /**
          Triggered when Metadata of the selected collection is retrieved from backend
@@ -152,6 +154,8 @@ app.controller = {
             app.graph.draw(app.graphData)
 
         });
+
+
 
     },
 
