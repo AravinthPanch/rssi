@@ -184,9 +184,9 @@ Due to the reason that RSSI is used for other purposes where the accuracy and re
 % ================================================================
 \chapter{Raw Ranging Data Visualization Tool}
 \section*{Introduction} 
-Measurements yield large amount of raw data which contains the complete information of experiments such as testbed measurement locations, access points, rssi, channel, ssid, bssid, latency. In order to track collected of raw data, a raw ranging data visualization tool was implemented. 
+Measurements yield large amount of raw data which contains the complete information of experiments such as testbed measurement locations, access points, rssi, channel, ssid, bssid, latency. In order to track collected raw data, a raw ranging data visualization tool was implemented. 
 
-\paragraph{}This tools helps us to list and visualize the available databases and collections of experiments under one hood. It is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers.It makes use of asynchronous (AJAX) ability of Javascript and processes large array of raw data. This tool consists of 4 panels which showcases the work flow in an user friendly manner. Usage and functionality of each panel is explained in the following sections.
+\paragraph{}This tools helps us to list and visualize the available databases and collections of experiments under one hood. It is a web-based standalone software which was implemented using Javascript and various libraries. This tool can be simply started by opening it on a web browser. It needs an Internet connection to retrieve data from the backend servers. It makes use of asynchronous (AJAX) ability of Javascript and processes large array of raw data. This tool consists of 4 panels which showcases the work flow in an user friendly manner. Usage and functionality of each panel is explained in the following sections.
 
 \begin{figure}
 	[!h] \centering 
@@ -194,7 +194,7 @@ Measurements yield large amount of raw data which contains the complete informat
 \end{figure}
  
 \section{Dashboard} 
-Dashboard panel is the landing page of this tool. It contains 4 sub-panels. 
+Figure \ref{fig:tool:db} shows the Dashboard panel that is the landing page of this tool. It contains 4 sub-panels. 
 
 \begin{description}
 \item[List of Servers] lists URIs of server that contains various RAW data collected from the experiments. Remote Server contains the complete set of RAW data. Copy of the RAW data can also be stored on the local machine. Static Data contains a simple set of RAW data for the purpose of debugging. 
@@ -209,7 +209,7 @@ Dashboard panel is the landing page of this tool. It contains 4 sub-panels.
 \end{figure}
 
 \section{Floor Plan} 
-Floor Plan panel contains the map of selected testbed. Once the appropriate floor plan for an experiment is selected, all the measurement points are loaded into the map. Measurement point is circular button that turns blue when it is clicked and it lists RSSI values measured at that geographical point. On the right side of the Floor Plan, Channel and SSID information of the selected measurement point is shown. If the Raw Data contains channel information, then it will be listed in the dropdown other it will be listed as Unknown. RSSI values are grouped together on the basis of same SSID and BSSID. Info tab at the right below shows some specific information about the selected measurement point.
+Figure \ref{fig:tool:floor} shows Floor Plan panel that contains the map of selected testbed. Once the appropriate floor plan for an experiment is selected, all the measurement points are loaded into the map. Measurement point is circular button that turns blue when it is clicked and it lists RSSI values measured at that geographical point. On the right side of the Floor Plan, Channel and SSID information of the selected measurement point is shown. If the Raw Data contains channel information, then it will be listed in the dropdown other it will be listed as Unknown. RSSI values are grouped together on the basis of same SSID and BSSID. Info tab at the right below shows some specific information about the selected measurement point.
 
 \begin{figure}
 	[!h] \centering 
@@ -217,7 +217,7 @@ Floor Plan panel contains the map of selected testbed. Once the appropriate floo
 \end{figure}
 
 \section{Graph} 
-Graph panel contains a histogram that is generated dynamically by selected a particular access point on Floor Plan panel. Number of Bins of the histogram are also dynamically adjusted based on the total number of RSSI values measured. Info tab shows coordinate information of the selected measurement points as well as the statistics of RSSI values.
+Figure \ref{fig:tool:graph} shows Graph panel that contains a histogram that is generated dynamically by selecting a particular access point on Floor Plan panel. Number of Bins of the histogram are also dynamically adjusted based on the total number of RSSI values measured. Info tab shows coordinate information of the selected measurement points as well as the statistics of RSSI values.
 
 \begin{figure}
 	[!h] \centering 
@@ -225,7 +225,7 @@ Graph panel contains a histogram that is generated dynamically by selected a par
 \end{figure}
 
 \section{Experiment Description} 
-Experiment Description panel contains detail of the experiment such as testbed environment, sender and receiver device specification and interference pattern. This information is stored in Metadata database. 
+Figure \ref{fig:tool:des} shows Experiment Description panel that contains detail of the experiment such as testbed environment, sender and receiver device specification and interference pattern. This information is stored in Metadata database. 
 
 \begin{figure}
 	[!h] \centering 
@@ -233,14 +233,14 @@ Experiment Description panel contains detail of the experiment such as testbed e
 \end{figure}
 
 \section{API} 
-API is a Javascript documentation which can be viewed by clicking on JavascriptDoc button on the top menu. API reveals the Functions, Constants, Views, Collections, Events and Utilities used to visualize the Raw Ranging Data. It helps to extend this program, do further implementation, add new features and debug the code. 
+Figure \ref{fig:tool:jsDoc} shows API that is a Javascript documentation which can be viewed by clicking on JavascriptDoc button on the top menu. API reveals the Functions, Constants, Views, Collections, Events and Utilities used to visualize the Raw Ranging Data. It helps to extend this program, do further implementation, add new features and debug the code. 
 
 % ================================================================
 % Design
 % ================================================================
 \chapter{Design} 
 \section{Reference Scenario} 
-This reference scenario is instantiated on the 2nd floor of the TWIST testbed in Berlin. It is called “Reference scenario”, while no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure \ref{fig:floor}.
+This reference scenario is instantiated on the 2nd floor of the TWIST testbed. It is called “Reference scenario” because no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure \ref{fig:floor}.
 
 \begin{figure}
 	[!h] \centering 
@@ -249,7 +249,7 @@ This reference scenario is instantiated on the 2nd floor of the TWIST testbed in
 
 \paragraph{} At each measurement point the indoor localization System Under Test (SUT) is requested to estimate location. The SUT device is carried to each measurement location using the robotic platform. The navigation stack of the robotic platform gives one order of magnitude more accurate location estimation than considered SUTs and the location obtained from the robotic platform is considered as the ground truth.
 
-\paragraph{} The experiments were performed at the weekend afternoon, so the influence of interferes has been minimized. Furthermore, the wireless spectrum has been measured using the WiSpy device attached to the robotic platform and all measurements with the interference threshold above certain level have been repeated. Finally, before each experiment a more detained measurement of the spectrum has been taken with the spectrum analyzer at a predefined location.
+\paragraph{} The experiments were performed at the weekend afternoon, so the influence of interferes has been minimized. Furthermore, the wireless spectrum has been measured using the WiSpy device attached to the robotic platform and all measurements with the interference threshold above certain level have been repeated. Finally, before each experiment a more detailed measurement of the spectrum has been taken with the spectrum analyzer at a predefined location.
 
 \section{Interference Scenarios}\label{sec:interference}
 \subsection{Interference Scenario 1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. Three of such jamming nodes are present at different locations in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:1}.
