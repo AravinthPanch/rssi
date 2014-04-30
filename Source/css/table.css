@@ -84,3 +84,11 @@ border-width:0px 0px 1px 0px;
 .CSSTableGenerator tr:first-child td:last-child{
 border-width:0px 0px 1px 1px;
 }
+
+.groupVariance{
+    border: solid red 2px;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 5px;
+    text-align: center;
+}

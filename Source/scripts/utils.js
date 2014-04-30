@@ -14,9 +14,9 @@ app.utils = {
     statisticsCalculator: function (a) {
         var r = {mean: 0, variance: 0, deviation: 0}, t = a.length;
         if(a.length == 0){
-            r.deviation = 0
-            r.variance = 0
-            r.deviation = 0
+            r.deviation = 'No Data'
+            r.variance = 'No Data'
+            r.deviation = 'No Data'
             return r.deviation,r;
         }else{
             for (var m, s = 0, l = t; l--; s += a[l]);
@@ -48,10 +48,10 @@ app.utils = {
             app.plotData.rssi.push(rawRSSI)
 
             var stat = app.utils.statisticsCalculator(rawRSSI);
-            app.plotData.mean.push(d3.round(stat.mean * -1, 2))
+            app.plotData.mean.push(d3.round(stat.mean, 2))
             app.plotData.variance.push(d3.round(stat.variance, 2))
 
-            var mean = d3.round(stat.mean * -1, 2)
+            var mean = d3.round(stat.mean, 2)
             var variance = d3.round(stat.variance, 2)
 
             app.plotData.repeat.push({
