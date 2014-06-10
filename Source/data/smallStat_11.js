@@ -188,11 +188,11 @@ function getSmallRepeatability() {
         }
     })
 
-    console.log(smallStat[20].small01_mean_variance)
-    console.log(smallStat[20].small02_mean_variance)
-    console.log(smallStat[20].small03_mean_variance)
-    console.log(smallStat[20].small04_mean_variance)
-    console.log("gv: "+ smallStat[20].small_mean_variance)
+//    console.log(smallStat[20].small01_mean_variance)
+//    console.log(smallStat[20].small02_mean_variance)
+//    console.log(smallStat[20].small03_mean_variance)
+//    console.log(smallStat[20].small04_mean_variance)
+//    console.log("gv: "+ smallStat[20].small_mean_variance)
 
 
     smallStat[20].small01_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small01_mean_variance).mean, 2)

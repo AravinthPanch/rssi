@@ -54,14 +54,14 @@ function getWifiStatRepeatability() {
             'x': val.x,
             'y': val.y,
             'small01_variance': val.variance,
-            'small01_mean': val.mean * -1,
+            'small01_mean': val.mean,
             'rssi': val.rssi,
             'room': val.room
         })
     });
 
     $.each(wifiStat2, function (key, val) {
-        wifiStat[key].small02_mean = val.mean * -1;
+        wifiStat[key].small02_mean = val.mean;
         wifiStat[key].small02_variance = val.variance;
         wifiStat[key].rssi = wifiStat[key].rssi.concat(val.rssi)
     });
@@ -85,22 +85,28 @@ function getWifiStatRepeatability() {
     })
 
     $.each(wifiStat, function (key, val) {
-        if (key != 20
-            && val.small01_variance != 'No Data'
-            && val.small01_mean != 'No Data'
-            && val.small02_variance != 'No Data'
-            && val.small02_mean != 'No Data'
-            && val.groupVariance != 'No Data'
-            ) {
-            wifiStat[20].small01_mean_variance.push(val.small01_variance);
-            wifiStat[20].small02_mean_variance.push(val.small02_variance);
+            if (key != 20) {
 
-            wifiStat[20].small01_avg_mean.push(val.small01_mean);
-            wifiStat[20].small02_avg_mean.push(val.small02_mean);
+                if (val.small01_variance != 'No Data' && val.small01_mean != 'No Data') {
 
-            wifiStat[20].small_mean_variance.push(val.groupVariance);
+                    wifiStat[20].small01_mean_variance.push(val.small01_variance);
+                    wifiStat[20].small01_avg_mean.push(val.small01_mean);
+                }
+                if (val.small02_variance != 'No Data' && val.small02_mean != 'No Data') {
+
+                    wifiStat[20].small02_mean_variance.push(val.small02_variance);
+                    wifiStat[20].small02_avg_mean.push(val.small02_mean);
+                }
+                if (val.groupVariance != 'No Data') {
+
+                    wifiStat[20].small_mean_variance.push(val.groupVariance);
+                }
+            }
         }
-    })
+
+    )
+
+//        console.log(wifiStat[20].small01_mean_variance)
 
     wifiStat[20].small01_mean_variance = d3.round(app.utils.statisticsCalculator(wifiStat[20].small01_mean_variance).mean, 2)
     wifiStat[20].small02_mean_variance = d3.round(app.utils.statisticsCalculator(wifiStat[20].small02_mean_variance).mean, 2)
