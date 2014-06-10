@@ -94,6 +94,7 @@ var small04 = [
 var smallStat = [];
 
 function getSmallRepeatability() {
+    console.log('Small_63')
 
     $.each(small01, function (key, val) {
         smallStat.push({
@@ -147,28 +148,41 @@ function getSmallRepeatability() {
     })
 
     $.each(smallStat, function (key, val) {
-        if (key != 20
-            && val.small01_variance != 'No Data'
-            && val.small01_mean != 'No Data'
-            && val.small02_variance != 'No Data'
-            && val.small02_mean != 'No Data'
-            && val.small03_variance != 'No Data'
-            && val.small03_mean != 'No Data'
-            && val.small04_variance != 'No Data'
-            && val.small04_mean != 'No Data'
-            && val.groupVariance != 'No Data'
-            ) {
-            smallStat[20].small01_mean_variance.push(val.small01_variance);
-            smallStat[20].small02_mean_variance.push(val.small02_variance);
-            smallStat[20].small03_mean_variance.push(val.small03_variance);
-            smallStat[20].small04_mean_variance.push(val.small04_variance);
+        if (key != 20) {
 
-            smallStat[20].small_mean_variance.push(val.groupVariance);
+            if (val.small01_variance != 'No Data' && val.small01_mean != 'No Data') {
 
-            smallStat[20].small01_avg_mean.push(val.small01_mean);
-            smallStat[20].small02_avg_mean.push(val.small02_mean);
-            smallStat[20].small03_avg_mean.push(val.small03_mean);
-            smallStat[20].small04_avg_mean.push(val.small04_mean);
+                smallStat[20].small01_mean_variance.push(val.small01_variance);
+                smallStat[20].small01_avg_mean.push(val.small01_mean);
+
+            }
+
+            if (val.small02_variance != 'No Data' && val.small02_mean != 'No Data') {
+
+                smallStat[20].small02_mean_variance.push(val.small02_variance);
+                smallStat[20].small02_avg_mean.push(val.small02_mean);
+
+            }
+
+            if (val.small03_variance != 'No Data' && val.small03_mean != 'No Data') {
+
+                smallStat[20].small03_mean_variance.push(val.small03_variance);
+                smallStat[20].small03_avg_mean.push(val.small03_mean);
+
+            }
+
+            if (val.small04_variance != 'No Data' && val.small04_mean != 'No Data') {
+
+                smallStat[20].small04_mean_variance.push(val.small04_variance);
+                smallStat[20].small04_avg_mean.push(val.small04_mean);
+
+            }
+
+            if (val.groupVariance != 'No Data') {
+
+                smallStat[20].small_mean_variance.push(val.groupVariance);
+            }
+
         }
     })
 
@@ -182,7 +196,7 @@ function getSmallRepeatability() {
     smallStat[20].small03_avg_mean = d3.round(app.utils.statisticsCalculator(smallStat[20].small03_avg_mean).mean, 2)
     smallStat[20].small04_avg_mean = d3.round(app.utils.statisticsCalculator(smallStat[20].small04_avg_mean).mean, 2)
 
-    console.log(smallStat[20].small_mean_variance)
+//    console.log(smallStat[20].small_mean_variance)
     smallStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small_mean_variance).mean, 2)
 
     var template = "<tr>" +

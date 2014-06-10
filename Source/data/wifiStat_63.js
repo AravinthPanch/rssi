@@ -47,6 +47,7 @@ var wifiStat2 = [
 var wifiStat = [];
 
 function getWifiStatRepeatability() {
+    console.log('Wifi_63')
 
     $.each(wifiStat1, function (key, val) {
         wifiStat.push({
@@ -107,7 +108,7 @@ function getWifiStatRepeatability() {
     wifiStat[20].small01_avg_mean = d3.round(app.utils.statisticsCalculator(wifiStat[20].small01_avg_mean).mean, 2)
     wifiStat[20].small02_avg_mean = d3.round(app.utils.statisticsCalculator(wifiStat[20].small02_avg_mean).mean, 2)
 
-    console.log(wifiStat[20].small_mean_variance)
+//    console.log(wifiStat[20].small_mean_variance)
     wifiStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(wifiStat[20].small_mean_variance).mean, 2)
 
     var template = "<tr>" +

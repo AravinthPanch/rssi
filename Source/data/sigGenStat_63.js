@@ -47,6 +47,7 @@ var sigGen2 = [
 var sigGenStat = [];
 
 function getSigGenRepeatability() {
+    console.log('SigGen_63')
 
     $.each(sigGen1, function (key, val) {
         if (val.mean != 'No Data') {
@@ -117,7 +118,7 @@ function getSigGenRepeatability() {
     sigGenStat[20].small01_avg_mean = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small01_avg_mean).mean, 2)
     sigGenStat[20].small02_avg_mean = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small02_avg_mean).mean, 2)
 
-    console.log(sigGenStat[20].small_mean_variance)
+//    console.log(sigGenStat[20].small_mean_variance)
 
     sigGenStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small_mean_variance).mean, 2)
 

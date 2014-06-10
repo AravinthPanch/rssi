@@ -41,7 +41,10 @@ app.utils = {
 
             var rawRSSI = [];
             $.each(val.rawRSSI, function (key, val) {
-                if (val.sender_bssid == "64:70:02:3e:9f:63" && val.sender_ssid == "CREW") {
+//                if (val.sender_bssid == "64:70:02:3e:9f:63" && val.sender_ssid == "CREW") {
+//                    rawRSSI.push(val.rssi)
+//                }
+                if (val.sender_bssid == "64:70:02:3e:aa:11" && val.sender_ssid == "CREW") {
                     rawRSSI.push(val.rssi)
                 }
             });
