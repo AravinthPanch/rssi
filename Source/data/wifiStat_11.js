@@ -106,15 +106,12 @@ function getWifiStatRepeatability() {
 
     )
 
-//        console.log(wifiStat[20].small01_mean_variance)
-
     wifiStat[20].small01_mean_variance = d3.round(app.utils.statisticsCalculator(wifiStat[20].small01_mean_variance).mean, 2)
     wifiStat[20].small02_mean_variance = d3.round(app.utils.statisticsCalculator(wifiStat[20].small02_mean_variance).mean, 2)
 
     wifiStat[20].small01_avg_mean = d3.round(app.utils.statisticsCalculator(wifiStat[20].small01_avg_mean).mean, 2)
     wifiStat[20].small02_avg_mean = d3.round(app.utils.statisticsCalculator(wifiStat[20].small02_avg_mean).mean, 2)
 
-//    console.log(wifiStat[20].small_mean_variance)
     wifiStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(wifiStat[20].small_mean_variance).mean, 2)
 
     var template = "<tr>" +
@@ -129,9 +126,21 @@ function getWifiStatRepeatability() {
 
     $('#wifiTab').append(template)
 
+    var data1m = [];
+    var data2m = [];
+    var data1v = [];
+    var data2v = [];
+    var dataGv = [];
+
     var i = 1;
     $.each(wifiStat, function (key, val) {
         if (key <= 19) {
+
+            data1m.push(val.small01_mean)
+            data2m.push(val.small02_mean)
+            data1v.push(val.small01_variance)
+            data2v.push(val.small02_variance)
+            dataGv.push(val.groupVariance)
 
             template = '<tr>' +
                 '<td>' + i + '</td>' +
@@ -149,6 +158,15 @@ function getWifiStatRepeatability() {
             i++;
         }
     });
+
+    console.log("% Wifi_Mean")
+    console.log("zWifi_Ex_1_Mean = {" + data1m + "};")
+    console.log("zWifi_Ex_2_Mean = {" + data2m + "};")
+    console.log("% Wifi_Variance")
+    console.log("zWifi_Ex_1_Var = {" + data1v + "};")
+    console.log("zWifi_Ex_2_Var = {" + data2v + "};")
+    console.log("% Wifi_GVariance")
+    console.log("% Wifi_Ex_Group_Var = {" + dataGv + "};")
 
     template = '<tr>' +
         '<td>' + 'Average' + '</td>' +

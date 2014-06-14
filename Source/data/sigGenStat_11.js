@@ -113,16 +113,11 @@ function getSigGenRepeatability() {
 
     })
 
-//    console.log(sigGenStat[20].small01_mean_variance)
-//    console.log(sigGenStat[20].small02_mean_variance)
-
     sigGenStat[20].small01_mean_variance = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small01_mean_variance).mean, 2)
     sigGenStat[20].small02_mean_variance = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small02_mean_variance).mean, 2)
 
     sigGenStat[20].small01_avg_mean = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small01_avg_mean).mean, 2)
     sigGenStat[20].small02_avg_mean = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small02_avg_mean).mean, 2)
-
-//    console.log(sigGenStat[20].small_mean_variance)
 
     sigGenStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(sigGenStat[20].small_mean_variance).mean, 2)
 
@@ -138,9 +133,21 @@ function getSigGenRepeatability() {
 
     $('#sigGenTab').append(template)
 
+    var data1m = [];
+    var data2m = [];
+    var data1v = [];
+    var data2v = [];
+    var dataGv = [];
+
     var i = 1;
     $.each(sigGenStat, function (key, val) {
         if (key <= 19) {
+
+            data1m.push(val.small01_mean)
+            data2m.push(val.small02_mean)
+            data1v.push(val.small01_variance)
+            data2v.push(val.small02_variance)
+            dataGv.push(val.groupVariance)
 
             template = '<tr>' +
                 '<td>' + i + '</td>' +
@@ -158,6 +165,15 @@ function getSigGenRepeatability() {
             i++;
         }
     });
+
+    console.log("% SigGen_Mean")
+    console.log("zSig_Ex_1_Mean = {" + data1m + "};")
+    console.log("zSig_Ex_2_Mean = {" + data2m + "};")
+    console.log("% SigGen_Variance")
+    console.log("zSig_Ex_1_Var = {" + data1v + "};")
+    console.log("zSig_Ex_2_Var = {" + data2v + "};")
+    console.log("% SigGen_GVariance")
+    console.log("Sig_Ex_Group_Var = {" + dataGv + "};")
 
     template = '<tr>' +
         '<td>' + 'Average' + '</td>' +

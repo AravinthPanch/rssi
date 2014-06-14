@@ -186,9 +186,6 @@ function getSmallRepeatability() {
         }
     })
 
-//        console.log(smallStat[20].small01_mean_variance)
-//    console.log(smallStat[20].small02_mean_variance)
-
     smallStat[20].small01_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small01_mean_variance).mean, 2)
     smallStat[20].small02_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small02_mean_variance).mean, 2)
     smallStat[20].small03_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small03_mean_variance).mean, 2)
@@ -199,7 +196,6 @@ function getSmallRepeatability() {
     smallStat[20].small03_avg_mean = d3.round(app.utils.statisticsCalculator(smallStat[20].small03_avg_mean).mean, 2)
     smallStat[20].small04_avg_mean = d3.round(app.utils.statisticsCalculator(smallStat[20].small04_avg_mean).mean, 2)
 
-//    console.log(smallStat[20].small_mean_variance)
     smallStat[20].small_mean_variance = d3.round(app.utils.statisticsCalculator(smallStat[20].small_mean_variance).mean, 2)
 
     var template = "<tr>" +
@@ -216,9 +212,30 @@ function getSmallRepeatability() {
 
     $('#smallTab').append(template)
 
+
+    var data1m = [];
+    var data2m = [];
+    var data3m = [];
+    var data4m = [];
+    var data1v = [];
+    var data2v = [];
+    var data3v = [];
+    var data4v = [];
+    var dataGv = [];
+
     var i = 1;
     $.each(smallStat, function (key, val) {
         if (key <= 19) {
+
+            data1m.push(val.small01_mean)
+            data2m.push(val.small02_mean)
+            data3m.push(val.small03_mean)
+            data4m.push(val.small04_mean)
+            data1v.push(val.small01_variance)
+            data2v.push(val.small02_variance)
+            data3v.push(val.small03_variance)
+            data4v.push(val.small04_variance)
+            dataGv.push(val.groupVariance)
 
             template = '<tr>' +
                 '<td>' + i + '</td>' +
@@ -240,6 +257,19 @@ function getSmallRepeatability() {
             i++;
         }
     });
+
+    console.log("% Small_Mean")
+    console.log("zRef_Ex_1_Mean = {" + data1m + "};")
+    console.log("zRef_Ex_2_Mean = {" + data2m + "};")
+    console.log("zRef_Ex_3_Mean = {" + data3m + "};")
+    console.log("zRef_Ex_4_Mean = {" + data4m + "};")
+    console.log("% Small_Variance")
+    console.log("zRef_Ex_1_Var = {" + data1v + "};")
+    console.log("zRef_Ex_2_Var = {" + data2v + "};")
+    console.log("zRef_Ex_3_Var = {" + data3v + "};")
+    console.log("zRef_Ex_4_Var = {" + data4v + "};")
+    console.log("% Small_GVariance")
+    console.log("Ref_Ex_Group_Var = {" + dataGv + "};")
 
     template = '<tr>' +
         '<td>' + 'Average' + '</td>' +

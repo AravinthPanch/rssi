@@ -14,7 +14,7 @@
 \newcommand{\trnumber}{TKN-14} 
 \newcommand{\trdate}{March 2014} 
 \newcommand{\trauthor}{Aravinth, Sivalingam Panchadcharam} 
-\newcommand{\tremail}{contact@aravinth.info} 
+\newcommand{\tremail}{me@aravinth.info} 
 \newcommand{\trtitle}{Variations in Wi-Fi RSSI due to different types of Interferences}
 
 % ================================================================
@@ -437,7 +437,6 @@ In our case, it is defined as a condition which satisfies the following:
 An experiment which satisfies this condition is called as cell. 
 
 \subsection{Repeatability}
-Repeatability is precision under repeatability condition that describes the minimum variability in results.
 
 \begin{equation}\label{eq:variance}
 {S}_i^2 = {\sigma}^2 =  \frac{\sum\limits_{i=1}^{n} (x_{i} - \bar{X}^2)}{n-1}
@@ -456,15 +455,89 @@ ${S}_r^2$ is repeatability variance, n is total number of repetition of cell, $S
 
 
 % ================================================================
-% Conclusion
+% Results
 % ================================================================
 \chapter{Results}
+\section{CREW 63}
+\subsection{Reference Experiments}
+\begin{table}
+	[h] \centering \caption{Mean of RSSIs} 
+	\label{tb:63:Ref:mean} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_1_Mean.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_2_Mean.jpg} \\
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_3_Mean.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_4_Mean.jpg} \\
+		\hline
+	\end{tabular}
+\end{table}
 
-% ================================================================
-% Conclusion
-% ================================================================
-\chapter{Conclusion}
+\begin{table}
+	[h] \centering \caption{Variance of RSSIs} 
+	\label{tb:63:Ref:variance} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_1_Variance.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_2_Variance.jpg} \\
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_3_Variance.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Ex_4_Variance.jpg} \\
+		\hline
+	\end{tabular}
+\end{table}
+\pagebreak 
 
+\subsection{Experiments with Interference of Signal Generator}
+\begin{table}
+	[h] \centering \caption{Mean of RSSIs} 
+	\label{tb:63:Sig:mean} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Sig_Ex_1_Mean.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Sig_Ex_2_Mean.jpg} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	[h] \centering \caption{Variance of RSSIs} 
+	\label{tb:63:Sig:variance} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Sig_Ex_1_Variance.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Sig_Ex_2_Variance.jpg} \\
+		\hline
+	\end{tabular}
+\end{table}
+\pagebreak 
+
+\subsection{Experiments with Interference of Wifi Traffic}
+\begin{table}
+	[h] \centering \caption{Mean of RSSIs} 
+	\label{tb:63:Wifi:mean} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Wifi_Ex_1_Mean.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Wifi_Ex_2_Mean.jpg} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	[h] \centering \caption{Variance of RSSIs} 
+	\label{tb:63:Wifi:variance} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Wifi_Ex_1_Variance.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Wifi_Ex_2_Variance.jpg} \\
+		\hline
+	\end{tabular}
+\end{table}
+\pagebreak 
+
+\subsection{Group Variances}
+\begin{table}
+	[h] \centering \caption{Mean of RSSIs} 
+	\label{tb:63:group:variance} 
+	\begin{tabular}
+		{|l|l|} \hline 
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Ref_Group_Variance.jpg} & 		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Sig_Group_Variance.jpg} \\
+		\includegraphics[width=8cm]{../../Source/plot/CREW_63/63_Wifi_Group_Variance.jpg} & \\
+		\hline
+	\end{tabular}
+\end{table}
 \pagebreak 
 
 \begin{thebibliography}
