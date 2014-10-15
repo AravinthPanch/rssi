@@ -64,25 +64,25 @@ dataSet = {zRef_Ex_1_Mean,
         };
 
 % Titles for the plot
-expTitle = {'CREW - d9 : Reference Experiments 1 - Mean of RSSI',
-            'CREW - d9 : Reference Experiments 2 - Mean of RSSI',
-            'CREW - d9 : Reference Experiments 3 - Mean of RSSI',
-            'CREW - d9 : Reference Experiments 4 - Mean of RSSI',
-            'CREW - d9 : Experiment 1 with Interference of WiFi Traffic - Mean of RSSI',
-            'CREW - d9 : Experiment 2 with Interference of WiFi Traffic - Mean of RSSI',
-            'CREW - d9 : Experiment 1 with Interference of Signal Generator - Mean of RSSI',
-            'CREW - d9 : Experiment 2 with Interference of Signal Generator - Mean of RSSI',
-            'CREW - d9 : Reference Experiments 1 - Variance of RSSI',
-            'CREW - d9 : Reference Experiments 2 - Variance of RSSI',
-            'CREW - d9 : Reference Experiments 3 - Variance of RSSI',
-            'CREW - d9 : Reference Experiments 4 - Variance of RSSI',
-            'CREW - d9 : Experiment 1 with Interference of WiFi Traffic - Variance of RSSI',
-            'CREW - d9 : Experiment 2 with Interference of WiFi Traffic - Variance of RSSI',
-            'CREW - d9 : Experiment 1 with Interference of Signal Generator - Variance of RSSI',
-            'CREW - d9 : Experiment 2 with Interference of Signal Generator - Variance of RSSI',
-            'CREW - d9 : Group Variance of Reference Experiments',
-            'CREW - d9 : Group Variance of Experiments with Interference of WiFi Traffic',
-            'CREW - d9 : Group Variance of Experiments with Interference of Signal Generator'
+expTitle = {            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 1 - Reference Scenario - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 2 - Reference Scenario - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 3 - Reference Scenario - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 4 - Reference Scenario - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 1 - Interference Scenario 2 - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 2 - Interference Scenario 2 - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 1 - Interference Scenario 1 - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 2 - Interference Scenario 1 - Mean of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 1 - Reference Scenario - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 2 - Reference Scenario - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 3 - Reference Scenario - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiments 4 - Reference Scenario - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 1 - Interference Scenario 2 - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 2 - Interference Scenario 2 - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 1 - Interference Scenario 1 - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Experiment 2 - Interference Scenario 1 - Variance of RSSI',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Group Variance of Reference Scenario',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Group Variance of Interference Scenario 2',
+            'Access Point : CREW 64:70:02:3e:aa:d9 : Group Variance of Interference Scenario 1'
 };
 
 % File names to be generated
@@ -152,9 +152,31 @@ for i =  1:numberOfDataSet
     hold on; 
     h = plot(x,y,'ko'); 
     set(h, 'Markersize',10);
-    h = plot(21.5,14.8,'k.'); 
+    h = plot(2,0.7,'k.'); 
     set(h, 'Markersize',30);
+    
+    if i == 7 || i == 8 || i == 15 || i == 16 || i == 19        
+        h = plot(21,1,'k.'); 
+        set(h, 'Markersize',30);
+        text(13,1, 'Signal Generator \rightarrow')
+    end
+    
+    if i == 5 || i == 6 || i == 13 || i == 14 || i == 18        
+        h = plot(11,0.7,'k.');  
+        set(h, 'Markersize',30);
+        text(3,1.3, 'UDP Transmitter \rightarrow')
+        h = plot(21,14.8,'k.');     
+        set(h, 'Markersize',30);
+        text(22,14.8, '\leftarrow TCP Transmitter')
+        h = plot(18,0.7,'k.');  
+        set(h, 'Markersize',30);
+        text(19, 0.7, '\leftarrow UDP & TCP Receiver')
+    end
+    
     hold off
+
+    % Draw Point lables
+    text(3,0.7, '\leftarrow Access Point')
 
     % Draw plot lables
     grid
