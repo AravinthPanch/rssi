@@ -16,7 +16,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "APP",
             "name": "APP",
-            "description": "Raw Ranging Data Visualization Tool <br />\nAuthor: Aravinth, S. Panchadcharam <br />\nDate: 20 November 2013 <br />\nEmail: panch.aravinth@gmail.com <br />"
+            "description": "Raw Ranging Data Visualization Tool <br />\nAuthor: Aravinth, S. Panchadcharam <br />\nDate: 20 November 2013 <br />\nEmail: me@aravinth.info <br />"
         }
     ]
 } };

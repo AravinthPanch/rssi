@@ -8,6 +8,8 @@
 \usepackage{amssymb} 
 \usepackage{textcomp} 
 \usepackage{longtable}
+\usepackage{hyperref}
+
 
 % ================================================================
 % Variables
@@ -119,7 +121,7 @@
 % Abstract
 % ================================================================
 \begin{abstract}
-\subsection*{\abstractname} WiFi Beacon packets are transmitted periodically to announce the presence of WiFi. Beacon Packet RSSI is Received Signal Strength Indicator which indicates the power of signal that is received at the receiver. RSSI is used by networking interface card to determine the energy level in the channel. However, RSSI values are extensively used for ranging and localization purpose where accuracy and reliability should be guaranteed . However, previous studies predict that RSSI values changes due to change in distance and various interferences. In oder to analyze whether there is a variation in RSSI values due to different type of interferences, we have designed a reference scenario and two interference scenarios. Experiments were conducted and repeated. It yielded large set of data. In oder to process and analyze the raw data, a visualization tool was implemented. Processed data was analyzed and statistical results were plotted. Finally, It shows that variations in RSSI values due to interferences. Furthermore, It is recommended to conduct more experiments to get significant results with additional help of the work done in this project.
+\subsection*{\abstractname} WiFi Beacon packets are transmitted periodically to announce the presence of WiFi. Beacon Packet RSSI is Received Signal Strength Indicator which indicates the power of signal that is received at the receiver. RSSI is used by networking interface card to determine the energy level in the channel. However, RSSI values are extensively used for ranging and localization purpose where accuracy and reliability should be guaranteed \cite{ref:rssi}. However, previous studies predict that RSSI values changes due to change in distance and various interferences. In oder to analyze whether there is a variation in RSSI values due to different type of interferences, we have designed a reference scenario and two interference scenarios. Experiments were conducted and repeated. It yielded large set of data. In oder to process and analyze the raw data, a visualization tool was implemented. Processed data was analyzed and statistical results were plotted. Finally, It shows that variations in RSSI values due to interferences. Furthermore, It is recommended to conduct more experiments to get significant results with additional help of the work done in this project.
 
 \subsection*{Keywords} RSSI, WiFi beacon, interferences, indoor localization
 
@@ -135,7 +137,7 @@
 % Introduction
 % ================================================================
 \chapter{Introduction} 
-\section{Beacon Packet} In Wireless Local Area Network Beacon Packets are transmitted periodically by Base Station Set (BSS) to announce the presence of WiFi Network. Beacon Packet is one of the management frames in IEEE 802.11. Figure \ref{fig:beacon} shows the fields of Beacon Packet. Beacon interval expressed in Time Unit (TU). It is a configurable parameter in the AP and typically configured as 100 TU. 
+\section{Beacon Packet} In Wireless Local Area Network Beacon Packets are transmitted periodically by Base Station Set (BSS) to announce the presence of WiFi Network. Beacon Packet is one of the management frames in IEEE 802.11. Figure \ref {fig:beacon} shows the fields of Beacon Packet. Beacon interval expressed in Time Unit (TU). It is a configurable parameter in the AP and typically configured as 100 TU. 
 \begin{figure}
 	[!h] \centering 
 	\includegraphics[width=15cm]{Images/beacon_frame.png} \caption{MPDU - Beacon Packet of IEEE 802.11} \label{fig:beacon} 
@@ -146,7 +148,7 @@
 
 \section{RSSI in Indoor Localization} RSSI is also extensively used for RF based ranging and localization purposes. RSSI is defined as ten times the logarithm of the ratio of power of the received signal and a reference power. It is known that power dissipates from a point source as it moves further out and the relationship between power and distance is that power is inversely proportional to the square of the distance traveled. In this way the distance from the sender to receiver can be calculated for localization purpose.
 
-\section{Accuracy} Different studies show that RSSI values have significant variations due to various factors. 
+\section{Accuracy} Different studies \cite{ref:wifi:chipset} show that RSSI values have significant variations due to various factors. 
 \begin{itemize}
 	\item RSSI values are reported significantly different by different hardwares. 
 	\item RSSI values vary with change in temperature. 
@@ -162,9 +164,9 @@
 
 \section{Interferences} It is known that power dissipates from a point source as it moves further out and the relationship between power and distance. This power is inversely proportional to the square of the distance traveled. However, previous experimental studies show that RSSI values could be influenced by various interferences such as data traffic in the same channel, full power transmissions or jamming signals, architectural obstructions causing reflections and scattering.
 
-\section{Solution} RSSI is also used for other purposes where accuracy and reliability should be guaranteed. From previous studies, it was predicted that RSSI values are influenced by interferences in the wireless spectrum. In order to verify this, we have designed a reference scenario to measure RSSI values where no interferences were deliberately generated and two interference scenarios where interferences were generated deliberately. The experiments were repeated at the same conditions. Finally, the results of these experiments were processed and analyzed to find out the variation of RSSI values due to different types of Interferences.
+\section{Motivation} RSSI is also used for other purposes where accuracy and reliability should be guaranteed. From previous studies, it was predicted that RSSI values are influenced by interferences in the wireless spectrum.
 
-\section{Process} This explains the process of our work during this project. 
+\section{Solution} This explains the process of our work during this project. 
 \begin{itemize}
 	\item Previously completed works were studied. It includes mainly EVARILOS Project which was implemented to benchmark various RF based indoor localization algorithm. 
 	\item Knowledge about experiment infrastructure was obtained. It includes testbed, robot for automation, tools, networking devices, signal generators and interference sources. 
@@ -213,7 +215,8 @@
 	\end{tabular}
 \end{table}
 
-\subsection{Interference Scenario 2 - }\label{scene:int:2} Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}. 
+\subsection{Interference Scenario 2 - Data Traffic}\label{scene:int:2} 
+Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}. 
 \begin{table}
 	[h] \centering \caption{Interference scenario 2} \label{tb:interf:3} 
 	\begin{tabular}
@@ -279,18 +282,24 @@
 
 \section{API} Figure \ref{fig:tool:jsDoc} shows API that is a Javascript documentation which can be viewed by clicking on JavascriptDoc button on the top menu. API reveals the Functions, Constants, Views, Collections, Events and Utilities used to visualize the Raw Ranging Data. It helps to extend this program, do further implementation, add new features and debug the code. 
 
+\section{Source Code}
+Source code of this project is maintained in an online repository.  The repository contains also the documents, presentations, scripts, tools, images, etc have been used in this project. It can be found in \url{https://github.com/AravinthPanch/rssi}.
+
+
+
+
 % ================================================================
 % Experiments
 % ================================================================
 \chapter{Experiments} 
-\section{Infrastructure} Experiments are carried on two different Testbeds. As shown in the figure \ref{fig:experiment}, Testbeds provide a robotic automated platform to carry out the experiment. Setting up the measurement points, configuring the nodes, accessing signal generators and various other devices are done with the help of control center. 
+\section{Infrastructure} Experiments are carried on a testbed \cite{ref:crew}. As shown in the figure \ref{fig:experiment}, Testbeds provide a robotic automated platform to carry out the experiment. Setting up the measurement points, configuring the nodes, accessing signal generators and various other devices are done with the help of control center. 
 \begin{figure}
 	[!h] \centering 
 	\includegraphics[width=13cm]{Images/evari.png} \caption{Experiment Environment} \label{fig:experiment} 
 \end{figure}
 
 \section{Testbed} 
-\subsection{TWIST} The TKN Wireless Indoor Sensor network Testbed (TWIST), developed by the Telecommunication Networks Group (TKN) at the Technische Universität Berlin, is a scalable and flexible testbed architecture for experimenting with wireless sensor network applications in an indoor setting. It provides basic services like node configuration, network-wide programming, out-of-band extraction of debug data and gathering of application data.
+\subsection{TWIST} The TKN Wireless Indoor Sensor network Testbed (TWIST)  \cite{ref:twist}, developed by the Telecommunication Networks Group (TKN) at the Technische Universität Berlin, is a scalable and flexible testbed architecture for experimenting with wireless sensor network applications in an indoor setting. It provides basic services like node configuration, network-wide programming, out-of-band extraction of debug data and gathering of application data.
 
 It is equipped with 102 TmoteSky nodes and 102 eyesIFX nodes. For the experiments 3 Different Floor Plans are used. Signal Generators are used to generate microwave signals which were used to jam the channel during the experiments. From control center fixed coordinates are set to the robot, so that accurate measurement points are achieved in the experiments. 
 
@@ -324,7 +333,7 @@ It is equipped with 102 TmoteSky nodes and 102 eyesIFX nodes. For the experiment
 % Analysis
 % ================================================================
 \chapter{Analysis} 
-\section{Repeatability} 
+\section{Repeatability} \label{sec:repeat} \cite{ref:randr} \cite{ref:randr2}
 \begin{equation}
 	\label{eq:variance} {S}_i^2 = {\sigma}^2 = \frac{\sum\limits_{i=1}^{n} (x_{i} - \bar{X}^2)}{n-1} 
 \end{equation}
@@ -398,6 +407,7 @@ Following plots show mean and variance of RSSI values from the access point (CRE
 \end{longtable}
 
 \subsection{Group Variances} 
+Following plots show group variances of RSSI values from the access point (CREW 64:70:02:3e:9f:63) of experiments with reference scenario, interference scenario 1 and interference scenario 2. As described in the section \ref{sec:repeat}, Group variances are calculated.  
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_63/63_Ref_Group_Variance.jpg} \\
@@ -448,6 +458,7 @@ Following plots show mean and variance of RSSI values from the access point (CRE
 \end{longtable}
 
 \subsection{Group Variances} 
+Following plots show group variances of RSSI values from the access point (CREW 64:70:02:3e:aa:11) of experiments with reference scenario, interference scenario 1 and interference scenario 2. As described in the section \ref{sec:repeat}, Group variances are calculated.  
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_11/11_Ref_Group_Variance.jpg} \\
@@ -497,6 +508,7 @@ Following plots show mean and variance of RSSI values from the access point (CRE
 \end{longtable}
 
 \subsection{Group Variances} 
+Following plots show group variances of RSSI values from the access point (CREW 64:70:02:3e:aa:d9) of experiments with reference scenario, interference scenario 1 and interference scenario 2. As described in the section \ref{sec:repeat}, Group variances are calculated.  
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_d9/d9_Ref_Group_Variance.jpg} \\
@@ -546,6 +558,7 @@ Following plots show mean and variance of RSSI values from the access point (CRE
 \end{longtable}
 
 \subsection{Group Variances} 
+Following plots show group variances of RSSI values from the access point (CREW 64:70:02:3e:aa:ef) of experiments with reference scenario, interference scenario 1 and interference scenario 2. As described in the section \ref{sec:repeat}, Group variances are calculated.  
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_ef/ef_Ref_Group_Variance.jpg} \\
@@ -556,7 +569,12 @@ Following plots show mean and variance of RSSI values from the access point (CRE
 % ================================================================
 % Conclusion
 % ================================================================
-\chapter{Conclusion} In this work, we presented how we have done experiments with and without controlled interferences to study the variation of RSSI values. Experiments yielded a large amount of data sets that must be processed and analyzed. Therefore we have implemented a tool to visualize the raw data obtained from the experiments, so that we could see the data collected from any experiment, at any point of location in the testbed, grouped based on BSSID. Furthermore, this tool helped us to see statistical graph of the raw data. Furthermore, the data was studied and graphs were plotted to understand whether RSSI values change due to interferences. Finlay, we recommend to carry out more experiments to get a significant results with the help of the data retrieved in this project. 
+\chapter{Conclusion and future work} In this work, we presented how we have done experiments with and without controlled interferences to study the variation of RSSI values. Experiments yielded a large amount of data sets that must be processed and analyzed. Therefore we have implemented a tool to visualize the raw data obtained from the experiments, so that we could see the data collected from any experiment, at any point of location in the testbed, grouped based on BSSID. Furthermore, this tool helped us to see statistical graph of the raw data. Furthermore, the data was studied and graphs were plotted to understand whether RSSI values change due to interferences. Finlay, we recommend to carry out more experiments to get a significant results with the help of the data retrieved in this project. 
+
+\subsection*{Resources for future work}
+Source code of the visualization and data analysis tool, scripts used to plot the results, tools, documents and data that was gathered during this project is available in this online repository \url{https://github.com/AravinthPanch/rssi} for future work. 
+
+
 
 % ================================================================
 % Bibliography
