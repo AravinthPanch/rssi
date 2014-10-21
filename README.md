@@ -23,16 +23,13 @@ USAGE
 - index.html - starts the tool 
 - @doc/out/index.html - shows the Javascript Doc of the tool
 - utils/floor_mapper.html - used to calculate properties of FloorPlan
+- utils/rssi_scanner_in_js - nodejs tool to scan rssi in wifi spectrum using Mac Airpot NIC in Mac OSX
 
 TESTED ON
 --------------------------------------
 - Google Chrome
 - Mozilla Firefox
 - Microsoft Internet Explorer
-
-GIT
---------------------------------------
-To Download the latest version of this tool from GitHub, make a Pull Request at https://github.com/AravinthPanch/rssi
 
 CONTACT
 --------------------------------------
