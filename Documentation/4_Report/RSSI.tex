@@ -13,7 +13,7 @@
 % Variables
 % ================================================================
 \newcommand{\trnumber}{TKN-14} 
-\newcommand{\trdate}{August 2014} 
+\newcommand{\trdate}{March 2014} 
 \newcommand{\trauthor}{Aravinth, Sivalingam Panchadcharam} 
 \newcommand{\tremail}{me@aravinth.info} 
 \newcommand{\trtitle}{Variations in WiFi RSSI values due to different types of Interferences}
@@ -138,14 +138,11 @@
 \section{Beacon Packet} In Wireless Local Area Network Beacon Packets are transmitted periodically by Base Station Set (BSS) to announce the presence of WiFi Network. Beacon Packet is one of the management frames in IEEE 802.11. Figure \ref{fig:beacon} shows the fields of Beacon Packet. Beacon interval expressed in Time Unit (TU). It is a configurable parameter in the AP and typically configured as 100 TU. 
 \begin{figure}
 	[!h] \centering 
-	\includegraphics[width=8cm]{Images/beacon_frame.png} \caption{MPDU - Beacon Packet of IEEE 802.11} \label{fig:beacon} 
+	\includegraphics[width=15cm]{Images/beacon_frame.png} \caption{MPDU - Beacon Packet of IEEE 802.11} \label{fig:beacon} 
 \end{figure}
 
-\section{Received Signal Strength Indicator (RSSI)} RSSI is an indication of the power level received by a receiver expressed in dBm. RSSI is defined as ten times the logarithm of the ratio of power of the received signal and a reference power (e.g., 1mW). RSSI is used by networking interface card (NIC) to determine the amount of radio energy in the channel. RSSI is generally visible to the WiFi user as signal strength of WiFi connection as shown in the Figure \ref{fig:rssi} 
-\begin{figure}
-	[!h] \centering 
-	\includegraphics[width=13cm]{Images/rssi.png} \caption{Signal Strength Indicator in Wireless devices } \label{fig:rssi} 
-\end{figure}
+\section{Received Signal Strength Indicator (RSSI)} RSSI is an indication of the power level received by a receiver expressed in dBm. RSSI is defined as ten times the logarithm of the ratio of power of the received signal and a reference power (e.g., 1mW). RSSI is used by networking interface card (NIC) to determine the amount of radio energy in the channel.
+
 
 \section{RSSI in Indoor Localization} RSSI is also extensively used for RF based ranging and localization purposes. RSSI is defined as ten times the logarithm of the ratio of power of the received signal and a reference power. It is known that power dissipates from a point source as it moves further out and the relationship between power and distance is that power is inversely proportional to the square of the distance traveled. In this way the distance from the sender to receiver can be calculated for localization purpose.
 
@@ -183,7 +180,7 @@
 % Design
 % ================================================================
 \chapter{Design} 
-\section{Reference Scenario} This reference scenario is instantiated on the 2nd floor of the TWIST testbed. It is called “Reference scenario” because no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure \ref{fig:floor}. 
+\section{Reference Scenario}\label{scene:ref} This reference scenario is instantiated on the 2nd floor of the TWIST testbed. It is called “Reference scenario” because no artificial interference is generated and the presence of uncontrolled interference is minimized. According to the EVARILOS Benchmarking Handbook (EBH), this scenario is an instance of the “Small office” type of scenarios. In this scenario 20 measurement points are defined and their locations are given in Figure \ref{fig:floor}. 
 \begin{figure}
 	[!h] \centering 
 	\includegraphics[width=100mm]{Images/floor} \caption{Locations of measurement points} \label{fig:floor} 
@@ -194,9 +191,9 @@
 \paragraph{} The experiments were performed at the weekend afternoon, so the influence of interferes has been minimized. Furthermore, the wireless spectrum has been measured using the WiSpy device attached to the robotic platform and all measurements with the interference threshold above certain level have been repeated. Finally, before each experiment a more detailed measurement of the spectrum has been taken with the spectrum analyzer at a predefined location.
 
 \section{Interference Scenarios}\label{sec:interference} 
-\subsection{Interference Scenario 1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. Three of such jamming nodes are present at different locations in the testbed environment. Summary of this interference scenario is given in Table \ref{tb:interf:1}. 
+\subsection{Interference Scenario 1 - Jamming}\label{scene:int:1} First interference scenario instantiated in TWIST testbed uses the testbed Wireless Fidelity (WiFi) nodes as interference sources. Interference type is jamming on one IEEE 802.11 channel with the maximum transmission power. The jamming node is located at one location in the testbed environment for interference scenario 1. Summary of this interference scenario is given in Table \ref{tb:interf:1}. 
 \begin{table}
-	[h] \centering \caption{Interference scenario summary} \label{tb:interf:1} 
+	[h] \centering \caption{Interference scenario 1} \label{tb:interf:1} 
 	\begin{tabular}
 		{|l|l|} \hline \multicolumn{2}{|c|}{Types of interference sources} \\
 		\hline WiFi & \checkmark \\
@@ -206,31 +203,19 @@
 		3G & \texttimes \\
 		ZigBee & \texttimes \\
 		\hline \multicolumn{2}{|c|}{Types of interference sources} \\
-		\hline Number of sources & 3 \\
+		\hline Number of sources & 1 \\
 		Power & 20 dBm \\
 		Waveform & Carrier jamming \\
 		Specific pattern & \\
 		Start \& stop time & Beginning \& end of experiment \\
 		Traffic model & \\
-		\hline \multicolumn{2}{|c|}{Traffic parameters of interference} \\
-		\hline Packet size & \\
-		Inter-packet gap & \\
-		Bit rate & \\
-		File size & \\
-		Start \& stop size & \\
-		Traffic model & \\
-		\hline \multicolumn{2}{|c|}{Network parameters} \\
-		\hline Network size & \\
-		Node density & \\
-		Node mobility & \\
-		Node failures & \\
 		\hline 
 	\end{tabular}
 \end{table}
 
-\subsection{Interference Scenario 2} Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}. 
+\subsection{Interference Scenario 2 - }\label{scene:int:2} Second interference scenario instantiated in TWIST testbed defines interference types that is usual for the office and home environments. Namely, interference is emulated using 4 WiFi embedded Personal Computers (PCs), namely a server, email client, data client, and video client. The server acts as a WiFi Access Point (AP) and a gateway for the emulated services. The email client will “check email” once every 15 seconds for a duration of one second. The data client is emulated via TCP streams one starting at 45 seconds for a duration of 22.5 seconds and the other starting at 105 seconds for a duration of 45 seconds. The video client is emulated as a UDP stream of 100 kbps for half the experiment cycle and it will start at the middle of the experiment. In total, the experiment takes 150 seconds. Summary of this interference scenario is given in Table \ref{tb:interf:3}. 
 \begin{table}
-	[h] \centering \caption{Interference scenario summary} \label{tb:interf:3} 
+	[h] \centering \caption{Interference scenario 2} \label{tb:interf:3} 
 	\begin{tabular}
 		{|l|l|} \hline \multicolumn{2}{|c|}{Types of interference sources} \\
 		\hline WiFi & \checkmark \\
@@ -246,18 +231,6 @@
 		Specific pattern & \\
 		Start \& stop time & Beginning \& end of experiment \\
 		Traffic model & WiFi traffic \\
-		\hline \multicolumn{2}{|c|}{Traffic parameters of interference} \\
-		\hline Packet size & \\
-		Inter-packet gap & \\
-		Bit rate & \\
-		File size & \\
-		Start \& stop size & \\
-		Traffic model & \\
-		\hline \multicolumn{2}{|c|}{Network parameters} \\
-		\hline Network size & \\
-		Node density & \\
-		Node mobility & \\
-		Node failures & \\
 		\hline 
 	\end{tabular}
 \end{table}
@@ -383,6 +356,7 @@ An experiment which satisfies this condition is called as cell.
 
 \pagebreak 
 \section{Access Point : CREW 64:70:02:3e:9f:63} 
+The details of the access point are given below.
 \begin{itemize}
 	\item SSID : CREW 
 	\item BSSID : 64:70:02:3e:9f:63 
@@ -390,6 +364,7 @@ An experiment which satisfies this condition is called as cell.
 	\item Frequency : 2.4 GHz 
 \end{itemize}
 \subsection{Reference Scenario} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:9f:63). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:ref}, these experiments were conducted in a scenario where no artificial interference is generated and the presence of uncontrolled interference is minimized.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_63/63_Ref_Ex_1_Mean.jpg} \\
@@ -403,6 +378,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 1} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:9f:63). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:1}, these experiments were conducted in a scenario where IEEE 802.11 channel was jammed with the maximum transmission power using signal generators.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_63/63_Sig_Ex_1_Mean.jpg} \\
@@ -412,6 +388,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 2} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:9f:63). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:2}, these experiments were conducted in a scenario where interference is caused by Wifi data traffic between a server and email client, data client and video client.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_63/63_Wifi_Ex_1_Mean.jpg} \\
@@ -429,6 +406,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \section{Access Point : CREW 64:70:02:3e:aa:11} 
+The details of the access point are given below.
 \begin{itemize}
 	\item SSID : CREW 
 	\item BSSID : 64:70:02:3e:aa:11 
@@ -436,6 +414,7 @@ An experiment which satisfies this condition is called as cell.
 	\item Frequency : 2.4 GHz 
 \end{itemize}
 \subsection{Reference Scenario} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:11). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:ref}, these experiments were conducted in a scenario where no artificial interference is generated and the presence of uncontrolled interference is minimized.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_11/11_Ref_Ex_1_Mean.jpg} \\
@@ -449,6 +428,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 1} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:11). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:1}, these experiments were conducted in a scenario where IEEE 802.11 channel was jammed with the maximum transmission power using signal generators.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_11/11_Sig_Ex_1_Mean.jpg} \\
@@ -458,6 +438,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 2} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:11). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:2}, these experiments were conducted in a scenario where interference is caused by Wifi data traffic between a server and email client, data client and video client.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_11/11_Wifi_Ex_1_Mean.jpg} \\
@@ -474,6 +455,7 @@ An experiment which satisfies this condition is called as cell.
 	\includegraphics[width=13cm]{../../Source/plot/CREW_11/11_Wifi_Group_Variance.jpg} \\
 \end{longtable}
 \section{Access Point : CREW 64:70:02:3e:aa:d9} 
+The details of the access point are given below.
 \begin{itemize}
 	\item SSID : CREW 
 	\item BSSID : 64:70:02:3e:aa:d9 
@@ -481,6 +463,7 @@ An experiment which satisfies this condition is called as cell.
 	\item Frequency : 2.4 GHz 
 \end{itemize}
 \subsection{Reference Scenario} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:d9). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:ref}, these experiments were conducted in a scenario where no artificial interference is generated and the presence of uncontrolled interference is minimized.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_d9/d9_Ref_Ex_1_Mean.jpg} \\
@@ -494,6 +477,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 1} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:d9). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:1}, these experiments were conducted in a scenario where IEEE 802.11 channel was jammed with the maximum transmission power using signal generators.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_d9/d9_Sig_Ex_1_Mean.jpg} \\
@@ -503,6 +487,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 2} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:d9). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:2}, these experiments were conducted in a scenario where interference is caused by Wifi data traffic between a server and email client, data client and video client.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_d9/d9_Wifi_Ex_1_Mean.jpg} \\
@@ -519,6 +504,7 @@ An experiment which satisfies this condition is called as cell.
 	\includegraphics[width=13cm]{../../Source/plot/CREW_d9/d9_Wifi_Group_Variance.jpg} \\
 \end{longtable}
 \section{Access Point : CREW 64:70:02:3e:aa:ef} 
+The details of the access point are given below.
 \begin{itemize}
 	\item SSID : CREW 
 	\item BSSID : 64:70:02:3e:aa:ef 
@@ -526,6 +512,7 @@ An experiment which satisfies this condition is called as cell.
 	\item Frequency : 2.4 GHz 
 \end{itemize}
 \subsection{Reference Scenario} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:ef). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:ref}, these experiments were conducted in a scenario where no artificial interference is generated and the presence of uncontrolled interference is minimized.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_ef/ef_Ref_Ex_1_Mean.jpg} \\
@@ -539,6 +526,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 1} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:ef). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:1}, these experiments were conducted in a scenario where IEEE 802.11 channel was jammed with the maximum transmission power using signal generators.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_ef/ef_Sig_Ex_1_Mean.jpg} \\
@@ -548,6 +536,7 @@ An experiment which satisfies this condition is called as cell.
 \end{longtable}
 
 \subsection{Interference Scenario 2} 
+Following plots show mean and variance of RSSI values from the access point (CREW 64:70:02:3e:aa:ef). Mean and Variance are plotted spatially with color map to show the significance. As described in the section \ref{scene:int:2}, these experiments were conducted in a scenario where interference is caused by Wifi data traffic between a server and email client, data client and video client.
 \begin{longtable}
 	{lr} 
 	\includegraphics[width=13cm]{../../Source/plot/CREW_ef/ef_Wifi_Ex_1_Mean.jpg} \\
@@ -579,7 +568,7 @@ An experiment which satisfies this condition is called as cell.
 % ================================================================
 % Data
 % ================================================================
-\chapter{Data} 
+\chapter{Appendix} 
 \section{Access Point : CREW 64:70:02:3e:9f:63} 
 \subsection{Variance, Mean, Group Variance of Reference Scenario} 
 \begin{longtable}
