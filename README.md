@@ -1,4 +1,4 @@
-RAW RANGING DATA VISUALIZATION TOOL v1.0
+RSSI based Indoor localization and Raw Ranging Data Visualization
 ==================================================================
 
 DESCRIPTION
@@ -46,8 +46,8 @@ TESTED ON
 CONTACT
 --------------------------------------
 If you have problems or querries, please contact 
-- Filip Lemić - <lemic@tkn.tu-berlin.de>
 - Aravinth, Sivalingam Panchadcharam - <me@aravinth.info>
+- Filip Lemić - <lemic@tkn.tu-berlin.de>
 
 COPYING / LICENSE
 --------------------------------------
