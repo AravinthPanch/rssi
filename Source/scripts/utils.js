@@ -36,12 +36,12 @@ app.utils = {
 
         $.each(data, function (key, val) {
             app.plotData.experiment = app.selectedCollection.name.replace(/_/g, ' ')
-            app.plotData.x_axis.push(val.location.coordinate_x)
-            app.plotData.y_axis.push(val.location.coordinate_y)
+            app.plotData.x_axis.push(val.receiver_location.coordinate_x)
+            app.plotData.y_axis.push(val.receiver_location.coordinate_y)
 
             var rawRSSI = [];
-            $.each(val.rawRSSI, function (key, val) {
-                if (val.sender_bssid == "64:70:02:3e:9f:63" && val.sender_ssid == "CREW") {
+            $.each(val.raw_measurement, function (key, val) {
+                if (val.sender_bssid == "64:70:02:3e:9f:63" && val.sender_id == "CREW") {
                     rawRSSI.push(val.rssi)
                 }
 //                if (val.sender_bssid == "64:70:02:3e:aa:11" && val.sender_ssid == "CREW") {
@@ -64,9 +64,9 @@ app.utils = {
             var variance = d3.round(stat.variance, 2)
 
             app.plotData.repeat.push({
-                'x': val.location.coordinate_x,
-                'y': val.location.coordinate_y,
-                'room': val.location.room_label,
+                'x': val.receiver_location.coordinate_x,
+                'y': val.receiver_location.coordinate_y,
+                'room': val.receiver_location.room_label,
                 'rssi': rawRSSI,
                 'mean': mean,
                 'variance': variance

@@ -352,7 +352,6 @@ ul li p {
     border-bottom: 1px solid #DFDFDF;
     padding: 0 15px 1px 20px;
     margin-bottom: 15px;
-    display: none;
 }
 
 #hd img {
@@ -725,7 +724,6 @@ kbd .cmd { font-family: Monaco, Helvetica; }
     margin-top: 2.2em;
     position: absolute;
     right: 1.5em;
-    display: none;
 }
 
 /*#api-options label { margin-right: 0.6em; }*/

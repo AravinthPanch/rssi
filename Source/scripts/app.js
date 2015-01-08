@@ -2,7 +2,8 @@
  * Raw Ranging Data Visualization Tool <br />
  * Author: Aravinth, S. Panchadcharam <br />
  * Date: 20 November 2013 <br />
- * Email: panch.aravinth@gmail.com <br />
+ * Email: me@aravinth.info <br />
+ * Revised: 08 January 2015 <br />
 
  @module APP
  */
@@ -12,7 +13,7 @@
  *
  */
 $(function () {
-    app.view.initialize()
-    app.controller.initialize()
+    app.view.initialize();
+    app.controller.initialize();
 });
 
