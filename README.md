@@ -13,7 +13,7 @@ WiFi Beacon packets are transmitted periodically to announce the presence of WiF
 
 AUTHOR
 --------------------------------------
-Aravinth, Sivalingam Panchadcharam - <me@aravinth.info>
+Aravinth Panchadcharam
 
 ACKNOWLEDGEMENTS
 --------------------------------------
@@ -46,7 +46,7 @@ TESTED ON
 CONTACT
 --------------------------------------
 If you have problems or querries, please contact 
-- Aravinth, Sivalingam Panchadcharam - <me@aravinth.info>
+- Aravinth Panchadcharam
 - Filip Lemić - <lemic@tkn.tu-berlin.de>
 
 COPYING / LICENSE
